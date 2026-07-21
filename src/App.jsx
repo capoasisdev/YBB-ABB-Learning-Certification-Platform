@@ -159,8 +159,15 @@ const INITIAL_ORDERS = [
   { id: "ORD-4109", learnerName: "Siddharth Sen", amount: 0, status: "Success", invoiceNo: "YBB-INV-2026-0015", date: "2026-07-18", type: "Complimentary", discountCode: "None" }
 ];
 
+// --- ADMIN CREDENTIALS REGISTRY ---
+const ADMIN_CREDENTIALS = [
+  { email: 'superadmin@ybb.in',     password: 'SuperAdmin@2026!', role: 'SuperAdmin',    name: 'Arjun Mehta',     avatar: 'https://ui-avatars.com/api/?name=Arjun+Mehta&background=1e3a8a&color=fff&size=96' },
+  { email: 'content@ybb.in',        password: 'Content@2026!',   role: 'ContentAdmin',   name: 'Priya Sharma',    avatar: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=7c3aed&color=fff&size=96' },
+  { email: 'support@ybb.in',        password: 'Support@2026!',   role: 'SupportAdmin',   name: 'Karan Patel',     avatar: 'https://ui-avatars.com/api/?name=Karan+Patel&background=0284c7&color=fff&size=96' },
+];
+
 // --- HISTORY API ROUTER ---
-// Maps internal screen names Ã¢â€ â€™ URL paths (clean, no hash)
+// Maps internal screen names → URL paths (clean, no hash)
 const SCREEN_TO_PATH_MAP = {
   home:            '/',
   syllabus:        '/curriculum',
@@ -171,6 +178,7 @@ const SCREEN_TO_PATH_MAP = {
   checkout:        '/checkout',
   payment_result:  '/payment-result',
   dashboard:       '/dashboard',
+  admin:           '/admin',
   verification:    '/verify',
 };
 const PATH_TO_SCREEN_MAP = Object.fromEntries(
@@ -261,13 +269,21 @@ function App() {
   const [examState, setExamState] = useState({
     started: false,
     completed: false,
-    answers: {}, 
+    answers: {},
     timeLeft: 300,
     attempts: 0,
     score: 0,
-    passed: false
+    passed: false,
+    freeAttemptsUsed: 0
   });
   const examTimer = useRef(null);
+
+  // Exam Lobby: null | 'lobby' | 'exam'
+  const [examLobby, setExamLobby] = useState(null);
+  const [lobbyCountdown, setLobbyCountdown] = useState(120);
+  const lobbyTimer = useRef(null);
+  const [examStartedAt, setExamStartedAt] = useState(null);
+  const [examReattemptPaid, setExamReattemptPaid] = useState(false);
 
   // Legal Acceptances
   const [legalAcceptances, setLegalAcceptances] = useState([
@@ -285,6 +301,16 @@ function App() {
 
   // Dashboard active tab: 'my-learning' | 'exam' | 'assignments' | 'certificate' | 'profile' | 'support'
   const [dashTab, setDashTab] = useState('my-learning');
+  const [profileSaved, setProfileSaved] = useState(false);
+  const [adminTab, setAdminTab] = useState('overview');
+  const [adminOrderFilter, setAdminOrderFilter] = useState('All');
+  // Admin authentication
+  const [adminAuth, setAdminAuth] = useState(null); // null | { email, role, name, avatar }
+  const [adminLoginEmail, setAdminLoginEmail] = useState('');
+  const [adminLoginPassword, setAdminLoginPassword] = useState('');
+  const [adminLoginError, setAdminLoginError] = useState('');
+  const [adminLoginLoading, setAdminLoginLoading] = useState(false);
+  const [adminShowPassword, setAdminShowPassword] = useState(false);
 
   // System Audit Logs
   const [auditLogs, setAuditLogs] = useState([
@@ -311,7 +337,7 @@ function App() {
     setCurrentScreen(screen);
   };
 
-  // Sync back-button / forward-button Ã¢â€ â€™ screen state
+  // Sync back-button / forward-button → screen state
   // Also strips any legacy /#/ hash from the URL on first load
   useEffect(() => {
     // Strip any leftover hash fragment from previous hash-based routing
@@ -342,6 +368,19 @@ function App() {
     }
     return () => clearInterval(examTimer.current);
   }, [examState.started, examState.completed]);
+
+  // Lobby countdown useEffect
+  useEffect(() => {
+    if (examLobby === 'lobby' && lobbyCountdown > 0) {
+      lobbyTimer.current = setInterval(() => {
+        setLobbyCountdown(prev => {
+          if (prev <= 1) { clearInterval(lobbyTimer.current); return 0; }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(lobbyTimer.current);
+  }, [examLobby]);
 
   // Calculations
   const totalLessons = modules.reduce((sum, mod) => sum + mod.lessons.length, 0);
@@ -451,7 +490,8 @@ function App() {
       ...prev,
       completed: true,
       score: percentage,
-      passed: passed
+      passed: passed,
+      freeAttemptsUsed: passed ? prev.freeAttemptsUsed : Math.min(prev.freeAttemptsUsed + 1, 99)
     }));
 
     logAction(`Submitted Exam. Score: ${percentage}%. Result: ${passed ? 'PASSED' : 'FAILED'}`, "Learner");
@@ -460,6 +500,32 @@ function App() {
       setLearners(prev => prev.map(l => l.id === activeLearner.id ? { ...l, stage: "Certified" } : l));
       logAction("Certificate automatically generated on passing exam", "System");
     }
+  };
+
+
+  const handleAdminLogin = (e) => {
+    e.preventDefault();
+    setAdminLoginLoading(true);
+    setAdminLoginError('');
+    // Simulate a short async check
+    setTimeout(() => {
+      const match = ADMIN_CREDENTIALS.find(
+        cred => cred.email.toLowerCase() === adminLoginEmail.toLowerCase().trim()
+              && cred.password === adminLoginPassword
+      );
+      if (match) {
+        setAdminAuth(match);
+        setCurrentRole(match.role);
+        setAdminTab('overview');
+        setAdminLoginEmail('');
+        setAdminLoginPassword('');
+        setAdminLoginError('');
+        logAction(`Admin login: ${match.email} (${match.role})`, 'System');
+      } else {
+        setAdminLoginError('Invalid email or password. Please check your admin credentials.');
+      }
+      setAdminLoginLoading(false);
+    }, 900);
   };
 
   const handleSupportTicketSubmit = (e) => {
@@ -496,6 +562,8 @@ function App() {
                 setCurrentRole(role);
                 if (role === "Visitor") {
                   navigate("home");
+                } else if (["SuperAdmin", "ContentAdmin", "SupportAdmin"].includes(role)) {
+                  navigate("admin");
                 } else {
                   navigate("dashboard");
                 }
@@ -674,7 +742,7 @@ function App() {
                   { step: "1", title: "Registration & Account Setup", desc: "Establish your billing record and confirm certificate nomenclature." },
                   { step: "2", title: "10-Module Video Training", desc: "Study valuation recasting, CIM creation, data rooms, and transaction closing." },
                   { step: "3", title: "Case Study & Assignment Submission", desc: "Upload Excel models and deal teasers for reviewer evaluation." },
-                  { step: "4", title: "Timed MCQ Final Examination", desc: "Score Ã¢â€°Â¥80% on a 50-question timed assessment covering all 10 modules." },
+                  { step: "4", title: "Timed MCQ Final Examination", desc: "Score ≥80% on a 50-question timed assessment covering all 10 modules." },
                   { step: "5", title: "YBB Code of Conduct Acceptance", desc: "Digitally accept the professional standards and ethics declaration." },
                   { step: "6", title: "Instant Verifiable ABB Credentials", desc: "Receive your unique ABB ID and downloadable, publicly verifiable certificate." }
                 ].map((item, idx, arr) => (
@@ -785,7 +853,7 @@ function App() {
               <div key={idx} className="faq-item">
                 <div className="faq-trigger" onClick={() => setFaqOpenIndex(faqOpenIndex === idx ? null : idx)}>
                   <span>{faq.q}</span>
-                  <strong style={{fontSize: '1.2rem', color: 'var(--primary)'}}>{faqOpenIndex === idx ? 'ÃƒÂ¢Ã‹â€ ’' : '+'}</strong>
+                  <strong style={{fontSize: '1.2rem', color: 'var(--primary)'}}>{faqOpenIndex === idx ? '−' : '+'}</strong>
                 </div>
                 {faqOpenIndex === idx && (
                   <div className="faq-body">{faq.a}</div>
@@ -1146,9 +1214,7 @@ function App() {
                         return;
                       }
                       setDashTab(item.tab);
-                      if (item.tab === 'exam' && !examState.started) {
-                        setExamState(prev => ({ ...prev, started: true }));
-                      }
+                      // Exam is started via the lobby flow
                     }}
                   >
                     {item.icon}
@@ -1160,7 +1226,7 @@ function App() {
                 {["SuperAdmin", "ContentAdmin", "SupportAdmin"].includes(currentRole) && (
                   <div style={{borderTop: '1px solid rgba(255,255,255,.06)', marginTop: '12px', paddingTop: '12px'}}>
                     <div style={{fontSize: '0.65rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '.08em', padding: '0 14px', marginBottom: '6px'}}>Admin</div>
-                    <div className="dash-nav-item" style={{color: '#fbbf24'}}>
+                    <div className="dash-nav-item" style={{color: '#fbbf24'}} onClick={() => navigate('admin')}>
                       <Shield size={17} />
                       <span>LMS Admin Panel</span>
                     </div>
@@ -1388,25 +1454,20 @@ function App() {
                   </div>
 
                   {/* Save Button + Toast */}
-                  {(() => {
-                    const [saved, setSaved] = React.useState(false);
-                    return (
-                      <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => {
-                            logAction('Updated profile information', 'Learner');
-                            setSaved(true);
-                            setTimeout(() => setSaved(false), 3000);
-                          }}
-                          style={{padding: '11px 28px'}}
-                        >
-                          <Check size={16} /> Save Changes
-                        </button>
-                        {saved && <div className="save-toast"><CheckCircle size={16} /> Profile updated successfully!</div>}
-                      </div>
-                    );
-                  })()}
+                  <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        logAction('Updated profile information', 'Learner');
+                        setProfileSaved(true);
+                        setTimeout(() => setProfileSaved(false), 3000);
+                      }}
+                      style={{padding: '11px 28px'}}
+                    >
+                      <Check size={16} /> Save Changes
+                    </button>
+                    {profileSaved && <div className="save-toast"><CheckCircle size={16} /> Profile updated successfully!</div>}
+                  </div>
 
                   {/* Danger Zone */}
                   <div className="danger-zone-card">
@@ -1422,136 +1483,349 @@ function App() {
 
                   {dashTab === 'exam' && <>
 
+                  {/* ══ PHASE 0: EXAM ENTRY GATE ══ */}
+                  {!examLobby && !examState.started && !examState.completed && (
+                    <div className="exam-lobby-gate">
+                      <div style={{fontSize: '4rem', marginBottom: '12px'}}>🎓</div>
+                      <h2 style={{margin: '0 0 8px', fontSize: '1.75rem', fontWeight: 800}}>ABB Final Certification Exam</h2>
+                      <p style={{color: 'var(--text-muted)', fontSize: '0.95rem', margin: '0 0 28px', maxWidth: '480px', lineHeight: 1.7}}>
+                        You are about to enter the proctored final exam. After clicking <strong>Enter Exam Room</strong>, a 2-minute preparation window begins — read all instructions carefully before starting.
+                      </p>
+                      <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '28px', width: '100%', maxWidth: '420px'}}>
+                        {[
+                          { icon: '📝', label: 'Questions', value: questionBank.length },
+                          { icon: '⏱', label: 'Time Limit', value: '5 mins' },
+                          { icon: '🎯', label: 'Pass Score', value: '≥80%' },
+                        ].map(s => (
+                          <div key={s.label} className="exam-stat-chip">
+                            <div style={{fontSize: '1.8rem', marginBottom: '4px'}}>{s.icon}</div>
+                            <div style={{fontWeight: 800, fontSize: '1.3rem', color: 'var(--primary)'}}>{s.value}</div>
+                            <div style={{fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.05em', marginTop: '2px'}}>{s.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '16px', textAlign: 'center'}}>
+                        Free attempts remaining: <strong style={{color: examState.freeAttemptsUsed < 2 ? 'var(--success)' : 'var(--danger)'}}>{Math.max(0, 2 - examState.freeAttemptsUsed)}</strong> of 2
+                        {examState.freeAttemptsUsed >= 2 && <span style={{color: 'var(--accent)', fontWeight: 700}}> · Paid reattempt required (₹590)</span>}
+                      </div>
+                      <button
+                        className="btn btn-primary"
+                        style={{padding: '13px 48px', fontSize: '1rem', width: '100%', maxWidth: '360px'}}
+                        onClick={() => {
+                          setExamLobby('lobby');
+                          setLobbyCountdown(120);
+                          setExamStartedAt(new Date());
+                          logAction('Entered Final Exam lobby', 'Learner');
+                        }}
+                      >
+                        Enter Exam Room →
+                      </button>
+                    </div>
+                  )}
 
-                  {/* MCQ TIMED EXAMINATION PANEL */}
-                  {examState.started && !examState.completed && (
-                    <div className="checkout-card" style={{borderColor: '#fcd34d'}}>
+                  {/* ══ PHASE 1: LOBBY — 2-min countdown + instructions ══ */}
+                  {examLobby === 'lobby' && !examState.started && (
+                    <div className="exam-lobby-card">
+                      {/* Header with countdown */}
+                      <div className="exam-lobby-header">
+                        <div style={{flex: 1}}>
+                          <div style={{fontSize: '0.75rem', fontWeight: 700, color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '.07em', marginBottom: '4px'}}>Final Exam</div>
+                          <div style={{fontWeight: 800, fontSize: '1.25rem', color: '#fff', marginBottom: '4px'}}>Exam Started</div>
+                          <div style={{fontSize: '0.82rem', color: 'rgba(255,255,255,.6)'}}>
+                            Started at: <strong style={{color: '#fbbf24'}}>{examStartedAt ? examStartedAt.toLocaleTimeString() : '—'}</strong>
+                          </div>
+                          <div style={{marginTop: '10px', fontSize: '0.82rem', color: 'rgba(255,255,255,.5)'}}>
+                            {lobbyCountdown > 0
+                              ? 'Read the instructions below carefully. Exam starts when the countdown reaches zero.'
+                              : '✅ Preparation time is over. You may now start your exam.'}
+                          </div>
+                        </div>
+                        {/* SVG circular countdown */}
+                        <div style={{flexShrink: 0}}>
+                          <svg viewBox="0 0 100 100" width="100" height="100">
+                            <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,.08)" strokeWidth="7" />
+                            <circle cx="50" cy="50" r="44" fill="none"
+                              stroke={lobbyCountdown === 0 ? '#34d399' : lobbyCountdown < 30 ? '#f87171' : '#fbbf24'}
+                              strokeWidth="7"
+                              strokeDasharray="276"
+                              strokeDashoffset={276 - (lobbyCountdown / 120) * 276}
+                              strokeLinecap="round"
+                              transform="rotate(-90 50 50)"
+                              style={{transition: 'stroke-dashoffset 1s linear, stroke .4s'}}
+                            />
+                            <text x="50" y="45" textAnchor="middle" fill="#fff" fontSize="18" fontWeight="800" fontFamily="monospace">
+                              {Math.floor(lobbyCountdown / 60)}:{(lobbyCountdown % 60).toString().padStart(2, '0')}
+                            </text>
+                            <text x="50" y="62" textAnchor="middle" fill="rgba(255,255,255,.5)" fontSize="9" fontWeight="600">
+                              {lobbyCountdown === 0 ? 'READY!' : 'PREP TIME'}
+                            </text>
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* Instruction grid */}
+                      <div style={{padding: '20px 24px'}}>
+                        <div style={{fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.07em', marginBottom: '14px'}}>Exam Instructions</div>
+                        <div className="exam-instructions-grid">
+                          {[
+                            { num: '01', title: 'Exam Duration', desc: 'You have 5 minutes to complete all questions. The exam auto-submits when time runs out.' },
+                            { num: '02', title: 'Question Types', desc: 'Includes MCQ (single answer), True/False, and Multi-Select (multiple correct answers) questions.' },
+                            { num: '03', title: 'Passing Threshold', desc: 'Score 80% or above to pass the assessment and qualify for your ABB Certificate.' },
+                            { num: '04', title: 'Reattempts Policy', desc: 'You get 2 free reattempts included with enrolment. Additional attempts cost ₹590 (₹500 + 18% GST).' },
+                            { num: '05', title: 'Browser Activity', desc: 'Do not switch tabs or close the window during the exam. All activity is logged for compliance review.' },
+                            { num: '06', title: 'Certificate Issuance', desc: 'On passing, your ABB Certificate is auto-generated with a unique ABB ID for third-party credential verification.' },
+                          ].map(item => (
+                            <div key={item.num} className="exam-instruction-item">
+                              <div className="exam-instr-num">{item.num}</div>
+                              <div>
+                                <div className="exam-instr-title">{item.title}</div>
+                                <div className="exam-instr-desc">{item.desc}</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Attempt tracker */}
+                        <div className="exam-attempt-status">
+                          <div style={{display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap'}}>
+                            <span style={{fontWeight: 700, fontSize: '0.875rem'}}>Attempt Tracker</span>
+                            <div style={{display: 'flex', gap: '6px'}}>
+                              {[0, 1].map(i => (
+                                <div key={i} style={{
+                                  width: '30px', height: '30px', borderRadius: '50%',
+                                  background: i < examState.freeAttemptsUsed ? '#fee2e2' : '#f0fdf4',
+                                  border: `2px solid ${i < examState.freeAttemptsUsed ? '#ef4444' : '#10b981'}`,
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  fontSize: '0.75rem', fontWeight: 800,
+                                  color: i < examState.freeAttemptsUsed ? '#ef4444' : '#10b981'
+                                }}>
+                                  {i < examState.freeAttemptsUsed ? '✗' : (i + 1)}
+                                </div>
+                              ))}
+                            </div>
+                            <span style={{fontSize: '0.78rem', color: 'var(--text-muted)'}}>
+                              {2 - examState.freeAttemptsUsed > 0
+                                ? `${2 - examState.freeAttemptsUsed} free attempt${2 - examState.freeAttemptsUsed !== 1 ? 's' : ''} remaining after this`
+                                : 'This is your last free attempt'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Start button */}
+                        <button
+                          className="btn btn-primary"
+                          style={{
+                            width: '100%', padding: '14px', fontSize: '1.05rem', fontWeight: 800,
+                            marginTop: '4px',
+                            background: lobbyCountdown > 0 ? '#94a3b8' : 'var(--primary)',
+                            cursor: lobbyCountdown > 0 ? 'not-allowed' : 'pointer',
+                            transition: 'background .5s'
+                          }}
+                          disabled={lobbyCountdown > 0}
+                          onClick={() => {
+                            setExamLobby('exam');
+                            setExamState(prev => ({
+                              ...prev,
+                              started: true,
+                              completed: false,
+                              answers: {},
+                              timeLeft: 300,
+                              attempts: prev.attempts + 1,
+                              score: 0,
+                              passed: false
+                            }));
+                            logAction('Started Final Exam', 'Learner');
+                          }}
+                        >
+                          {lobbyCountdown > 0
+                            ? `⏳ Start Exam available in ${lobbyCountdown}s`
+                            : '🚀 Start Final Exam Now'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ══ PHASE 2: ACTIVE EXAM ══ */}
+                  {examLobby === 'exam' && examState.started && !examState.completed && (
+                    <div className="checkout-card" style={{borderColor: examState.timeLeft < 60 ? 'var(--danger)' : '#fcd34d'}}>
                       <div className="exam-header">
                         <div>
                           <h3 style={{margin: 0, color: '#92400e'}}>Final Exam in Progress</h3>
-                          <span style={{fontSize: '0.85rem'}}>Attempt #{examState.attempts}</span>
+                          <span style={{fontSize: '0.85rem', color: 'var(--text-muted)'}}>Attempt #{examState.attempts} · Answer all questions before submitting</span>
                         </div>
-                        <div style={{display: 'flex', alignItems: 'center', gap: '8px', background: 'white', padding: '8px 16px', borderRadius: '4px', border: '1px solid #fde68a'}}>
-                          <Clock size={18} className="text-warning" />
-                          <strong style={{fontSize: '1.2rem', fontFamily: 'monospace'}}>
+                        <div style={{display: 'flex', alignItems: 'center', gap: '8px', background: 'white', padding: '8px 16px', borderRadius: '4px', border: `1px solid ${examState.timeLeft < 60 ? '#fca5a5' : '#fde68a'}`}}>
+                          <Clock size={18} style={{color: examState.timeLeft < 60 ? 'var(--danger)' : '#d97706'}} />
+                          <strong style={{fontSize: '1.2rem', fontFamily: 'monospace', color: examState.timeLeft < 60 ? 'var(--danger)' : '#92400e'}}>
                             {Math.floor(examState.timeLeft / 60)}:{(examState.timeLeft % 60).toString().padStart(2, '0')}
                           </strong>
+                          {examState.timeLeft < 60 && <span style={{fontSize: '0.72rem', color: 'var(--danger)', fontWeight: 800}}>HURRY!</span>}
                         </div>
                       </div>
 
                       {questionBank.map((q, idx) => (
                         <div key={q.id} className="exam-question-card">
-                          <p style={{fontWeight: 700, marginBottom: '12px'}}>
-                            Question {idx + 1} ({q.type} - {q.difficulty}): {q.question}
-                          </p>
+                          <div style={{display: 'flex', gap: '8px', marginBottom: '10px', flexWrap: 'wrap'}}>
+                            <span className="badge badge-info">Q{idx + 1}</span>
+                            <span className="badge badge-warning">{q.type}</span>
+                            <span className={`badge ${q.difficulty === 'Easy' ? 'badge-success' : q.difficulty === 'Hard' ? 'badge-danger' : 'badge-warning'}`}>{q.difficulty}</span>
+                          </div>
+                          <p style={{fontWeight: 700, marginBottom: '12px', fontSize: '0.95rem', lineHeight: 1.55}}>{q.question}</p>
                           {q.options.map((opt, optIdx) => {
                             const selectedArray = examState.answers[q.id] || [];
                             const isSelected = selectedArray.includes(optIdx);
                             return (
-                              <div 
-                                key={optIdx} 
+                              <div key={optIdx} className={`option-item ${isSelected ? 'selected' : ''}`}
                                 onClick={() => {
-                                  let newSel = [];
-                                  if (q.type === "Multi-Select") {
-                                    newSel = isSelected ? selectedArray.filter(v => v !== optIdx) : [...selectedArray, optIdx];
-                                  } else {
-                                    newSel = [optIdx];
-                                  }
-                                  setExamState(prev => ({
-                                    ...prev,
-                                    answers: { ...prev.answers, [q.id]: newSel } }));
-                                }}
-                                className={`option-item ${isSelected ? 'selected' : ''}`}
-                              >
-                                <input 
-                                  type={q.type === "Multi-Select" ? "checkbox" : "radio"}
-                                  checked={isSelected}
-                                  onChange={() => {}} 
-                                />
+                                  let newSel = q.type === "Multi-Select"
+                                    ? (isSelected ? selectedArray.filter(v => v !== optIdx) : [...selectedArray, optIdx])
+                                    : [optIdx];
+                                  setExamState(prev => ({ ...prev, answers: { ...prev.answers, [q.id]: newSel } }));
+                                }}>
+                                <input type={q.type === "Multi-Select" ? "checkbox" : "radio"} checked={isSelected} onChange={() => {}} />
                                 <span style={{marginLeft: '10px'}}>{opt}</span>
                               </div>
                             );
                           })}
                         </div>
                       ))}
-
-                      <button className="btn btn-primary" onClick={() => submitExam()} style={{width: '100%'}}>
+                      <button className="btn btn-primary" onClick={() => submitExam()} style={{width: '100%', padding: '13px', fontSize: '1rem'}}>
                         Submit Assessment
                       </button>
                     </div>
                   )}
 
-                  {/* Exam results review */}
+                  {/* ══ EXAM RESULTS ══ */}
                   {examState.completed && (
                     <div className="checkout-card" style={{borderColor: examState.passed ? 'var(--success)' : 'var(--danger)'}}>
-                      <h3>Assessment Results</h3>
-                      <div style={{display: 'flex', gap: '20px', alignItems: 'center', margin: '20px 0'}}>
+                      <div style={{display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap'}}>
                         <div style={{
-                          width: '80px', height: '80px', borderRadius: '50%', 
-                          background: examState.passed ? '#d1fae5' : '#fee2e2',
+                          width: '90px', height: '90px', borderRadius: '50%', flexShrink: 0,
+                          background: examState.passed ? 'linear-gradient(135deg,#d1fae5,#a7f3d0)' : 'linear-gradient(135deg,#fee2e2,#fca5a5)',
                           color: examState.passed ? 'var(--success)' : 'var(--danger)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', fontWeight: 800
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: '1.6rem', fontWeight: 800,
+                          border: `3px solid ${examState.passed ? '#10b981' : '#ef4444'}`
                         }}>
                           {examState.score}%
                         </div>
-                        <div>
-                          <h4>{examState.passed ? "Passed!" : "Attempt Failed"}</h4>
-                          <p className="text-muted" style={{fontSize: '0.9rem'}}>
-                            {examState.passed 
-                              ? "Excellent! You satisfied the certification evaluation threshold of 80%."
-                              : "The minimum passing score is 80%. Please review course materials and reattempt."}
+                        <div style={{flex: 1}}>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap'}}>
+                            <h3 style={{margin: 0}}>{examState.passed ? '🎉 Passed!' : '❌ Attempt Failed'}</h3>
+                            <span className={`badge ${examState.passed ? 'badge-success' : 'badge-danger'}`}>{examState.passed ? 'PASS' : 'FAIL'}</span>
+                            <span className="badge badge-info">Attempt #{examState.attempts}</span>
+                          </div>
+                          <p className="text-muted" style={{fontSize: '0.9rem', margin: 0}}>
+                            {examState.passed
+                              ? 'Excellent! You have met the 80% certification threshold. Complete the declaration below.'
+                              : 'Minimum passing score is 80%. Review your materials and reattempt.'}
                           </p>
                         </div>
                       </div>
 
                       {settings.revealAnswers && (
-                        <div style={{background: '#f8fafc', padding: '16px', borderRadius: '6px', marginBottom: '16px'}}>
-                          <h5>Answers Review:</h5>
+                        <div style={{background: '#f8fafc', padding: '16px', borderRadius: 'var(--r-sm)', marginBottom: '20px', border: '1px solid var(--border)'}}>
+                          <h5 style={{margin: '0 0 12px', fontWeight: 700}}>Answer Review</h5>
                           {questionBank.map((q, idx) => (
-                            <div key={q.id} style={{fontSize: '0.85rem', marginBottom: '8px'}}>
-                              <strong>Q{idx+1}:</strong> {q.question} <br />
-                              <span style={{color: 'var(--success)'}}>Correct: {q.correct.map(idx => q.options[idx]).join(', ')}</span>
+                            <div key={q.id} style={{fontSize: '0.85rem', marginBottom: '10px', paddingBottom: '10px', borderBottom: idx < questionBank.length - 1 ? '1px solid var(--border)' : 'none'}}>
+                              <strong>Q{idx + 1}:</strong> {q.question}<br />
+                              <span style={{color: 'var(--success)'}}>✓ Correct: {q.correct.map(i => q.options[i]).join(', ')}</span>
                             </div>
                           ))}
                         </div>
                       )}
 
                       {examState.passed ? (
-                        <div style={{background: '#f8fafc', padding: '16px', borderRadius: '6px', border: '1px solid var(--border-color)', marginBottom: '16px'}}>
-                          <h4>Declaration and Code of Conduct</h4>
-                          <p style={{fontSize: '0.85rem', color: 'var(--text-muted)'}}>
-                            By checking the box below, you accept the official YBB Code of Conduct & Professional Obligations.
+                        <div style={{background: '#f0fdf4', padding: '20px', borderRadius: 'var(--r-sm)', border: '1px solid #10b981', marginBottom: '16px'}}>
+                          <h4 style={{margin: '0 0 8px', color: '#065f46'}}>Declaration & Code of Conduct</h4>
+                          <p style={{fontSize: '0.875rem', color: '#047857', margin: '0 0 14px'}}>
+                            By checking the box, you accept the official YBB Code of Conduct & Professional Obligations as an Authorised Business Broker.
                           </p>
-                          <label style={{display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer', marginTop: '12px', fontWeight: 600}}>
-                            <input 
-                              type="checkbox" 
-                              checked={activeLearner.stage === "Certified"}
+                          <label style={{display: 'flex', gap: '12px', alignItems: 'flex-start', cursor: 'pointer', fontWeight: 600}}>
+                            <input type="checkbox" checked={activeLearner.stage === "Certified"} style={{marginTop: '3px', width: '16px', height: '16px', accentColor: '#10b981'}}
                               onChange={(e) => {
                                 setLearners(prev => prev.map(l => l.id === activeLearner.id ? { ...l, stage: e.target.checked ? "Certified" : "Enrolled" } : l));
                                 logAction("Accepted Code of Conduct", "Learner");
-                              }} 
-                            />
+                              }} />
                             <span>I accept the YBB Code of Conduct & final declaration.</span>
                           </label>
                         </div>
                       ) : (
-                        <button className="btn btn-secondary" onClick={() => setExamState({ ...examState, started: true })}>
-                          Reattempt Exam
-                        </button>
+                        <div className="reattempt-section">
+                          <div style={{fontWeight: 700, fontSize: '0.9rem', marginBottom: '12px'}}>Reattempt Policy</div>
+                          <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '18px'}}>
+                            {[0, 1].map(i => (
+                              <div key={i} style={{
+                                display: 'flex', alignItems: 'center', gap: '8px', padding: '7px 14px',
+                                borderRadius: 'var(--r-sm)', fontSize: '0.82rem', fontWeight: 600,
+                                background: i < examState.freeAttemptsUsed ? '#fee2e2' : '#f0fdf4',
+                                border: `1px solid ${i < examState.freeAttemptsUsed ? '#fca5a5' : '#bbf7d0'}`,
+                                color: i < examState.freeAttemptsUsed ? '#991b1b' : '#065f46'
+                              }}>
+                                {i < examState.freeAttemptsUsed ? '✗' : '✓'} Free Attempt #{i + 1} — {i < examState.freeAttemptsUsed ? 'Used' : 'Available'}
+                              </div>
+                            ))}
+                            <div style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '7px 14px', borderRadius: 'var(--r-sm)', fontSize: '0.82rem', fontWeight: 600, background: '#fff7ed', border: '1px solid #fed7aa', color: '#92400e'}}>
+                              💳 Paid Attempt — ₹590 (₹500 + GST)
+                            </div>
+                          </div>
+
+                          {examState.freeAttemptsUsed < 2 ? (
+                            <button className="btn btn-secondary" style={{padding: '11px 28px'}}
+                              onClick={() => {
+                                setExamState(prev => ({ ...prev, started: false, completed: false }));
+                                setExamLobby(null);
+                                logAction('Free reattempt initiated', 'Learner');
+                              }}>
+                              <RefreshCw size={15} /> Reattempt Exam Free ({2 - examState.freeAttemptsUsed} left)
+                            </button>
+                          ) : (
+                            <div>
+                              <div style={{background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 'var(--r-sm)', padding: '14px 18px', marginBottom: '14px', fontSize: '0.875rem'}}>
+                                <strong>⚠ Free attempts exhausted.</strong> Both free reattempts have been used. Pay ₹590 to unlock another attempt.
+                              </div>
+                              {!examReattemptPaid ? (
+                                <button className="btn btn-accent" style={{padding: '11px 28px'}}
+                                  onClick={() => {
+                                    if (window.confirm('Proceed to pay ₹590 for a paid reattempt?')) {
+                                      setExamReattemptPaid(true);
+                                      const orderNo = 'ORD-RA-' + Math.floor(100000 + Math.random() * 900000);
+                                      setOrders(prev => [{
+                                        id: orderNo, learnerName: activeLearner.fullName,
+                                        amount: 590, status: 'Success',
+                                        invoiceNo: 'YBB-INV-RA-' + Math.floor(1000 + Math.random() * 9000),
+                                        date: new Date().toLocaleDateString(), type: 'Exam Reattempt', discountCode: 'None'
+                                      }, ...prev]);
+                                      logAction('Paid ₹590 for exam reattempt. Order: ' + orderNo, 'Learner');
+                                      alert('Payment of ₹590 successful! You may now reattempt the exam.');
+                                    }
+                                  }}>
+                                  <CreditCard size={15} /> Pay ₹590 & Unlock Reattempt
+                                </button>
+                              ) : (
+                                <button className="btn btn-primary" style={{padding: '11px 28px'}}
+                                  onClick={() => {
+                                    setExamState(prev => ({ ...prev, started: false, completed: false }));
+                                    setExamLobby(null);
+                                    setExamReattemptPaid(false);
+                                    logAction('Started paid exam reattempt', 'Learner');
+                                  }}>
+                                  <RefreshCw size={15} /> Start Paid Reattempt
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       )}
 
-                      {/* Display Certificate download options */}
                       {activeLearner.stage === "Certified" && (
-                        <div className="certificate-preview-container" style={{marginTop: '20px'}}>
+                        <div className="certificate-preview-container" style={{marginTop: '24px'}}>
                           <div className="certificate-title">Authorised Business Broker</div>
                           <div className="certificate-subtitle">This certifies that</div>
                           <div className="certificate-name">{activeLearner.fullName}</div>
-                          <p style={{fontFamily: 'sans-serif', color: 'var(--text-muted)', fontSize: '0.9rem'}}>
-                            Has successfully completed the comprehensive training program, practical exercises, and passed the certification examination.
-                          </p>
+                          <p style={{fontFamily: 'sans-serif', color: 'var(--text-muted)', fontSize: '0.9rem'}}>Has successfully completed the comprehensive training program, practical exercises, and passed the certification examination.</p>
                           <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '40px', fontFamily: 'sans-serif', fontSize: '0.8rem'}}>
                             <div>
-                              <strong>ABB ID:</strong> {settings.certIdFormat.replace("YYYY", "2026").replace("NNNN", "1049")}<br />
+                              <strong>ABB ID:</strong> {settings.certIdFormat.replace("YYYY","2026").replace("NNNN","1049")}<br />
                               <strong>Date:</strong> {new Date().toLocaleDateString()}<br />
                               <strong>Signatory:</strong> {settings.signatoryName}
                             </div>
@@ -1564,6 +1838,7 @@ function App() {
                     </div>
                   )}
                   </>}
+
                   {dashTab === 'my-learning' && <>
 
 
@@ -2238,178 +2513,390 @@ function App() {
                 </div>
               )}
 
-              {/* ADMIN VIEW */}
+              {/* ADMIN VIEW — redirect to dedicated admin panel */}
               {["SuperAdmin", "ContentAdmin", "SupportAdmin"].includes(currentRole) && (
-                <div className="checkout-card" style={{border: '1px solid var(--primary)'}}>
-                  <h2>LMS Management System Console ({currentRole})</h2>
+                <div className="checkout-card" style={{textAlign: 'center', padding: '48px 32px', border: '1px solid var(--primary)'}}>
+                  <div style={{width: '64px', height: '64px', borderRadius: '16px', background: 'linear-gradient(135deg, #0f172a, #1e3a8a)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px'}}>
+                    <Shield size={28} style={{color: '#fbbf24'}} />
+                  </div>
+                  <h3 style={{marginBottom: '8px', fontSize: '1.4rem'}}>LMS Admin Console</h3>
+                  <p className="text-muted" style={{marginBottom: '24px', fontSize: '0.9rem', maxWidth: '360px', margin: '0 auto 24px'}}>
+                    The full admin panel is available with dedicated screens for learner management, orders, content, and settings.
+                  </p>
+                  <button className="btn btn-primary" onClick={() => navigate('admin')} style={{padding: '12px 32px', fontSize: '1rem'}}>
+                    Open Admin Panel <ArrowRight size={16} />
+                  </button>
+                </div>
+              )}
+            </section>
+          </div>
+        )}
 
-                  <div className="grid-3" style={{gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', margin: '20px 0'}}>
-                    <div style={{background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)'}}>
-                      <div style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>TOTAL REVENUE</div>
-                      <div style={{fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)'}}>
-                        ₹{(orders.filter(o => o.status === "Success").reduce((acc, o) => acc + o.amount, 0)).toLocaleString('en-IN')}
-                      </div>
+        {/* --- SCREEN: ADMIN CONTROLS PANEL --- */}
+        {currentScreen === "admin" && (
+          <>
+            {/* ── ADMIN LOGIN WALL ── */}
+            {!adminAuth ? (
+              <div className="admin-login-page">
+                <div className="admin-login-card">
+                  {/* Logo / Brand */}
+                  <div className="admin-login-logo">
+                    <div className="admin-login-icon-wrap">
+                      <Shield size={28} style={{color: '#fbbf24'}} />
                     </div>
-                    <div style={{background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)'}}>
-                      <div style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>ACTIVE ENROLMENTS</div>
-                      <div style={{fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)'}}>{learners.length} Learners</div>
-                    </div>
-                    <div style={{background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)'}}>
-                      <div style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>EXAM PASS RATE</div>
-                      <div style={{fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)'}}>100%</div>
-                    </div>
-                    <div style={{background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)'}}>
-                      <div style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>CERTIFICATES ISSUED</div>
-                      <div style={{fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary)'}}>
-                        {learners.filter(l => l.stage === "Certified").length} Active
-                      </div>
+                    <div>
+                      <div style={{fontWeight: 800, fontSize: '1rem', color: '#fff', lineHeight: 1}}>YBB Admin Console</div>
+                      <div style={{fontSize: '0.7rem', color: '#64748b', marginTop: '3px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.07em'}}>Restricted Access</div>
                     </div>
                   </div>
 
-                  {/* Super Admin settings */}
-                  {currentRole === "SuperAdmin" && (
-                    <div style={{background: '#eff6ff', padding: '20px', borderRadius: '8px', border: '1px solid #bfdbfe', marginBottom: '24px'}}>
-                      <h4>LMS Business Rules settings</h4>
-                      <div className="grid-3" style={{gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '16px', marginBottom: '0'}}>
-                        <div className="form-group">
-                          <label className="form-label">Base Course Fee (ÃƒÂ¢ - )</label>
-                          <input 
-                            type="number" 
-                            className="form-control" 
-                            value={settings.price}
-                            onChange={(e) => setSettings({ ...settings, price: parseInt(e.target.value) || 0 })} 
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">GST Rate (%)</label>
-                          <input 
-                            type="number" 
-                            className="form-control" 
-                            value={settings.gstRate} 
-                            onChange={(e) => setSettings({ ...settings, gstRate: parseInt(e.target.value) || 0 })} 
-                          />
-                        </div>
-                      </div>
+                  <h2 style={{margin: '0 0 4px', fontSize: '1.5rem', fontWeight: 800, color: 'var(--text)'}}>Sign in to Admin Panel</h2>
+                  <p style={{margin: '0 0 28px', fontSize: '0.875rem', color: 'var(--text-muted)'}}>Enter your admin Gmail and password to continue.</p>
 
-                      <div className="grid-3" style={{gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '0', marginBottom: '20px'}}>
-                        <div className="form-group">
-                          <label className="form-label">ABB ID Certificate Format</label>
-                          <input 
-                            type="text" 
-                            className="form-control" 
-                            value={settings.certIdFormat}
-                            onChange={(e) => setSettings({ ...settings, certIdFormat: e.target.value })} 
-                          />
+                  {/* Demo hint */}
+                  <div className="admin-login-demo-hint">
+                    <div style={{fontWeight: 700, fontSize: '0.75rem', color: '#1d4ed8', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px'}}>
+                      <Shield size={13} /> Demo Credentials
+                    </div>
+                    {ADMIN_CREDENTIALS.map(cred => (
+                      <div key={cred.email} className="admin-cred-row"
+                        onClick={() => { setAdminLoginEmail(cred.email); setAdminLoginPassword(cred.password); setAdminLoginError(''); }}>
+                        <img src={cred.avatar} alt="" style={{width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0}} />
+                        <div style={{flex: 1, minWidth: 0}}>
+                          <div style={{fontWeight: 700, fontSize: '0.78rem', color: 'var(--text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{cred.name}</div>
+                          <div style={{fontSize: '0.7rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{cred.email}</div>
                         </div>
-                        <div className="form-group">
-                          <label className="form-label">Authorized Signatory Name</label>
-                          <input 
-                            type="text" 
-                            className="form-control" 
-                            value={settings.signatoryName}
-                            onChange={(e) => setSettings({ ...settings, signatoryName: e.target.value })} 
-                          />
-                        </div>
+                        <span className="badge badge-info" style={{fontSize: '0.65rem', flexShrink: 0}}>{cred.role}</span>
                       </div>
+                    ))}
+                    <div style={{fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: '6px'}}>Click any row to auto-fill credentials.</div>
+                  </div>
 
-                      <div style={{display: 'flex', gap: '24px', flexWrap: 'wrap'}}>
-                        <label style={{display: 'flex', gap: '8px', alignItems: 'center', fontWeight: 600}}>
-                          <input 
-                            type="checkbox" 
-                            checked={settings.automaticIssuance}
-                            onChange={(e) => setSettings({ ...settings, automaticIssuance: e.target.checked })} 
-                          />
-                          <span>Enable Automatic Certificate Issuance on Exam Pass</span>
-                        </label>
-                        <label style={{display: 'flex', gap: '8px', alignItems: 'center', fontWeight: 600}}>
-                          <input 
-                            type="checkbox" 
-                            checked={settings.sequentialMode}
-                            onChange={(e) => setSettings({ ...settings, sequentialMode: e.target.checked })} 
-                          />
-                          <span>Enforce Sequential Lesson Progression</span>
-                        </label>
-                        <label style={{display: 'flex', gap: '8px', alignItems: 'center', fontWeight: 600}}>
-                          <input 
-                            type="checkbox" 
-                            checked={settings.revealAnswers}
-                            onChange={(e) => setSettings({ ...settings, revealAnswers: e.target.checked })} 
-                          />
-                          <span>Reveal Correct Answers to Students</span>
-                        </label>
+                  {/* Login form */}
+                  <form onSubmit={handleAdminLogin} style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                    <div className="form-group" style={{marginBottom: 0}}>
+                      <label className="form-label" htmlFor="admin-email">Admin Gmail / Email</label>
+                      <div style={{position: 'relative'}}>
+                        <Mail size={15} style={{position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none'}} />
+                        <input
+                          id="admin-email"
+                          type="email"
+                          className="form-control"
+                          style={{paddingLeft: '38px'}}
+                          placeholder="admin@ybb.in"
+                          value={adminLoginEmail}
+                          autoComplete="email"
+                          onChange={e => { setAdminLoginEmail(e.target.value); setAdminLoginError(''); }}
+                          required
+                        />
                       </div>
+                    </div>
 
-                      <div style={{marginTop: '20px', borderTop: '1px solid #cbd5e1', paddingTop: '16px'}}>
-                        <h5>Legal Terms & Disclaimers Configurator</h5>
-                        <div className="form-group">
-                          <label className="form-label">Legal Version</label>
-                          <input 
-                            type="text" 
-                            className="form-control" 
-                            value={settings.legalVersion} 
-                            onChange={(e) => setSettings({ ...settings, legalVersion: e.target.value })} 
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label className="form-label">Disclaimers Text</label>
-                          <textarea 
-                            rows="2" 
-                            className="form-control" 
-                            value={settings.legalText}
-                            onChange={(e) => setSettings({ ...settings, legalText: e.target.value })} 
-                          />
-                        </div>
-                      </div>
-
-                      <div style={{marginTop: '20px', borderTop: '1px solid #cbd5e1', paddingTop: '16px'}}>
-                        <h5>Manual Certification Approvals</h5>
-                        <button 
-                          className="btn btn-accent"
-                          onClick={() => {
-                            setLearners(prev => prev.map(l => l.id === activeLearner.id ? { ...l, stage: "Certified" } : l));
-                            logAction("Manually approved certification for Rohan Kumar", "SuperAdmin");
-                            alert("Certificate issued successfully.");
-                          }}
-                        >
-                          Approve & Issue Certificate for Rohan Kumar
+                    <div className="form-group" style={{marginBottom: 0}}>
+                      <label className="form-label" htmlFor="admin-password">Password</label>
+                      <div style={{position: 'relative'}}>
+                        <Shield size={15} style={{position: 'absolute', left: '13px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none'}} />
+                        <input
+                          id="admin-password"
+                          type={adminShowPassword ? 'text' : 'password'}
+                          className="form-control"
+                          style={{paddingLeft: '38px', paddingRight: '44px'}}
+                          placeholder="••••••••••••"
+                          value={adminLoginPassword}
+                          autoComplete="current-password"
+                          onChange={e => { setAdminLoginPassword(e.target.value); setAdminLoginError(''); }}
+                          required
+                        />
+                        <button type="button"
+                          style={{position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '4px', display: 'flex'}}
+                          onClick={() => setAdminShowPassword(p => !p)}>
+                          <Eye size={15} />
                         </button>
+                      </div>
+                    </div>
+
+                    {adminLoginError && (
+                      <div className="admin-login-error">
+                        <AlertCircle size={14} style={{flexShrink: 0}} /> {adminLoginError}
+                      </div>
+                    )}
+
+                    <button type="submit" className="btn btn-primary"
+                      style={{padding: '13px', fontSize: '1rem', fontWeight: 700, width: '100%', marginTop: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'}}
+                      disabled={adminLoginLoading}>
+                      {adminLoginLoading ? (
+                        <><span className="admin-login-spinner" /> Verifying credentials…</>
+                      ) : (
+                        <><Shield size={16} /> Sign in to Admin Panel</>
+                      )}
+                    </button>
+
+                    <button type="button" className="btn btn-secondary"
+                      style={{padding: '10px', fontSize: '0.875rem', width: '100%'}}
+                      onClick={() => navigate('home')}>
+                      ← Back to Home
+                    </button>
+                  </form>
+                </div>
+              </div>
+            ) : (
+              <div className="admin-layout">
+
+                {/* ═══ ADMIN SIDEBAR ═══ */}
+                <aside className="admin-sidebar">
+                  <div className="admin-sidebar-header">
+                    <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px'}}>
+                      <div style={{width: '42px', height: '42px', borderRadius: '10px', overflow: 'hidden', border: '2px solid rgba(251,191,36,.4)', flexShrink: 0}}>
+                        {adminAuth?.avatar
+                          ? <img src={adminAuth.avatar} alt="" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                          : <div style={{width: '100%', height: '100%', background: 'rgba(251,191,36,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}><Shield size={20} style={{color: '#fbbf24'}} /></div>
+                        }
+                      </div>
+                      <div>
+                        <div style={{fontWeight: 800, fontSize: '0.95rem', color: '#fff'}}>{adminAuth?.name || 'Admin Console'}</div>
+                        <div style={{fontSize: '0.68rem', color: '#fbbf24', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em', marginTop: '2px'}}>{adminAuth?.role || currentRole}</div>
+                      </div>
+                    </div>
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px'}}>
+                      {[
+                        { label: 'Learners', value: learners.length },
+                        { label: 'Revenue', value: `₹${Math.round(orders.filter(o => o.status === 'Success').reduce((a, o) => a + o.amount, 0) / 1000)}k` },
+                        { label: 'Certified', value: learners.filter(l => l.stage === 'Certified').length },
+                        { label: 'Open Tickets', value: tickets.filter(t => t.status === 'Open').length },
+                      ].map(s => (
+                        <div key={s.label} style={{background: 'rgba(255,255,255,.05)', borderRadius: '8px', padding: '10px 12px', border: '1px solid rgba(255,255,255,.04)'}}>
+                          <div style={{fontSize: '1.15rem', fontWeight: 800, color: '#fff', lineHeight: 1}}>{s.value}</div>
+                          <div style={{fontSize: '0.62rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.05em', marginTop: '3px'}}>{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <nav className="admin-sidebar-nav">
+                    {[
+                      { tab: 'overview',      label: 'Overview',           icon: <Home size={15} />,        roles: ['SuperAdmin', 'ContentAdmin', 'SupportAdmin'] },
+                      { tab: 'learners',      label: 'Learners',           icon: <Users size={15} />,       roles: ['SuperAdmin', 'SupportAdmin'] },
+                      { tab: 'orders',        label: 'Orders & Payments',  icon: <CreditCard size={15} />,  roles: ['SuperAdmin', 'SupportAdmin'] },
+                      { tab: 'assignments',   label: 'Assignment Review',  icon: <FileText size={15} />,    roles: ['SuperAdmin', 'SupportAdmin'] },
+                      { tab: 'content',       label: 'Course Content',     icon: <BookOpen size={15} />,    roles: ['SuperAdmin', 'ContentAdmin'] },
+                      { tab: 'question-bank', label: 'Question Bank',      icon: <HelpCircle size={15} />,  roles: ['SuperAdmin', 'ContentAdmin'] },
+                      { tab: 'settings',      label: 'LMS Settings',       icon: <Settings size={15} />,    roles: ['SuperAdmin'] },
+                      { tab: 'audit',         label: 'Audit Log',          icon: <Shield size={15} />,      roles: ['SuperAdmin'] },
+                    ].filter(item => item.roles.includes(currentRole)).map(item => (
+                      <div key={item.tab} className={`admin-nav-item${adminTab === item.tab ? ' active' : ''}`} onClick={() => setAdminTab(item.tab)}>
+                        {item.icon}<span>{item.label}</span>
+                      </div>
+                    ))}
+                  </nav>
+
+                  <div className="admin-sidebar-footer">
+                    <div className="admin-nav-item" onClick={() => navigate('dashboard')}><Home size={15} /><span>Dashboard</span></div>
+                    <div className="admin-nav-item" style={{color: '#f87171'}} onClick={() => { setAdminAuth(null); setCurrentRole('Visitor'); setAdminLoginEmail(''); setAdminLoginPassword(''); navigate('home'); logAction('Admin logout', adminAuth?.role || 'Admin'); }}><LogOut size={15} /><span>Exit Admin</span></div>
+                  </div>
+                </aside>
+
+                {/* ═══ ADMIN CONTENT ═══ */}
+                <section className="admin-content">
+
+                  {/* ── OVERVIEW ── */}
+                  {adminTab === 'overview' && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Platform Overview</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Real-time performance metrics — {currentRole} view.</p>
+                        </div>
+                        <div style={{display: 'flex', gap: '10px'}}>
+                          <button className="btn btn-secondary" style={{fontSize: '0.85rem'}} onClick={() => alert('Report exported.')}><Download size={14} /> Export</button>
+                          {currentRole === 'SuperAdmin' && <button className="btn btn-primary" style={{fontSize: '0.85rem'}} onClick={() => setAdminTab('settings')}><Settings size={14} /> Settings</button>}
+                        </div>
+                      </div>
+
+                      <div className="admin-kpi-grid">
+                        {[
+                          { icon: '💰', label: 'Total Revenue', value: `₹${orders.filter(o => o.status === 'Success').reduce((a, o) => a + o.amount, 0).toLocaleString('en-IN')}`, sub: `${orders.filter(o => o.status === 'Success').length} paid orders`, color: '#10b981', bg: '#d1fae5' },
+                          { icon: '👥', label: 'Enrolled Learners', value: learners.length, sub: `${learners.filter(l => l.status === 'Active').length} currently active`, color: '#1d4ed8', bg: '#dbeafe' },
+                          { icon: '🏆', label: 'Certified ABBs', value: learners.filter(l => l.stage === 'Certified').length, sub: 'Credentials issued', color: '#d97706', bg: '#fef3c7' },
+                          { icon: '📊', label: 'Avg. Completion', value: `${Math.round(learners.reduce((a, l) => a + (l.completedLessons.length / totalLessons * 100), 0) / Math.max(learners.length, 1))}%`, sub: 'Curriculum progress', color: '#7c3aed', bg: '#ede9fe' },
+                          { icon: '📝', label: 'Pending Reviews', value: assignments.filter(a => a.status === 'Under Review').length, sub: `${assignments.length} total submitted`, color: '#ea580c', bg: '#fff7ed' },
+                          { icon: '🎫', label: 'Open Tickets', value: tickets.filter(t => t.status === 'Open').length, sub: `${tickets.length} tickets total`, color: '#0284c7', bg: '#e0f2fe' },
+                        ].map(k => (
+                          <div key={k.label} className="admin-kpi-card">
+                            <div style={{width: '44px', height: '44px', borderRadius: '12px', background: k.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', marginBottom: '14px'}}>{k.icon}</div>
+                            <div style={{fontSize: '2rem', fontWeight: 800, color: k.color, lineHeight: 1}}>{k.value}</div>
+                            <div style={{fontWeight: 700, fontSize: '0.82rem', color: 'var(--text)', marginTop: '6px'}}>{k.label}</div>
+                            <div style={{fontSize: '0.73rem', color: 'var(--text-muted)', marginTop: '2px'}}>{k.sub}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div style={{display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '20px'}}>
+                        <div className="checkout-card">
+                          <h4 style={{margin: '0 0 16px', fontWeight: 800, fontSize: '1rem'}}>⚡ Quick Actions</h4>
+                          <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                            {currentRole === 'SuperAdmin' && (
+                              <button className="btn btn-secondary" style={{justifyContent: 'flex-start', gap: '12px', padding: '11px 16px', fontSize: '0.85rem'}}
+                                onClick={() => { setLearners(prev => prev.map(l => l.id === activeLearner.id ? {...l, stage: 'Certified'} : l)); logAction('Manual certificate issued', 'SuperAdmin'); alert('Certificate issued for Rohan Kumar.'); }}>
+                                <Award size={15} style={{color: 'var(--accent)'}} /> Issue Certificate — Rohan Kumar
+                              </button>
+                            )}
+                            {['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
+                              <button className="btn btn-secondary" style={{justifyContent: 'flex-start', gap: '12px', padding: '11px 16px', fontSize: '0.85rem'}}
+                                onClick={() => { setLearners(prev => prev.map(l => ({...l, completedLessons: modules.flatMap(m => m.lessons.map(ls => ls.id))}))); logAction('Progress bypassed for all learners', currentRole); alert('All learners at 100%.'); }}>
+                                <CheckSquare size={15} style={{color: 'var(--success)'}} /> Bypass Videos — All Learners
+                              </button>
+                            )}
+                            {['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
+                              <button className="btn btn-secondary" style={{justifyContent: 'flex-start', gap: '12px', padding: '11px 16px', fontSize: '0.85rem'}} onClick={() => setAdminTab('orders')}>
+                                <CreditCard size={15} style={{color: 'var(--info)'}} /> View Orders & Revenue
+                              </button>
+                            )}
+                            {['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
+                              <button className="btn btn-secondary" style={{justifyContent: 'flex-start', gap: '12px', padding: '11px 16px', fontSize: '0.85rem'}} onClick={() => setAdminTab('assignments')}>
+                                <FileText size={15} style={{color: '#7c3aed'}} /> Review Assignments
+                              </button>
+                            )}
+                            {['SuperAdmin', 'ContentAdmin'].includes(currentRole) && (
+                              <button className="btn btn-secondary" style={{justifyContent: 'flex-start', gap: '12px', padding: '11px 16px', fontSize: '0.85rem'}} onClick={() => setAdminTab('content')}>
+                                <BookOpen size={15} style={{color: 'var(--primary)'}} /> Manage Course Content
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="checkout-card">
+                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem'}}>📋 Recent Activity</h4>
+                          <div style={{maxHeight: '300px', overflowY: 'auto'}}>
+                            {auditLogs.slice(0, 15).map((log, idx) => (
+                              <div key={idx} style={{display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px 0', borderBottom: idx < Math.min(auditLogs.length, 15) - 1 ? '1px solid var(--border)' : 'none', fontSize: '0.82rem'}}>
+                                <div style={{width: '8px', height: '8px', borderRadius: '50%', background: log.role === 'SuperAdmin' ? '#1d4ed8' : log.role === 'Learner' ? '#10b981' : '#f59e0b', marginTop: '5px', flexShrink: 0}} />
+                                <div style={{flex: 1, minWidth: 0}}>
+                                  <div style={{fontWeight: 600, color: 'var(--text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{log.action}</div>
+                                  <div style={{color: 'var(--text-muted)', marginTop: '1px', fontSize: '0.73rem'}}>{new Date(log.timestamp).toLocaleString()}</div>
+                                </div>
+                                <span className={`badge ${log.role === 'SuperAdmin' ? 'badge-danger' : log.role === 'Learner' ? 'badge-success' : 'badge-info'}`} style={{flexShrink: 0}}>{log.role}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
 
-                  {/* Payment & Orders Manager tab */}
-                  {(currentRole === "SuperAdmin" || currentRole === "SupportAdmin") && (
-                    <div style={{background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '24px'}}>
-                      <h4>YBB Orders & Payments Records</h4>
+                  {/* ── LEARNERS ── */}
+                  {adminTab === 'learners' && ['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Learner Management</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Search, filter and manage all enrolled learners and their access.</p>
+                        </div>
+                        <button className="btn btn-secondary" style={{fontSize: '0.85rem'}} onClick={() => alert('CSV exported.')}><Download size={14} /> Export CSV</button>
+                      </div>
+                      <div style={{display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap'}}>
+                        <div style={{position: 'relative', flex: '1 1 220px'}}>
+                          <Search size={14} style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)'}} />
+                          <input type="text" className="form-control" placeholder="Search name or email..." style={{paddingLeft: '36px'}} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+                        </div>
+                        <select className="form-control" style={{width: 'auto'}} value={cohortFilter} onChange={e => setCohortFilter(e.target.value)}>
+                          <option>All</option><option>Enrolled</option><option>Certified</option>
+                        </select>
+                      </div>
                       <div className="table-container">
                         <table className="data-table">
-                          <thead>
-                            <tr>
-                              <th>Order ID</th>
-                              <th>Learner Name</th>
-                              <th>Billed Amount</th>
-                              <th>Status</th>
-                              <th>Invoice No</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
+                          <thead><tr><th>Learner</th><th>Contact</th><th>Stage</th><th>Progress</th><th>Status</th><th>Actions</th></tr></thead>
                           <tbody>
-                            {orders.map(ord => (
+                            {learners.filter(l => searchQuery === '' || l.fullName.toLowerCase().includes(searchQuery.toLowerCase()) || l.email.toLowerCase().includes(searchQuery.toLowerCase()))
+                              .filter(l => cohortFilter === 'All' || l.stage === cohortFilter)
+                              .map(l => (
+                                <tr key={l.id}>
+                                  <td>
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                      <img src={l.photo} style={{width: '34px', height: '34px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--border)'}} alt="" />
+                                      <div>
+                                        <div style={{fontWeight: 700, fontSize: '0.875rem'}}>{l.fullName}</div>
+                                        <div style={{fontSize: '0.73rem', color: 'var(--text-muted)'}}>{l.city}, {l.state}</div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style={{fontSize: '0.82rem'}}><div>{l.email}</div><div style={{color: 'var(--text-muted)', fontSize: '0.75rem'}}>{l.mobile}</div></td>
+                                  <td><span className={`badge ${l.stage === 'Certified' ? 'badge-success' : 'badge-info'}`}>{l.stage}</span></td>
+                                  <td>
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                      <div style={{flex: 1, height: '6px', background: '#e2e8f0', borderRadius: '99px', overflow: 'hidden', minWidth: '70px'}}>
+                                        <div style={{height: '100%', background: 'linear-gradient(90deg, #1d4ed8, #10b981)', borderRadius: '99px', width: `${Math.round(l.completedLessons.length / totalLessons * 100)}%`, transition: 'width .4s'}} />
+                                      </div>
+                                      <span style={{fontSize: '0.73rem', fontWeight: 700, color: 'var(--text-muted)', whiteSpace: 'nowrap'}}>{l.completedLessons.length}/{totalLessons}</span>
+                                    </div>
+                                  </td>
+                                  <td><span className={`badge ${l.status === 'Active' ? 'badge-success' : 'badge-danger'}`}>{l.status}</span></td>
+                                  <td>
+                                    <div style={{display: 'flex', gap: '5px', flexWrap: 'wrap'}}>
+                                      <button className="btn btn-secondary" style={{padding: '3px 9px', fontSize: '0.73rem'}}
+                                        onClick={() => { setLearners(prev => prev.map(u => u.id === l.id ? {...u, completedLessons: modules.flatMap(m => m.lessons.map(ls => ls.id))} : u)); logAction(`Progress bypassed for ${l.fullName}`, currentRole); }}>Bypass</button>
+                                      {currentRole === 'SuperAdmin' && (
+                                        <button className="btn btn-secondary" style={{padding: '3px 9px', fontSize: '0.73rem', color: 'var(--accent)', borderColor: 'var(--accent)'}}
+                                          onClick={() => { setLearners(prev => prev.map(u => u.id === l.id ? {...u, stage: 'Certified'} : u)); logAction(`Certified ${l.fullName}`, 'SuperAdmin'); alert('Certificate issued.'); }}>
+                                          <Award size={11} /> Certify
+                                        </button>
+                                      )}
+                                      <button className="btn btn-secondary" style={{padding: '3px 9px', fontSize: '0.73rem', color: l.status === 'Active' ? 'var(--danger)' : 'var(--success)', borderColor: l.status === 'Active' ? 'var(--danger)' : 'var(--success)'}}
+                                        onClick={() => { setLearners(prev => prev.map(u => u.id === l.id ? {...u, status: u.status === 'Active' ? 'Suspended' : 'Active'} : u)); logAction(`Account toggled for ${l.fullName}`, currentRole); }}>
+                                        {l.status === 'Active' ? 'Suspend' : 'Activate'}
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── ORDERS ── */}
+                  {adminTab === 'orders' && ['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Orders & Payments</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Full transaction ledger with invoice and refund management.</p>
+                        </div>
+                      </div>
+                      <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '20px'}}>
+                        {[
+                          { label: 'Total Revenue', value: `₹${orders.filter(o => o.status === 'Success').reduce((a, o) => a + o.amount, 0).toLocaleString('en-IN')}`, color: '#10b981', bg: '#d1fae5' },
+                          { label: 'Successful Orders', value: orders.filter(o => o.status === 'Success').length, color: '#1d4ed8', bg: '#dbeafe' },
+                          { label: 'Failed / Refunded', value: orders.filter(o => o.status !== 'Success').length, color: '#ef4444', bg: '#fee2e2' },
+                        ].map(s => (
+                          <div key={s.label} style={{background: s.bg, borderRadius: 'var(--r)', padding: '16px 20px', border: `1px solid ${s.color}33`}}>
+                            <div style={{fontSize: '1.6rem', fontWeight: 800, color: s.color, lineHeight: 1}}>{s.value}</div>
+                            <div style={{fontSize: '0.78rem', fontWeight: 700, color: s.color, opacity: .8, marginTop: '4px'}}>{s.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{display: 'flex', gap: '8px', marginBottom: '16px'}}>
+                        {['All', 'Success', 'Failed', 'Refunded'].map(f => (
+                          <button key={f} className={`btn ${adminOrderFilter === f ? 'btn-primary' : 'btn-secondary'}`} style={{padding: '6px 16px', fontSize: '0.82rem'}} onClick={() => setAdminOrderFilter(f)}>{f}</button>
+                        ))}
+                      </div>
+                      <div className="table-container">
+                        <table className="data-table">
+                          <thead><tr><th>Order ID</th><th>Learner</th><th>Amount</th><th>Status</th><th>Invoice</th><th>Date</th><th>Action</th></tr></thead>
+                          <tbody>
+                            {orders.filter(o => adminOrderFilter === 'All' || o.status === adminOrderFilter).map(ord => (
                               <tr key={ord.id}>
-                                <td>{ord.id}</td>
-                                <td>{ord.learnerName}</td>
-                                <td>₹{ord.amount.toLocaleString('en-IN')}</td>
-                                <td><span className={`badge ${ord.status === "Success" ? 'badge-success' : 'badge-danger'}`}>{ord.status}</span></td>
-                                <td>{ord.invoiceNo || "N/A"}</td>
+                                <td style={{fontFamily: 'monospace', fontWeight: 700, fontSize: '0.82rem'}}>{ord.id}</td>
+                                <td style={{fontWeight: 600}}>{ord.learnerName}</td>
+                                <td style={{fontWeight: 700}}>₹{ord.amount.toLocaleString('en-IN')}</td>
+                                <td><span className={`badge ${ord.status === 'Success' ? 'badge-success' : ord.status === 'Refunded' ? 'badge-warning' : 'badge-danger'}`}>{ord.status}</span></td>
+                                <td style={{fontFamily: 'monospace', fontSize: '0.78rem'}}>{ord.invoiceNo || '—'}</td>
+                                <td style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>{ord.date}</td>
                                 <td>
-                                  {ord.status === "Success" && (
-                                    <button className="btn btn-secondary" style={{padding: '2px 6px', fontSize: '0.75rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => {
-                                      setOrders(prev => prev.map(o => o.id === ord.id ? { ...o, status: "Refunded" } : o));
-                                      logAction(`Refunded order ${ord.id}`, currentRole);
-                                    }}>
-                                      Refund Order
-                                    </button>
-                                  )}
+                                  <div style={{display: 'flex', gap: '5px'}}>
+                                    {ord.status === 'Success' && <button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.73rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => { setOrders(prev => prev.map(o => o.id === ord.id ? {...o, status: 'Refunded'} : o)); logAction(`Refunded order ${ord.id}`, currentRole); }}>Refund</button>}
+                                    {ord.invoiceNo && <button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.73rem'}} onClick={() => alert(`Invoice ${ord.invoiceNo} downloaded.`)}><Download size={11} /></button>}
+                                  </div>
                                 </td>
                               </tr>
                             ))}
@@ -2419,138 +2906,254 @@ function App() {
                     </div>
                   )}
 
-                  {/* Content Admin Curriculum Configurator */}
-                  {currentRole === "ContentAdmin" && (
-                    <div style={{background: '#f8fafc', padding: '20px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '24px'}}>
-                      <h4>Course Curriculum Manager</h4>
-                      {modules.map(mod => (
-                        <div key={mod.id} style={{borderBottom: '1px solid #cbd5e1', paddingBottom: '12px', marginBottom: '12px'}}>
-                          <strong>{mod.title}</strong>
-                          <button 
-                            className="btn btn-secondary"
-                            style={{float: 'right', padding: '2px 6px', fontSize: '0.75rem'}}
-                            onClick={() => {
-                              const newTitle = prompt("Enter new title for module:", mod.title);
-                              if (newTitle) setModules(prev => prev.map(m => m.id === mod.id ? { ...m, title: newTitle } : m));
-                            }}
-                          >
-                            Rename
-                          </button>
-                          <div style={{paddingLeft: '20px', marginTop: '8px'}}>
-                            {mod.lessons.map(les => (
-                              <div key={les.id} style={{fontSize: '0.85rem', display: 'flex', justifyContent: 'space-between', padding: '4px 0'}}>
-                                <span>{les.title} ({les.duration})</span>
-                                <span style={{color: 'var(--primary)', cursor: 'pointer'}} onClick={() => {
-                                  const url = prompt("Enter video stream URL:", les.videoUrl);
-                                  if (url) logAction(`Replaced video for lesson ${les.id}`, "ContentAdmin");
-                                }}>Replace Video</span>
+                  {/* ── ASSIGNMENTS ── */}
+                  {adminTab === 'assignments' && ['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Assignment Review</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Review, approve, or request resubmission of learner case study submissions.</p>
+                        </div>
+                        <div style={{display: 'flex', gap: '8px'}}>
+                          <span className="badge badge-info" style={{fontSize: '0.82rem', padding: '5px 12px'}}>{assignments.filter(a => a.status === 'Under Review').length} Pending</span>
+                          <span className="badge badge-success" style={{fontSize: '0.82rem', padding: '5px 12px'}}>{assignments.filter(a => a.status === 'Approved').length} Approved</span>
+                        </div>
+                      </div>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                        {assignments.map(sub => (
+                          <div key={sub.id} className="checkout-card" style={{borderLeft: `4px solid ${sub.status === 'Approved' ? '#10b981' : sub.status === 'Under Review' ? '#3b82f6' : sub.status === 'Resubmission Required' ? '#f59e0b' : '#ef4444'}`}}>
+                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', flexWrap: 'wrap', gap: '10px'}}>
+                              <div>
+                                <div style={{fontWeight: 800, fontSize: '1rem', marginBottom: '4px'}}>{sub.title}</div>
+                                <div style={{fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', gap: '12px', flexWrap: 'wrap'}}>
+                                  <span>👤 {sub.learnerName}</span>
+                                  <span>📎 <span style={{fontFamily: 'monospace'}}>{sub.fileName}</span></span>
+                                  <span>📅 {sub.submittedDate}</span>
+                                  <span>🔄 Attempt #{sub.attempts}</span>
+                                </div>
+                              </div>
+                              <span className={`badge ${sub.status === 'Approved' ? 'badge-success' : sub.status === 'Under Review' ? 'badge-info' : sub.status === 'Resubmission Required' ? 'badge-warning' : 'badge-danger'}`}>{sub.status}</span>
+                            </div>
+                            {sub.feedback && <div style={{background: '#f8fafc', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', padding: '10px 14px', fontSize: '0.83rem', color: 'var(--text-muted)', marginBottom: '14px'}}>💬 <em>{sub.feedback}</em></div>}
+                            <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                              <button className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem', color: 'var(--success)', borderColor: 'var(--success)'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Approved', feedback: 'Approved. Recast sheets meet professional guidelines.'} : s)); logAction(`Approved assignment ${sub.id}`, currentRole); }}><Check size={13} /> Approve</button>
+                              <button className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem', color: '#d97706', borderColor: '#d97706'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Resubmission Required', feedback: 'Please fix working capital normalizations and resubmit.'} : s)); logAction(`Resubmission requested for ${sub.id}`, currentRole); }}><RefreshCw size={13} /> Resubmission</button>
+                              <button className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Rejected', feedback: 'Submission does not meet minimum requirements.'} : s)); logAction(`Rejected ${sub.id}`, currentRole); }}><X size={13} /> Reject</button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── CONTENT ── */}
+                  {adminTab === 'content' && ['SuperAdmin', 'ContentAdmin'].includes(currentRole) && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Course Content Manager</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Edit module titles, lesson video URLs, and downloadable resources.</p>
+                        </div>
+                        <div style={{display: 'flex', gap: '8px'}}>
+                          <span className="badge badge-info">{totalLessons} Lessons</span>
+                          <span className="badge badge-success">{modules.length} Modules</span>
+                        </div>
+                      </div>
+                      {modules.map((mod, modIdx) => (
+                        <div key={mod.id} className="checkout-card" style={{marginBottom: '12px'}}>
+                          <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px'}}>
+                            <div style={{width: '34px', height: '34px', borderRadius: '50%', background: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem', flexShrink: 0}}>{modIdx + 1}</div>
+                            <div style={{flex: 1, fontWeight: 700, fontSize: '0.95rem'}}>{mod.title}</div>
+                            <button className="btn btn-secondary" style={{padding: '3px 10px', fontSize: '0.75rem', flexShrink: 0}} onClick={() => { const t = prompt('New module title:', mod.title); if (t) { setModules(prev => prev.map(m => m.id === mod.id ? {...m, title: t} : m)); logAction(`Renamed module ${mod.id}`, currentRole); } }}><Tag size={11} /> Rename</button>
+                          </div>
+                          <div style={{paddingLeft: '46px'}}>
+                            {mod.lessons.map((les, lesIdx) => (
+                              <div key={les.id} style={{display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 0', borderBottom: lesIdx < mod.lessons.length - 1 ? '1px solid var(--border)' : 'none'}}>
+                                <Play size={12} style={{color: 'var(--text-light)', flexShrink: 0}} />
+                                <div style={{flex: 1, minWidth: 0}}>
+                                  <div style={{fontWeight: 600, fontSize: '0.855rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{les.title}</div>
+                                  <div style={{fontSize: '0.72rem', color: 'var(--text-muted)'}}>⏱ {les.duration} · <span style={{fontFamily: 'monospace'}}>{les.videoUrl}</span></div>
+                                </div>
+                                <button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.72rem', flexShrink: 0}} onClick={() => { const u = prompt('New video URL:', les.videoUrl); if (u) { setModules(prev => prev.map(m => ({...m, lessons: m.lessons.map(l => l.id === les.id ? {...l, videoUrl: u} : l)}))); logAction(`Updated video ${les.id}`, currentRole); } }}>Replace Video</button>
                               </div>
                             ))}
                           </div>
                         </div>
                       ))}
-                    </div>
-                  )}
-
-                  {/* Learner Overrides & Cohort progress view */}
-                  {["SuperAdmin", "SupportAdmin"].includes(currentRole) && (
-                    <div style={{background: 'white', padding: '16px', borderRadius: '8px', border: '1px solid var(--border-color)', marginBottom: '24px'}}>
-                      <h4>Learner Cohort & Access Controls</h4>
-                      <div style={{display: 'flex', gap: '10px', marginBottom: '16px'}}>
-                        <input 
-                          type="text" 
-                          placeholder="Search learners by name or email..." 
-                          className="form-control"
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)} 
-                        />
-                        <select 
-                          className="form-control" 
-                          value={cohortFilter}
-                          onChange={(e) => setCohortFilter(e.target.value)}
-                        >
-                          <option>All</option>
-                          <option>Enrolled</option>
-                          <option>Certified</option>
-                        </select>
-                        <button className="btn btn-secondary" onClick={() => alert("CSV Progress Report Exported successfully.")}>
-                          Export CSV
-                        </button>
+                      <div className="checkout-card" style={{borderColor: 'var(--accent)'}}>
+                        <h4 style={{margin: '0 0 14px', fontWeight: 800}}>📦 Resource Downloads</h4>
+                        <div className="table-container">
+                          <table className="data-table">
+                            <thead><tr><th>Title</th><th>Version</th><th>Date</th><th>Downloads</th><th>Action</th></tr></thead>
+                            <tbody>
+                              {resources.map(r => (
+                                <tr key={r.id}>
+                                  <td style={{fontWeight: 600}}>{r.title}</td>
+                                  <td><span className="badge badge-info">{r.version}</span></td>
+                                  <td style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>{r.date}</td>
+                                  <td>{r.downloadCount}</td>
+                                  <td><button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.73rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => { setResources(prev => prev.filter(res => res.id !== r.id)); logAction(`Removed resource ${r.id}`, currentRole); }}><Trash size={11} /> Remove</button></td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
-
-                      <table className="data-table">
-                        <thead>
-                          <tr>
-                            <th>Learner Name</th>
-                            <th>Status</th>
-                            <th>Curriculum Progress</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {learners
-                            .filter(l => searchQuery === "" || l.fullName.toLowerCase().includes(searchQuery.toLowerCase()))
-                            .filter(l => cohortFilter === "All" || l.stage === cohortFilter)
-                            .map(l => (
-                              <tr key={l.id}>
-                                <td>{l.fullName}</td>
-                                <td>
-                                  <span className={`badge ${l.status === 'Active' ? 'badge-success' : 'badge-danger'}`}>
-                                    {l.status}
-                                  </span>
-                                </td>
-                                <td>{l.completedLessons.length} / {totalLessons} completed</td>
-                                <td>
-                                  <div style={{display: 'flex', gap: '8px'}}>
-                                    <button 
-                                      className="btn btn-secondary"
-                                      onClick={() => {
-                                        setLearners(prev => prev.map(u => u.id === l.id ? { ...u, completedLessons: modules.flatMap(m => m.lessons.map(ls => ls.id)) } : u));
-                                        logAction(`Forced progress bypass for ${l.fullName}`, currentRole);
-                                        alert("Progress bypassed to 100%");
-                                      }}
-                                      style={{padding: '4px 8px', fontSize: '0.8rem'}}
-                                    >
-                                      Bypass Videos
-                                    </button>
-                                    <button 
-                                      className="btn btn-secondary"
-                                      onClick={() => {
-                                        setLearners(prev => prev.map(u => u.id === l.id ? { ...u, status: u.status === 'Active' ? 'Suspended' : 'Active' } : u));
-                                        logAction(`Changed learner account status for ${l.fullName}`, currentRole);
-                                      }}
-                                      style={{padding: '4px 8px', fontSize: '0.8rem', color: 'var(--danger)', borderColor: 'var(--danger)'}}
-                                    >
-                                      {l.status === 'Active' ? 'Suspend' : 'Activate'}
-                                    </button>
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
                     </div>
                   )}
 
-                  {/* Audit Logs */}
-                  {currentRole === "SuperAdmin" && (
+                  {/* ── QUESTION BANK ── */}
+                  {adminTab === 'question-bank' && ['SuperAdmin', 'ContentAdmin'].includes(currentRole) && (
                     <div>
-                      <h4>System Audit Log</h4>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Question Bank</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Manage MCQ, True/False, and Multi-Select exam questions.</p>
+                        </div>
+                        <span className="badge badge-info" style={{fontSize: '0.85rem', padding: '6px 14px'}}>{questionBank.length} Questions</span>
+                      </div>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px'}}>
+                        {questionBank.map((q, qi) => (
+                          <div key={q.id} className="checkout-card">
+                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', gap: '10px'}}>
+                              <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
+                                <span className="badge badge-info">Q{qi + 1}</span>
+                                <span className="badge badge-warning">{q.type}</span>
+                                <span className={`badge ${q.difficulty === 'Easy' ? 'badge-success' : q.difficulty === 'Hard' ? 'badge-danger' : 'badge-warning'}`}>{q.difficulty}</span>
+                                <span className="badge" style={{background: '#f1f5f9', color: '#475569'}}>{q.topic}</span>
+                              </div>
+                              <button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.73rem', color: 'var(--danger)', borderColor: 'var(--danger)', flexShrink: 0}} onClick={() => { if (window.confirm('Delete this question?')) { setQuestionBank(prev => prev.filter(qb => qb.id !== q.id)); logAction(`Deleted Q${q.id}`, currentRole); } }}><Trash size={11} /> Delete</button>
+                            </div>
+                            <p style={{fontWeight: 600, fontSize: '0.875rem', marginBottom: '10px', lineHeight: 1.5}}>{q.question}</p>
+                            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px'}}>
+                              {q.options.map((opt, oi) => (
+                                <div key={oi} style={{display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 10px', borderRadius: 'var(--r-sm)', background: q.correct.includes(oi) ? '#d1fae5' : '#f8fafc', border: `1px solid ${q.correct.includes(oi) ? '#10b981' : 'var(--border)'}`, fontSize: '0.82rem'}}>
+                                  {q.correct.includes(oi) ? <CheckCircle size={12} style={{color: '#10b981', flexShrink: 0}} /> : <div style={{width: '12px', height: '12px', borderRadius: '50%', border: '1.5px solid #cbd5e1', flexShrink: 0}} />}
+                                  <span>{opt}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="checkout-card" style={{border: '2px dashed var(--border)', background: '#fafbff'}}>
+                        <h4 style={{margin: '0 0 16px', fontWeight: 800}}><Plus size={15} style={{verticalAlign: 'middle', marginRight: '6px'}} />Add New Question</h4>
+                        <div className="form-group"><label className="form-label">Question Text</label><textarea className="form-control" rows="2" placeholder="Enter the question..." id="nq-text" /></div>
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '14px'}}>
+                          <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Type</label><select className="form-control" id="nq-type"><option>MCQ</option><option>True-False</option><option>Multi-Select</option></select></div>
+                          <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Difficulty</label><select className="form-control" id="nq-diff"><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
+                          <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Topic</label><input type="text" className="form-control" id="nq-topic" placeholder="e.g. Valuation" /></div>
+                        </div>
+                        <div className="form-group"><label className="form-label">Options (comma-separated)</label><input type="text" className="form-control" id="nq-options" placeholder="Option A, Option B, Option C, Option D" /></div>
+                        <div className="form-group"><label className="form-label">Correct Answer Index(es) — 0-based, comma-separated</label><input type="text" className="form-control" id="nq-correct" placeholder="e.g. 1  or  0,2 for multi-select" /></div>
+                        <button className="btn btn-primary" onClick={() => {
+                          const text = document.getElementById('nq-text').value.trim();
+                          const type = document.getElementById('nq-type').value;
+                          const diff = document.getElementById('nq-diff').value;
+                          const topic = document.getElementById('nq-topic').value.trim();
+                          const opts = document.getElementById('nq-options').value.split(',').map(s => s.trim()).filter(Boolean);
+                          const correct = document.getElementById('nq-correct').value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+                          if (!text || opts.length < 2 || correct.length === 0) { alert('Fill all required fields.'); return; }
+                          setQuestionBank(prev => [...prev, { id: Date.now(), type, question: text, options: opts, correct, difficulty: diff, topic }]);
+                          logAction(`Added question: ${text.substring(0, 40)}`, currentRole);
+                          ['nq-text', 'nq-topic', 'nq-options', 'nq-correct'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+                          alert('Question added successfully.');
+                        }}><Plus size={14} /> Add Question</button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── SETTINGS ── */}
+                  {adminTab === 'settings' && currentRole === 'SuperAdmin' && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>LMS Settings</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Configure pricing, certification rules, legal text, and system toggles.</p>
+                        </div>
+                        <button className="btn btn-primary" style={{padding: '10px 24px'}} onClick={() => { logAction('Saved LMS settings', 'SuperAdmin'); alert('Settings saved.'); }}><Check size={14} /> Save All</button>
+                      </div>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
+                        <div className="checkout-card">
+                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><CreditCard size={15} style={{color: 'var(--primary)'}} /> Pricing & GST</h4>
+                          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px'}}>
+                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Base Course Fee (₹)</label><input type="number" className="form-control" value={settings.price} onChange={e => setSettings({...settings, price: parseInt(e.target.value) || 0})} /></div>
+                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">GST Rate (%)</label><input type="number" className="form-control" value={settings.gstRate} onChange={e => setSettings({...settings, gstRate: parseInt(e.target.value) || 0})} /></div>
+                          </div>
+                          <div style={{marginTop: '14px', padding: '12px 16px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 'var(--r-sm)', fontSize: '0.875rem'}}>
+                            💡 Total billed to learner: <strong>₹{(settings.price * (1 + settings.gstRate / 100)).toLocaleString('en-IN')}</strong> (incl. GST)
+                          </div>
+                        </div>
+                        <div className="checkout-card">
+                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><Award size={15} style={{color: 'var(--accent)'}} /> Certificate Configuration</h4>
+                          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px'}}>
+                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">ABB ID Format</label><input type="text" className="form-control" value={settings.certIdFormat} onChange={e => setSettings({...settings, certIdFormat: e.target.value})} /></div>
+                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Authorized Signatory</label><input type="text" className="form-control" value={settings.signatoryName} onChange={e => setSettings({...settings, signatoryName: e.target.value})} /></div>
+                          </div>
+                        </div>
+                        <div className="checkout-card">
+                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><Settings size={15} style={{color: 'var(--text-muted)'}} /> System Toggles</h4>
+                          <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                            {[
+                              { key: 'automaticIssuance', label: 'Auto-Issue Certificate on Exam Pass', desc: 'Automatically generate certificate when a learner scores ≥80%.' },
+                              { key: 'sequentialMode', label: 'Enforce Sequential Lesson Progression', desc: 'Learners must complete each lesson before unlocking the next.' },
+                              { key: 'revealAnswers', label: 'Reveal Correct Answers After Exam', desc: 'Show learners the correct answers after exam submission.' },
+                            ].map(t => (
+                              <label key={t.key} style={{display: 'flex', gap: '14px', alignItems: 'flex-start', padding: '14px 16px', border: `1.5px solid ${settings[t.key] ? 'var(--primary)' : 'var(--border)'}`, borderRadius: 'var(--r-sm)', cursor: 'pointer', background: settings[t.key] ? '#eff6ff' : '#fff', transition: 'all .2s'}}>
+                                <input type="checkbox" checked={settings[t.key]} onChange={e => setSettings({...settings, [t.key]: e.target.checked})} style={{marginTop: '3px', width: '16px', height: '16px', accentColor: 'var(--primary)', flexShrink: 0}} />
+                                <div><div style={{fontWeight: 700, fontSize: '0.9rem'}}>{t.label}</div><div style={{fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '2px'}}>{t.desc}</div></div>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="checkout-card">
+                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><FileText size={15} style={{color: 'var(--info)'}} /> Legal Terms Configurator</h4>
+                          <div style={{display: 'grid', gridTemplateColumns: '140px 1fr', gap: '20px'}}>
+                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Legal Version</label><input type="text" className="form-control" value={settings.legalVersion} onChange={e => setSettings({...settings, legalVersion: e.target.value})} /></div>
+                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Disclaimer Text</label><textarea rows="3" className="form-control" value={settings.legalText} onChange={e => setSettings({...settings, legalText: e.target.value})} /></div>
+                          </div>
+                        </div>
+                        <div className="checkout-card" style={{borderColor: 'var(--accent)'}}>
+                          <h4 style={{margin: '0 0 12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><Award size={15} style={{color: 'var(--accent)'}} /> Manual Certification Approval</h4>
+                          <p style={{fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '16px'}}>Issue certification manually for any learner who has met all requirements.</p>
+                          <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}>
+                            {learners.map(l => (
+                              <button key={l.id} className={`btn ${l.stage === 'Certified' ? 'btn-secondary' : 'btn-accent'}`} disabled={l.stage === 'Certified'} style={{padding: '9px 18px', fontSize: '0.875rem'}}
+                                onClick={() => { setLearners(prev => prev.map(u => u.id === l.id ? {...u, stage: 'Certified'} : u)); logAction(`Manually certified ${l.fullName}`, 'SuperAdmin'); alert(`Certificate issued for ${l.fullName}.`); }}>
+                                {l.stage === 'Certified' ? <><CheckCircle size={13} /> {l.fullName} — Certified</> : <><Award size={13} /> Issue — {l.fullName}</>}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── AUDIT LOG ── */}
+                  {adminTab === 'audit' && currentRole === 'SuperAdmin' && (
+                    <div>
+                      <div className="admin-content-header">
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>System Audit Log</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Tamper-evident log of all platform actions by timestamp and initiator role.</p>
+                        </div>
+                        <button className="btn btn-secondary" style={{fontSize: '0.85rem'}} onClick={() => alert('Audit log exported.')}><Download size={14} /> Export Log</button>
+                      </div>
+                      <div style={{marginBottom: '16px', position: 'relative'}}>
+                        <Search size={14} style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)'}} />
+                        <input type="text" className="form-control" placeholder="Filter by action or role..." style={{paddingLeft: '36px'}}
+                          onChange={e => { const v = e.target.value.toLowerCase(); document.querySelectorAll('.audit-row').forEach(r => { r.style.display = r.textContent.toLowerCase().includes(v) ? '' : 'none'; }); }} />
+                      </div>
                       <div className="table-container">
                         <table className="data-table">
-                          <thead>
-                            <tr>
-                              <th>Timestamp</th>
-                              <th>Action</th>
-                              <th>Initiator</th>
-                            </tr>
-                          </thead>
+                          <thead><tr><th>Timestamp</th><th>Action</th><th>Role</th><th>IP Address</th></tr></thead>
                           <tbody>
                             {auditLogs.map((log, idx) => (
-                              <tr key={idx}>
-                                <td style={{fontFamily: 'monospace', fontSize: '0.8rem'}}>{log.timestamp}</td>
-                                <td>{log.action}</td>
-                                <td><span className="badge badge-info">{log.role}</span></td>
+                              <tr key={idx} className="audit-row">
+                                <td style={{fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap'}}>{new Date(log.timestamp).toLocaleString()}</td>
+                                <td style={{fontSize: '0.875rem'}}>{log.action}</td>
+                                <td><span className={`badge ${log.role === 'SuperAdmin' ? 'badge-danger' : log.role === 'Learner' ? 'badge-success' : 'badge-info'}`}>{log.role}</span></td>
+                                <td style={{fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)'}}>{log.ip}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -2558,10 +3161,11 @@ function App() {
                       </div>
                     </div>
                   )}
-                </div>
-              )}
-            </section>
-          </div>
+
+                </section>
+              </div>
+            )}
+          </>
         )}
 
         {/* --- SCREEN 7: CREDENTIALS VERIFICATION --- */}
@@ -2614,7 +3218,7 @@ function App() {
         <div style={{maxWidth: '1320px', margin: '0 auto', padding: '40px 28px 28px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '32px'}}>
           <div>
             <div style={{fontWeight: 800, fontSize: '1.1rem', color: '#fff', marginBottom: '8px'}}>Yoova Business Broking</div>
-            <div style={{fontSize: '0.85rem', lineHeight: 1.7}}>The Authorised Business Broker (ABB) certification programme ÃƒÂ¢₹¬ -  India's professional standard for M&amp;A transaction advisory.</div>
+            <div style={{fontSize: '0.85rem', lineHeight: 1.7}}>The Authorised Business Broker (ABB) certification programme — India's professional standard for M&amp;A transaction advisory.</div>
           </div>
           <div>
             <div style={{fontWeight: 700, color: '#fff', marginBottom: '10px', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '.06em'}}>Programme</div>
