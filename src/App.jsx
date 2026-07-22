@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   BookOpen, Award, CheckCircle, Lock, Play, Download, Upload, AlertCircle, Home,
-  HelpCircle, Shield, Settings, Users, CreditCard, Clock, FileText, Check, X, ArrowRight, RefreshCw, LogOut, CheckSquare, Search, Eye, Filter, Trash, Plus, Tag, HelpCircle as FaqIcon, Mail, Target, Award as CertIcon, Star
+  HelpCircle, Shield, Settings, Users, CreditCard, Clock, FileText, Check, X, ArrowRight, RefreshCw, LogOut, CheckSquare, Search, Eye, Filter, Trash, Plus, Tag, HelpCircle as FaqIcon, Mail, Target, Award as CertIcon, Star, ChevronDown, ChevronRight
 } from 'lucide-react';
 
 // --- MOCK DATABASE / DEFAULT STATES ---
@@ -10,111 +10,155 @@ const INITIAL_MODULES = [
     id: 1,
     title: "Module 1: Foundations of Business Broking",
     lessons: [
-      { id: "1-1", title: "1.1 Introduction to the M&A Brokerage Profession", duration: "12 mins", summary: "Overview of buy-side, sell-side, and transaction advisory roles.", videoUrl: "lesson11.mp4" },
-      { id: "1-2", title: "1.2 Regulatory Context & YBB Professional Standard", duration: "18 mins", summary: "Understanding the boundary of professional certifications vs state licenses.", videoUrl: "lesson12.mp4" },
-      { id: "1-3", title: "1.3 Anatomy of a Business Sale Transaction", duration: "15 mins", summary: "Step-by-step breakdown of the deal lifecycle from listing to close.", videoUrl: "lesson13.mp4" },
-      { id: "1-4", title: "1.4 Introduction to Key Financial Terminology", duration: "14 mins", summary: "EBITDA, SDE, Net Working Capital, and deal multiples explained.", videoUrl: "lesson14.mp4" },
-      { id: "1-5", title: "1.5 Code of Conduct & Client Representation Ethics", duration: "20 mins", summary: "Fiduciary duties, confidentiality obligations, and conflict of interest rules.", videoUrl: "lesson15.mp4" }
+      { id: "1-1", title: "Module 1- Introduction", duration: "12 mins", summary: "Overview of buy-side, sell-side, and transaction advisory roles.", videoUrl: "Module 1- Introduction.mp4" },
+      { id: "1-2", title: "Module 1 - Lesson 1", duration: "18 mins", summary: "Understanding the boundary of professional certifications vs state licenses.", videoUrl: "Module 1 - Lesson 1.mp4" },
+      { id: "1-3", title: "Module 1 - Lesson 2", duration: "15 mins", summary: "Step-by-step breakdown of the deal lifecycle from listing to close.", videoUrl: "Module 1 - Lesson 2.mp4" },
+      { id: "1-4", title: "Module 1 - Lesson 3", duration: "14 mins", summary: "EBITDA, SDE, Net Working Capital, and deal multiples explained.", videoUrl: "Module 1 - Lesson 3.mp4" },
+      { id: "1-5", title: "Module 1 - Lesson 4", duration: "20 mins", summary: "Fiduciary duties, confidentiality obligations, and conflict of interest rules.", videoUrl: "Module 1 - Lesson 4.mp4" }
     ]
   },
   {
     id: 2,
     title: "Module 2: Business Valuation & Financial Analysis",
     lessons: [
-      { id: "2-1", title: "2.1 Recasting Profit & Loss Statements", duration: "22 mins", summary: "Adjusting owner-operator add-backs to calculate Seller's Discretionary Earnings (SDE).", videoUrl: "lesson21.mp4" },
-      { id: "2-2", title: "2.2 Valuation Methodologies: Multiple of Earnings", duration: "25 mins", summary: "Applying industry-specific valuation multiples based on risk profile.", videoUrl: "lesson22.mp4" },
-      { id: "2-3", title: "2.3 Asset-Based & Liquidation Valuation", duration: "19 mins", summary: "Balance-sheet driven valuations for asset-heavy and distressed businesses.", videoUrl: "lesson23.mp4" },
-      { id: "2-4", title: "2.4 Market Comparables & Precedent Transactions", duration: "21 mins", summary: "Using transaction databases and deal comps to benchmark asking prices.", videoUrl: "lesson24.mp4" },
-      { id: "2-5", title: "2.5 Valuation Report Structuring & Presentation", duration: "18 mins", summary: "How to present valuation findings to business owners and buyers professionally.", videoUrl: "lesson25.mp4" }
+      { id: "2-1", title: "Module 2 - Introduction", duration: "22 mins", summary: "Adjusting owner-operator add-backs to calculate Seller's Discretionary Earnings (SDE).", videoUrl: "Module 2 - Introduction.mp4" },
+      { id: "2-2", title: "Module 2 - Lesson 5", duration: "25 mins", summary: "Applying industry-specific valuation multiples based on risk profile.", videoUrl: "Module 2 - Lesson 5.mp4" },
+      { id: "2-3", title: "Module 2 - Lesson 6", duration: "19 mins", summary: "Balance-sheet driven valuations for asset-heavy and distressed businesses.", videoUrl: "Module 2 - Lesson 6.mp4" },
+      { id: "2-4", title: "Module 2 - Lesson 7", duration: "21 mins", summary: "Using transaction databases and deal comps to benchmark asking prices.", videoUrl: "Module 2 - Lesson 7.mp4" }
     ]
   },
   {
     id: 3,
     title: "Module 3: Marketing a Business for Sale",
     lessons: [
-      { id: "3-1", title: "3.1 Blind Profile & Teaser Document Creation", duration: "16 mins", summary: "Crafting compelling anonymous teasers that attract qualified buyer enquiries.", videoUrl: "lesson31.mp4" },
-      { id: "3-2", title: "3.2 Confidential Information Memorandum (CIM)", duration: "28 mins", summary: "Full structure and content of a professional CIM package.", videoUrl: "lesson32.mp4" },
-      { id: "3-3", title: "3.3 Buyer Sourcing & Targeted Outreach", duration: "17 mins", summary: "Strategic approaches to identify and approach financial and strategic buyers.", videoUrl: "lesson33.mp4" },
-      { id: "3-4", title: "3.4 Digital Listings & Platform Syndication", duration: "14 mins", summary: "Using online marketplaces and proprietary buyer databases for deal exposure.", videoUrl: "lesson34.mp4" },
-      { id: "3-5", title: "3.5 Managing Buyer Enquiries & NDA Execution", duration: "20 mins", summary: "Screening buyers, enforcing NDAs, and releasing confidential information appropriately.", videoUrl: "lesson35.mp4" }
+      { id: "3-1", title: "Module 3 - Introduction", duration: "16 mins", summary: "Crafting compelling anonymous teasers that attract qualified buyer enquiries.", videoUrl: "Module 3 - Introduction.mp4" },
+      { id: "3-2", title: "Module 3 - Lesson 9", duration: "28 mins", summary: "Full structure and content of a professional CIM package.", videoUrl: "Module 3 - Lesson 9.mp4" },
+      { id: "3-3", title: "Module 3 - Lesson 10", duration: "17 mins", summary: "Strategic approaches to identify and approach financial and strategic buyers.", videoUrl: "Module 3 - Lesson 10.mp4" },
+      { id: "3-4", title: "Module 3 - Lesson 11", duration: "14 mins", summary: "Using online marketplaces and proprietary buyer databases for deal exposure.", videoUrl: "Module 3 - Lesson 11.mp4" },
+      { id: "3-5", title: "Module 3 - Lesson 12", duration: "20 mins", summary: "Screening buyers, enforcing NDAs, and releasing confidential information appropriately.", videoUrl: "Module 3 - Lesson 12.mp4" }
     ]
   },
   {
     id: 4,
     title: "Module 4: Buyer Qualification & Management",
     lessons: [
-      { id: "4-1", title: "4.1 Buyer Categories: Financial vs Strategic", duration: "15 mins", summary: "How private equity, family offices, and strategic acquirers differ in intent and approach.", videoUrl: "lesson41.mp4" },
-      { id: "4-2", title: "4.2 Buyer Qualification Criteria & Scripts", duration: "18 mins", summary: "Evaluating financial capacity, operational fit, and deal readiness.", videoUrl: "lesson42.mp4" },
-      { id: "4-3", title: "4.3 Buyer Financing: Bank Loans & Seller Notes", duration: "22 mins", summary: "How buyers finance acquisitions through banks, SBA-equivalents, and seller financing.", videoUrl: "lesson43.mp4" },
-      { id: "4-4", title: "4.4 Conducting Business Presentations & Site Visits", duration: "17 mins", summary: "Facilitating seller-buyer meetings while maintaining confidentiality and control.", videoUrl: "lesson44.mp4" },
-      { id: "4-5", title: "4.5 Letter of Intent (LOI): Drafting & Negotiation", duration: "24 mins", summary: "Key LOI components: price, structure, exclusivity, contingencies, and closing timelines.", videoUrl: "lesson45.mp4" }
+      { id: "4-1", title: "Module 4 - Introduction", duration: "15 mins", summary: "How private equity, family offices, and strategic acquirers differ in intent and approach.", videoUrl: "Module 4 - Introduction.mp4" },
+      { id: "4-2", title: "Module 4 - Lesson 13", duration: "18 mins", summary: "Evaluating financial capacity, operational fit, and deal readiness.", videoUrl: "Module 4 - Lesson 13.mp4" },
+      { id: "4-3", title: "Module 4 - Lesson 14", duration: "22 mins", summary: "How buyers finance acquisitions through banks, SBA-equivalents, and seller financing.", videoUrl: "Module 4 - Lesson 14.mp4" },
+      { id: "4-4", title: "Module 4 - Lesson 15", duration: "17 mins", summary: "Facilitating seller-buyer meetings while maintaining confidentiality and control.", videoUrl: "Module 4 - Lesson 15.mp4" },
+      { id: "4-5", title: "Module 4 - Lesson 16", duration: "24 mins", summary: "Key LOI components: price, structure, exclusivity, contingencies, and closing timelines.", videoUrl: "Module 4 - Lesson 16.mp4" }
     ]
   },
   {
     id: 5,
     title: "Module 5: Due Diligence Process",
     lessons: [
-      { id: "5-1", title: "5.1 Due Diligence Overview & Deal Room Setup", duration: "16 mins", summary: "Organising a virtual data room with financial, legal, and operational documents.", videoUrl: "lesson51.mp4" },
-      { id: "5-2", title: "5.2 Financial Due Diligence Checklist", duration: "25 mins", summary: "Reviewing tax returns, P&L statements, accounts receivable, and EBITDA adjustments.", videoUrl: "lesson52.mp4" },
-      { id: "5-3", title: "5.3 Operational & HR Due Diligence", duration: "18 mins", summary: "Staff contracts, vendor agreements, IP rights, and operational continuity checks.", videoUrl: "lesson53.mp4" },
-      { id: "5-4", title: "5.4 Legal & Compliance Due Diligence", duration: "20 mins", summary: "Licences, litigation risk, regulatory compliance, and pending liabilities.", videoUrl: "lesson54.mp4" },
-      { id: "5-5", title: "5.5 Managing Buyer Concerns During Due Diligence", duration: "15 mins", summary: "Keeping deals from falling apart when issues are discovered post-LOI.", videoUrl: "lesson55.mp4" }
+      { id: "5-1", title: "MODULE 5 - INTRODUCTION", duration: "16 mins", summary: "Organising a virtual data room with financial, legal, and operational documents.", videoUrl: "MODULE 5 - INTRODUCTION.mp4" },
+      { id: "5-2", title: "Module 5 - Lesson 17", duration: "25 mins", summary: "Reviewing tax returns, P&L statements, accounts receivable, and EBITDA adjustments.", videoUrl: "Module 5 - Lesson 17.mp4" },
+      { id: "5-3", title: "Module 5 - Lesson 18", duration: "18 mins", summary: "Staff contracts, vendor agreements, IP rights, and operational continuity checks.", videoUrl: "Module 5 - Lesson 18.mp4" },
+      { id: "5-4", title: "Module 5 - Lesson 19", duration: "20 mins", summary: "Licences, litigation risk, regulatory compliance, and pending liabilities.", videoUrl: "Module 5 - Lesson 19.mp4" },
+      { id: "5-5", title: "Module 5 - Lesson 20", duration: "15 mins", summary: "Keeping deals from falling apart when issues are discovered post-LOI.", videoUrl: "Module 5 - Lesson 20.mp4" }
     ]
   },
   {
     id: 6,
     title: "Module 6: Deal Structuring & Negotiation",
     lessons: [
-      { id: "6-1", title: "6.1 Asset Sale vs. Share Sale: Tax & Liability Implications", duration: "22 mins", summary: "Choosing the right deal structure for seller tax efficiency and buyer protection.", videoUrl: "lesson61.mp4" },
-      { id: "6-2", title: "6.2 Earn-Outs, Seller Financing & Deferred Consideration", duration: "20 mins", summary: "Structuring performance-linked payments and bridging valuation gaps.", videoUrl: "lesson62.mp4" },
-      { id: "6-3", title: "6.3 Negotiation Frameworks & Tactics", duration: "18 mins", summary: "Principled negotiation, BATNA analysis, and closing concessions strategically.", videoUrl: "lesson63.mp4" },
-      { id: "6-4", title: "6.4 Representations, Warranties & Indemnities", duration: "24 mins", summary: "Key legal protections for both parties in a business sale agreement.", videoUrl: "lesson64.mp4" },
-      { id: "6-5", title: "6.5 Post-LOI Exclusivity & Preventing Deal Leakage", duration: "14 mins", summary: "Managing deal momentum and preventing buyers from backing out post-exclusivity.", videoUrl: "lesson65.mp4" }
+      { id: "6-1", title: "Module 6 - Introduction", duration: "15 mins", summary: "Introduction to deal mechanisms, options, and purchase structure.", videoUrl: "Module 6 - Introduction.mp4" },
+      { id: "6-2", title: "Module 6 - Lesson 21", duration: "22 mins", summary: "Choosing the right deal structure for seller tax efficiency and buyer protection.", videoUrl: "Module 6 - Lesson 21.mp4" },
+      { id: "6-3", title: "Module 6 - Lesson 22", duration: "20 mins", summary: "Structuring performance-linked payments and bridging valuation gaps.", videoUrl: "Module 6 - Lesson 22.mp4" },
+      { id: "6-4", title: "Module 6 - Lesson 23", duration: "18 mins", summary: "Principled negotiation, BATNA analysis, and closing concessions strategically.", videoUrl: "Module 6 - Lesson 23.mp4" },
+      { id: "6-5", title: "Module 6 - Lesson 24", duration: "24 mins", summary: "Key legal protections for both parties in a business sale agreement.", videoUrl: "Module 6 - Lesson 24.mp4" },
+      { id: "6-6", title: "Module 6 - Lesson 25", duration: "14 mins", summary: "Managing deal momentum and preventing buyers from backing out post-exclusivity.", videoUrl: "Module 6 - Lesson 25.mp4" },
+      { id: "6-7", title: "Module 6- Lesson 26", duration: "21 mins", summary: "Understanding capital structures, leverage, and mezzanine debt options.", videoUrl: "Module 6- Lesson 26.mp4" },
+      { id: "6-8", title: "Module 6 - Lesson 27", duration: "19 mins", summary: "How capitalization choices impact value creation and investment returns.", videoUrl: "Module 6 - Lesson 27.mp4" }
     ]
   },
   {
     id: 7,
     title: "Module 7: Closing the Transaction",
     lessons: [
-      { id: "7-1", title: "7.1 Sale & Purchase Agreement (SPA) Overview", duration: "25 mins", summary: "Key clauses, conditions precedent, and closing mechanics in the SPA.", videoUrl: "lesson71.mp4" },
-      { id: "7-2", title: "7.2 Working with Lawyers, CAs, and Advisors", duration: "15 mins", summary: "Coordinating a professional advisory team through the closing process.", videoUrl: "lesson72.mp4" },
-      { id: "7-3", title: "7.3 Funds Flow, Escrow & Settlement", duration: "19 mins", summary: "Payment mechanics, escrow releases, and funds-flow waterfalls.", videoUrl: "lesson73.mp4" },
-      { id: "7-4", title: "7.4 Transition & Handover Planning", duration: "17 mins", summary: "Staff, customer, and vendor communication during business ownership transfer.", videoUrl: "lesson74.mp4" },
-      { id: "7-5", title: "7.5 Post-Close Integration & Broker Obligations", duration: "13 mins", summary: "Retention support, referral obligations, and relationship maintenance post-close.", videoUrl: "lesson75.mp4" }
+      { id: "7-1", title: "Module 7 - Introduction", duration: "14 mins", summary: "Introduction to the closing phase, transaction checkpoints, and milestones.", videoUrl: "Module 7 - Introduction.mp4" },
+      { id: "7-2", title: "Module 7 - Lesson 28", duration: "25 mins", summary: "Key clauses, conditions precedent, and closing mechanics in the SPA.", videoUrl: "Module 7 - Lesson 28.mp4" },
+      { id: "7-3", title: "Module 7 - Lesson 29", duration: "15 mins", summary: "Coordinating a professional advisory team through the closing process.", videoUrl: "Module 7 - Lesson 29.mp4" },
+      { id: "7-4", title: "Module 7 - Lesson 30", duration: "19 mins", summary: "Payment mechanics, escrow releases, and funds-flow waterfalls.", videoUrl: "Module 7 - Lesson 30.mp4" },
+      { id: "7-5", title: "Module 7 - Lesson 31", duration: "17 mins", summary: "Staff, customer, and vendor communication during business ownership transfer.", videoUrl: "Module 7 - Lesson 31.mp4" },
+      { id: "7-6", title: "Module 7 - Lesson 32", duration: "13 mins", summary: "Retention support, referral obligations, and relationship maintenance post-close.", videoUrl: "Module 7 - Lesson 32.mp4" },
+      { id: "7-7", title: "Module 7 - Lesson 33", duration: "18 mins", summary: "Ensuring all legal declarations and required disclosures are completed properly.", videoUrl: "Module 7 - Lesson 33.mp4" },
+      { id: "7-8", title: "Module 7 - Lesson 34", duration: "20 mins", summary: "Allocating success fees, managing holdbacks, and closing bank escrow accounts.", videoUrl: "Module 7 - Lesson 34.mp4" }
     ]
   },
   {
     id: 8,
     title: "Module 8: Client Management & Professional Practice",
     lessons: [
-      { id: "8-1", title: "8.1 Listing Agreement & Engagement Terms", duration: "16 mins", summary: "Drafting and presenting listing agreements, exclusivity, and commission structures.", videoUrl: "lesson81.mp4" },
-      { id: "8-2", title: "8.2 Managing Seller Expectations", duration: "18 mins", summary: "Educating sellers on realistic valuations, timelines, and deal certainty.", videoUrl: "lesson82.mp4" },
-      { id: "8-3", title: "8.3 CRM & Pipeline Management", duration: "14 mins", summary: "Maintaining an organised deal pipeline using CRM tools and activity tracking.", videoUrl: "lesson83.mp4" },
-      { id: "8-4", title: "8.4 Business Development & Referral Networks", duration: "20 mins", summary: "Building referral relationships with accountants, lawyers, and wealth managers.", videoUrl: "lesson84.mp4" },
-      { id: "8-5", title: "8.5 Professional Practice Standards & Compliance", duration: "17 mins", summary: "Maintaining records, compliance checklists, and YBB professional standards.", videoUrl: "lesson85.mp4" }
+      { id: "8-1", title: "Module 8 - Introduction", duration: "13 mins", summary: "Overview of professional parameters, standards, and workflow strategies.", videoUrl: "Module 8 - Introduction.mp4" },
+      { id: "8-2", title: "Module 8 - Lesson 35", duration: "16 mins", summary: "Drafting and presenting listing agreements, exclusivity, and commission structures.", videoUrl: "Module 8 - Lesson 35.mp4" },
+      { id: "8-3", title: "Module 8 - Lesson 36", duration: "18 mins", summary: "Educating sellers on realistic valuations, timelines, and deal certainty.", videoUrl: "Module 8 - Lesson 36.mp4" },
+      { id: "8-4", title: "Module 8 - Lesson 37", duration: "14 mins", summary: "Maintaining an organised deal pipeline using CRM tools and activity tracking.", videoUrl: "Module 8 - Lesson 37.mp4" },
+      { id: "8-5", title: "Module 8 - Lesson 38", duration: "20 mins", summary: "Building referral relationships with accountants, lawyers, and wealth managers.", videoUrl: "Module 8 - Lesson 38.mp4" },
+      { id: "8-6", title: "Module 8 - Lesson 39", duration: "17 mins", summary: "Maintaining records, compliance checklists, and YBB professional standards.", videoUrl: "Module 8 - Lesson 39.mp4" },
+      { id: "8-7", title: "Module 8 - Lesson 40", duration: "19 mins", summary: "Positioning yourself as a transaction expert through content and events.", videoUrl: "Module 8 - Lesson 40.mp4" },
+      { id: "8-8", title: "Module 8 - Lesson 41", duration: "22 mins", summary: "Navigating advisory pricing models, retaining deposits, and sharing commissions.", videoUrl: "Module 8 - Lesson 41.mp4" },
+      { id: "8-9", title: "Module 8 - Lesson 42", duration: "15 mins", summary: "Protecting your brokerage firm against operational and client-side advisory risks.", videoUrl: "Module 8 - Lesson 42.mp4" }
     ]
   },
   {
     id: 9,
     title: "Module 9: Industry Sectors & Specialisation",
     lessons: [
-      { id: "9-1", title: "9.1 Retail & Food-Service Business Transactions", duration: "18 mins", summary: "Lease assignments, goodwill valuation, and inventory deals in retail and F&B.", videoUrl: "lesson91.mp4" },
-      { id: "9-2", title: "9.2 Manufacturing & Industrial Business Sales", duration: "21 mins", summary: "Asset-heavy transactions, plant valuation, and environmental due diligence.", videoUrl: "lesson92.mp4" },
-      { id: "9-3", title: "9.3 Professional Services & Technology Companies", duration: "19 mins", summary: "Recurring revenue models, client retention risk, and IP valuation in services/tech.", videoUrl: "lesson93.mp4" },
-      { id: "9-4", title: "9.4 Healthcare & Education Businesses", duration: "17 mins", summary: "Regulatory licences, patient/student databases, and sector-specific compliance.", videoUrl: "lesson94.mp4" },
-      { id: "9-5", title: "9.5 E-Commerce & Digital Asset Transactions", duration: "22 mins", summary: "Valuing DTC brands, Amazon stores, SaaS products, and domain assets.", videoUrl: "lesson95.mp4" }
+      { id: "9-1", title: "Module 9 - Introduction", duration: "12 mins", summary: "Overview of industry specialization and transaction nuances across sectors.", videoUrl: "Module 9 - Introduction.mp4" },
+      { id: "9-2", title: "Module 9 - Lesson 43", duration: "18 mins", summary: "Lease assignments, goodwill valuation, and inventory deals in retail and F&B.", videoUrl: "Module 9 - Lesson 43.mp4" },
+      { id: "9-3", title: "Module 9 - Lesson 44", duration: "21 mins", summary: "Asset-heavy transactions, plant valuation, and environmental due diligence.", videoUrl: "Module 9 - Lesson 44.mp4" },
+      { id: "9-4", title: "MODULE 9 - Lesson 45", duration: "19 mins", summary: "Recurring revenue models, client retention risk, and IP valuation in services/tech.", videoUrl: "MODULE 9 - Lesson 45.mp4" }
     ]
   },
   {
     id: 10,
     title: "Module 10: Certification Readiness & Capstone",
     lessons: [
-      { id: "10-1", title: "10.1 ABB Exam Strategy & Question Patterns", duration: "14 mins", summary: "Exam structure, MCQ patterns, and time management strategies for the final assessment.", videoUrl: "lesson101.mp4" },
-      { id: "10-2", title: "10.2 Case Study: End-to-End Deal Simulation", duration: "30 mins", summary: "Full transaction walkthrough: valuation to SPA signing using a realistic case study.", videoUrl: "lesson102.mp4" },
-      { id: "10-3", title: "10.3 Certificate, ABB ID & Credential Verification", duration: "10 mins", summary: "How your unique ABB ID is generated, certificate issued, and verified by third parties.", videoUrl: "lesson103.mp4" },
-      { id: "10-4", title: "10.4 Continuing Professional Development (CPD)", duration: "12 mins", summary: "Staying current with M&A trends, annual renewal, and YBB community membership.", videoUrl: "lesson104.mp4" },
-      { id: "10-5", title: "10.5 YBB Code of Conduct & Professional Obligations", duration: "16 mins", summary: "Final declaration, professional obligations, and ethical standards of an ABB holder.", videoUrl: "lesson105.mp4" }
+      { id: "10-1", title: "Module 10 - Introduction", duration: "11 mins", summary: "Overview of requirements, practical benchmarks, and mock practice runs.", videoUrl: "Module 10 - Introduction.mp4" },
+      { id: "10-2", title: "Module 10 - Lesson 46", duration: "14 mins", summary: "Exam structure, MCQ patterns, and time management strategies for the final assessment.", videoUrl: "Module 10 - Lesson 46.mp4" },
+      { id: "10-3", title: "Module 10 - Lesson 47", duration: "30 mins", summary: "Full transaction walkthrough: valuation to SPA signing using a realistic case study.", videoUrl: "Module 10 - Lesson 47.mp4" },
+      { id: "10-4", title: "Module 10 - Lesson 48", duration: "10 mins", summary: "How your unique ABB ID is generated, certificate issued, and verified by third parties.", videoUrl: "Module 10 - Lesson 48.mp4" },
+      { id: "10-5", title: "Module 10 - Lesson 49", duration: "12 mins", summary: "Staying current with M&A trends, annual renewal, and YBB community membership.", videoUrl: "Module 10 - Lesson 49.mp4" }
     ]
+  },
+  {
+    id: 11,
+    title: "Module 11: Ethics & Professional Obligations",
+    lessons: [
+      { id: "11-1", title: "Module 11 - Introduction", duration: "10 mins", summary: "Overview of final ethics guidelines, compliance, and fiduciary obligations.", videoUrl: "Module 11 - Introduction.mp4" },
+      { id: "11-2", title: "Module 11 - Lesson 50", duration: "16 mins", summary: "Final declaration, professional obligations, and ethical standards of an ABB holder.", videoUrl: "Module 11 - Lesson 50.mp4" }
+    ]
+  }
+];const INITIAL_ASSIGNMENT_TASKS = [
+  {
+    id: 'as-1',
+    num: 1,
+    title: 'Module 2: Business Valuation Recast Case Study',
+    desc: 'Produce a complete recasted P&L using SDE methodology for a fictitious retail business. Include add-back schedule and final valuation multiple.',
+    ref: 'Module 2 — Lessons 2.1 to 2.5',
+    dueNote: 'Complete by end of Module 3',
+    fileHint: 'val_recast_yourname.xlsx',
+  },
+  {
+    id: 'as-2',
+    num: 2,
+    title: 'Module 3: Blind Teaser & CIM Structure Exercise',
+    desc: 'Draft a 2-page anonymous teaser and a 10-section CIM outline for a fictitious manufacturing business. Follow YBB templates.',
+    ref: 'Module 3 — Lessons 3.1 to 3.2',
+    dueNote: 'Complete by end of Module 5',
+    fileHint: 'cim_teaser_yourname.pdf',
+  },
+  {
+    id: 'as-3',
+    num: 3,
+    title: 'Module 5: Due Diligence Checklist & Data Room Setup',
+    desc: 'Complete the YBB Due Diligence Checklist template for a provided scenario. Organize a mock data room folder structure with 15+ categories.',
+    ref: 'Module 5 — Lessons 5.1 to 5.4',
+    dueNote: 'Complete before Final Exam',
+    fileHint: 'dd_checklist_yourname.xlsx',
   }
 ];
 
@@ -191,7 +235,9 @@ function pathToScreen() {
 
 function App() {
   // --- STATE SYSTEM ---
-  const [currentRole, setCurrentRole] = useState("Visitor"); 
+  const [currentRole, setCurrentRole] = useState(() => {
+    return localStorage.getItem('ybb_role') || "Visitor";
+  });
   const [currentScreen, setCurrentScreen] = useState(pathToScreen); 
   
   // Search & Filter States
@@ -203,67 +249,135 @@ function App() {
   const [discountPercent, setDiscountPercent] = useState(0);
 
   // System Configurations
-  const [settings, setSettings] = useState({
-    price: 15000,
-    gstRate: 18,
-    automaticIssuance: false,
-    sequentialMode: true,
-    certIdFormat: "YBB-ABB-YYYY-NNNN",
-    signatoryName: "Yoova Executive Director",
-    legalVersion: "1.0",
-    legalText: "Disclaimers: The Authorised Business Broker (ABB) Certificate is professional credentials issued by Yoova Business Broking. It is not a statutory or government license, nor does it guarantee transaction flow, employment, or specific income outcomes.",
-    revealAnswers: false
+  const [settings, setSettings] = useState(() => {
+    const saved = localStorage.getItem('ybb_settings');
+    return saved ? JSON.parse(saved) : {
+      price: 15000,
+      gstRate: 18,
+      automaticIssuance: false,
+      sequentialMode: true,
+      certIdFormat: "YBB-ABB-YYYY-NNNN",
+      signatoryName: "Yoova Executive Director",
+      legalVersion: "1.0",
+      legalText: "Disclaimers: The Authorised Business Broker (ABB) Certificate is professional credentials issued by Yoova Business Broking. It is not a statutory or government license, nor does it guarantee transaction flow, employment, or specific income outcomes.",
+      revealAnswers: false
+    };
   });
 
   // User database simulation
-  const [learners, setLearners] = useState([
-    {
-      id: "usr-201",
-      fullName: "Rohan Kumar",
-      mobile: "+91 9876543210",
-      email: "rohan@example.com",
-      city: "Bangalore",
-      state: "Karnataka",
-      profession: "Business Advisor",
-      billingAddress: "42, Residency Road, Bangalore - 560025",
-      gstNumber: "29AAAAA1111A1Z1",
-      status: "Active",
-      stage: "Enrolled", 
-      completedLessons: ["1-1", "1-2"],
-      attempts: 0,
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
-    }
-  ]);
+  const [learners, setLearners] = useState(() => {
+    const saved = localStorage.getItem('ybb_learners');
+    return saved ? JSON.parse(saved) : [
+      {
+        id: "usr-201",
+        fullName: "Rohan Kumar",
+        mobile: "+91 9876543210",
+        email: "rohan@example.com",
+        city: "Bangalore",
+        state: "Karnataka",
+        profession: "Business Advisor",
+        billingAddress: "42, Residency Road, Bangalore - 560025",
+        gstNumber: "29AAAAA1111A1Z1",
+        status: "Active",
+        stage: "Enrolled", 
+        completedLessons: ["1-1", "1-2"],
+        attempts: 0,
+        photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
+      }
+    ];
+  });
   const activeLearner = learners[0]; 
 
   // Recover Account
   const [recoveryEmail, setRecoveryEmail] = useState("");
 
   // Databases
-  const [modules, setModules] = useState(INITIAL_MODULES);
-  const [resources, setResources] = useState(INITIAL_RESOURCES);
-  const [questionBank, setQuestionBank] = useState(INITIAL_QUESTIONS);
-  const [orders, setOrders] = useState(INITIAL_ORDERS);
+  const [modules, setModules] = useState(() => {
+    const saved = localStorage.getItem('ybb_modules');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.length < 11 || parsed[0]?.lessons[0]?.title !== "Module 1- Introduction") {
+          return INITIAL_MODULES;
+        }
+        return parsed;
+      } catch (e) {
+        return INITIAL_MODULES;
+      }
+    }
+    return INITIAL_MODULES;
+  });
+  const [resources, setResources] = useState(() => {
+    const saved = localStorage.getItem('ybb_resources');
+    return saved ? JSON.parse(saved) : INITIAL_RESOURCES;
+  });
+  const [questionBank, setQuestionBank] = useState(() => {
+    const saved = localStorage.getItem('ybb_questionBank');
+    return saved ? JSON.parse(saved) : INITIAL_QUESTIONS;
+  });
+  const [orders, setOrders] = useState(() => {
+    const saved = localStorage.getItem('ybb_orders');
+    return saved ? JSON.parse(saved) : INITIAL_ORDERS;
+  });
 
   // Active Lesson
   const [activeLessonId, setActiveLessonId] = useState("1-3");
   const [watchPercentage, setWatchPercentage] = useState(0);
 
   // Assignment submissions
-  const [assignments, setAssignments] = useState([
-    {
-      id: "as-1",
-      learnerName: "Rohan Kumar",
-      title: "Module 2: Recast Valuation Case Study",
-      fileName: "val_sheet_rohan.xlsx",
-      submittedDate: "2026-07-19",
-      status: "Under Review", 
-      feedback: "Reviewer is checking your normalization spreadsheet details.",
-      attempts: 1
-    }
-  ]);
+  const [assignments, setAssignments] = useState(() => {
+    const saved = localStorage.getItem('ybb_assignments');
+    return saved ? JSON.parse(saved) : [
+      {
+        id: "as-1",
+        learnerName: "Rohan Kumar",
+        title: "Module 2: Recast Valuation Case Study",
+        fileName: "val_sheet_rohan.xlsx",
+        submittedDate: "2026-07-19",
+        status: "Under Review", 
+        feedback: "Reviewer is checking your normalization spreadsheet details.",
+        attempts: 1
+      }
+    ];
+  });
   const [newAssignmentFile, setNewAssignmentFile] = useState("");
   const [uploadVals, setUploadVals] = useState({ 'as-1': '', 'as-2': '', 'as-3': '' });
+  const [assignmentTasks, setAssignmentTasks] = useState(() => {
+    const saved = localStorage.getItem('ybb_assignmentTasks');
+    return saved ? JSON.parse(saved) : INITIAL_ASSIGNMENT_TASKS;
+  });
+  
+  // Admin Add Assignment form state
+  const [newAssignmentTitle, setNewAssignmentTitle] = useState("");
+  const [newAssignmentDesc, setNewAssignmentDesc] = useState("");
+  const [newAssignmentRef, setNewAssignmentRef] = useState("");
+  const [newAssignmentDue, setNewAssignmentDue] = useState("");
+  const [newAssignmentHint, setNewAssignmentHint] = useState("");
+
+  // Admin Add Question builder form state
+  const [newQuestionText, setNewQuestionText] = useState("");
+  const [newQuestionType, setNewQuestionType] = useState("MCQ");
+  const [newQuestionDiff, setNewQuestionDiff] = useState("Medium");
+  const [newQuestionTopic, setNewQuestionTopic] = useState("");
+  const [newQuestionOptions, setNewQuestionOptions] = useState(["", "", "", ""]);
+  const [newQuestionCorrect, setNewQuestionCorrect] = useState([]);
+
+  // Admin Content Manager form state
+  const [newModuleTitle, setNewModuleTitle] = useState("");
+  const [newLessonTitle, setNewLessonTitle] = useState("");
+  const [newLessonDuration, setNewLessonDuration] = useState("");
+  const [newLessonVideoUrl, setNewLessonVideoUrl] = useState("");
+  const [editingLessonId, setEditingLessonId] = useState(null);
+  const [editLessonTitle, setEditLessonTitle] = useState("");
+  const [editLessonDuration, setEditLessonDuration] = useState("");
+  const [editLessonVideoUrl, setEditLessonVideoUrl] = useState("");
+  const [editingModuleId, setEditingModuleId] = useState(null);
+  const [editModuleTitle, setEditModuleTitle] = useState("");
+  const [expandedModuleId, setExpandedModuleId] = useState(1);
+  // Resource builder
+  const [newResourceTitle, setNewResourceTitle] = useState("");
+  const [newResourceDesc, setNewResourceDesc] = useState("");
+  const [newResourceVer, setNewResourceVer] = useState("");
 
   // Exam States
   const [examState, setExamState] = useState({
@@ -305,7 +419,10 @@ function App() {
   const [adminTab, setAdminTab] = useState('overview');
   const [adminOrderFilter, setAdminOrderFilter] = useState('All');
   // Admin authentication
-  const [adminAuth, setAdminAuth] = useState(null); // null | { email, role, name, avatar }
+  const [adminAuth, setAdminAuth] = useState(() => {
+    const saved = localStorage.getItem('ybb_admin_auth');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [adminLoginEmail, setAdminLoginEmail] = useState('');
   const [adminLoginPassword, setAdminLoginPassword] = useState('');
   const [adminLoginError, setAdminLoginError] = useState('');
@@ -313,12 +430,28 @@ function App() {
   const [adminShowPassword, setAdminShowPassword] = useState(false);
 
   // System Audit Logs
-  const [auditLogs, setAuditLogs] = useState([
-    { timestamp: "2026-07-20T10:00:00Z", action: "User Registration", role: "Visitor", ip: "192.168.1.45" },
-    { timestamp: "2026-07-20T11:15:00Z", action: "Admin Configured GST details", role: "SuperAdmin", ip: "192.168.1.1" }
-  ]);
+  const [auditLogs, setAuditLogs] = useState(() => {
+    const saved = localStorage.getItem('ybb_auditLogs');
+    return saved ? JSON.parse(saved) : [
+      { timestamp: "2026-07-20T10:00:00Z", action: "User Registration", role: "Visitor", ip: "192.168.1.45" },
+      { timestamp: "2026-07-20T11:15:00Z", action: "Admin Configured GST details", role: "SuperAdmin", ip: "192.168.1.1" }
+    ];
+  });
+  const [auditSearchQuery, setAuditSearchQuery] = useState("");
+  const [toast, setToast] = useState(null);
+  const toastTimer = useRef(null);
+  
+  const showToast = (message, type = 'success') => {
+    if (toastTimer.current) {
+      clearTimeout(toastTimer.current);
+    }
+    setToast({ message, type });
+    toastTimer.current = setTimeout(() => {
+      setToast(null);
+    }, 4000);
+  };
 
-  const logAction = (action, role) => {
+  const logAction = (action, role = currentRole) => {
     const newLog = {
       timestamp: new Date().toISOString(),
       action,
@@ -336,6 +469,67 @@ function App() {
     }
     setCurrentScreen(screen);
   };
+
+  // Override window.alert to render our custom Toast notifications dynamically
+  useEffect(() => {
+    window.alert = (message) => {
+      let type = 'success';
+      const lowercaseMsg = message.toLowerCase();
+      if (lowercaseMsg.includes('invalid') || lowercaseMsg.includes('required') || lowercaseMsg.includes('failed') || lowercaseMsg.includes('fill') || lowercaseMsg.includes('error')) {
+        type = 'error';
+      } else if (lowercaseMsg.includes('warning') || lowercaseMsg.includes('lagging') || lowercaseMsg.includes('require')) {
+        type = 'warning';
+      } else if (lowercaseMsg.includes('downloading') || lowercaseMsg.includes('opening') || lowercaseMsg.includes('copy') || lowercaseMsg.includes('export')) {
+        type = 'info';
+      }
+      showToast(message, type);
+    };
+  }, []);
+
+  // Sync state to localStorage on changes
+  useEffect(() => {
+    localStorage.setItem('ybb_settings', JSON.stringify(settings));
+  }, [settings]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_learners', JSON.stringify(learners));
+  }, [learners]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_modules', JSON.stringify(modules));
+  }, [modules]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_resources', JSON.stringify(resources));
+  }, [resources]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_questionBank', JSON.stringify(questionBank));
+  }, [questionBank]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_orders', JSON.stringify(orders));
+  }, [orders]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_assignments', JSON.stringify(assignments));
+  }, [assignments]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_assignmentTasks', JSON.stringify(assignmentTasks));
+  }, [assignmentTasks]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_auditLogs', JSON.stringify(auditLogs));
+  }, [auditLogs]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_role', currentRole);
+  }, [currentRole]);
+
+  useEffect(() => {
+    localStorage.setItem('ybb_admin_auth', adminAuth ? JSON.stringify(adminAuth) : '');
+  }, [adminAuth]);
 
   // Sync back-button / forward-button → screen state
   // Also strips any legacy /#/ hash from the URL on first load
@@ -1331,8 +1525,61 @@ function App() {
                   {/* Header Banner */}
                   <div className="tab-page-header" style={{position: 'relative', zIndex: 1}}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '18px', position: 'relative', zIndex: 1}}>
-                      <div className="profile-avatar-ring">
-                        <img src={activeLearner.photo} alt="Profile" />
+                      <div 
+                        className="profile-avatar-ring" 
+                        style={{
+                          position: 'relative', 
+                          cursor: 'pointer',
+                          overflow: 'hidden'
+                        }}
+                        onClick={() => document.getElementById('avatar-file-input').click()}
+                        title="Click to upload new avatar image"
+                      >
+                        <img 
+                          src={activeLearner.photo} 
+                          alt="Profile" 
+                          style={{
+                            width: '100%', 
+                            height: '100%', 
+                            borderRadius: '50%', 
+                            objectFit: 'cover'
+                          }} 
+                        />
+                        <div style={{
+                          position: 'absolute',
+                          inset: '3px',
+                          borderRadius: '50%',
+                          background: 'rgba(0, 0, 0, 0.65)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          opacity: 0,
+                          transition: 'opacity 0.2s',
+                          color: '#fff'
+                        }}
+                        onMouseOver={e => e.currentTarget.style.opacity = 1}
+                        onMouseOut={e => e.currentTarget.style.opacity = 0}
+                        >
+                          <Upload size={18} style={{marginBottom: '2px'}} />
+                          <span style={{fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em'}}>Edit</span>
+                        </div>
+                        <input
+                          id="avatar-file-input"
+                          type="file"
+                          accept="image/*"
+                          style={{display: 'none'}}
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (!file) return;
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                              setLearners(prev => prev.map(l => l.id === activeLearner.id ? { ...l, photo: reader.result } : l));
+                              logAction('Updated profile avatar image', 'Learner');
+                            };
+                            reader.readAsDataURL(file);
+                          }}
+                        />
                       </div>
                       <div>
                         <h2 style={{marginBottom: '4px'}}>{activeLearner.fullName}</h2>
@@ -1917,13 +2164,13 @@ function App() {
                   <div className="tab-page-header" style={{position: 'relative', zIndex: 1}}>
                     <div style={{position: 'relative', zIndex: 1}}>
                       <h2>📋 Case Study Assignments</h2>
-                      <p>Submit your practical deal exercises for reviewer evaluation. All 3 assignments must be approved before the exam unlocks.</p>
+                      <p>Submit your practical deal exercises for reviewer evaluation. All {assignmentTasks.length} assignments must be approved before the exam unlocks.</p>
                     </div>
                     <div className="tab-header-stats" style={{flexShrink: 0}}>
                       {[
                         { value: assignments.filter(a => a.status === 'Approved').length, label: 'Approved' },
                         { value: assignments.filter(a => a.status === 'Under Review').length, label: 'In Review' },
-                        { value: 3, label: 'Required' },
+                        { value: assignmentTasks.length, label: 'Required' },
                       ].map(s => (
                         <div key={s.label} className="tab-header-stat">
                           <div className="tab-header-stat-value">{s.value}</div>
@@ -1935,35 +2182,7 @@ function App() {
 
                   {/* Assignment Cards */}
                   <div style={{display: 'flex', flexDirection: 'column', gap: '14px'}}>
-                    {[
-                      {
-                        id: 'as-1',
-                        num: 1,
-                        title: 'Module 2: Business Valuation Recast Case Study',
-                        desc: 'Produce a complete recasted P&L using SDE methodology for a fictitious retail business. Include add-back schedule and final valuation multiple.',
-                        ref: 'Module 2 — Lessons 2.1 to 2.5',
-                        dueNote: 'Complete by end of Module 3',
-                        fileHint: 'val_recast_yourname.xlsx',
-                      },
-                      {
-                        id: 'as-2',
-                        num: 2,
-                        title: 'Module 3: Blind Teaser & CIM Structure Exercise',
-                        desc: 'Draft a 2-page anonymous teaser and a 10-section CIM outline for a fictitious manufacturing business. Follow YBB templates.',
-                        ref: 'Module 3 — Lessons 3.1 to 3.2',
-                        dueNote: 'Complete by end of Module 5',
-                        fileHint: 'cim_teaser_yourname.pdf',
-                      },
-                      {
-                        id: 'as-3',
-                        num: 3,
-                        title: 'Module 5: Due Diligence Checklist & Data Room Setup',
-                        desc: 'Complete the YBB Due Diligence Checklist template for a provided scenario. Organize a mock data room folder structure with 15+ categories.',
-                        ref: 'Module 5 — Lessons 5.1 to 5.4',
-                        dueNote: 'Complete before Final Exam',
-                        fileHint: 'dd_checklist_yourname.xlsx',
-                      },
-                    ].map((task) => {
+                    {assignmentTasks.map((task) => {
                       const existing = assignments.find(a => a.id === task.id);
                       const status = existing?.status || 'Not Submitted';
                       const accentClass = status === 'Approved' ? 'approved' : status === 'Under Review' ? 'review' : status === 'Resubmission Required' ? 'rejected' : 'pending';
@@ -2011,46 +2230,140 @@ function App() {
                               <div className="assignment-feedback">
                                 <strong>💬 Reviewer Feedback</strong>
                                 {existing.feedback}
-                                {existing.fileName && <div style={{marginTop: '5px', fontFamily: 'monospace', fontSize: '0.8rem'}}>📎 {existing.fileName}</div>}
+                              </div>
+                            )}
+
+                            {/* Submitted file/image preview */}
+                            {existing?.fileName && (
+                              <div style={{marginTop: '12px', padding: '10px', background: '#f8fafc', border: '1px solid var(--border)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px'}}>
+                                {existing.fileData ? (
+                                  existing.fileType?.startsWith('image/') ? (
+                                    <a href={existing.fileData} target="_blank" rel="noopener noreferrer" title="View full image">
+                                      <img src={existing.fileData} style={{width: '40px', height: '40px', borderRadius: '4px', objectFit: 'cover', border: '1px solid #cbd5e1', cursor: 'zoom-in'}} alt="Preview" />
+                                    </a>
+                                  ) : (
+                                    <a href={existing.fileData} download={existing.fileName} title="Download file" style={{width: '40px', height: '40px', background: '#e2e8f0', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b'}}>
+                                      <FileText size={20} />
+                                    </a>
+                                  )
+                                ) : (
+                                  <div style={{width: '40px', height: '40px', background: '#e2e8f0', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b'}}>
+                                    <FileText size={20} />
+                                  </div>
+                                )}
+                                <div style={{flex: 1, minWidth: 0}}>
+                                  <div style={{fontSize: '0.85rem', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{existing.fileName}</div>
+                                  <div style={{fontSize: '0.75rem', color: 'var(--text-muted)'}}>{existing.fileSize || 'Size: ~1.2 MB'} · Submitted on {existing.submittedDate}</div>
+                                </div>
                               </div>
                             )}
 
                             {/* Upload row — only if not yet approved */}
                             {status !== 'Approved' && (
-                              <div className="assignment-upload-row">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  placeholder={`e.g. ${task.fileHint}`}
-                                  value={uploadVals[task.id] || ''}
-                                  onChange={e => setUploadVals(prev => ({ ...prev, [task.id]: e.target.value }))}
-                                  style={{maxWidth: '340px'}}
-                                />
-                                <button
-                                  className="btn btn-primary"
-                                  onClick={() => {
-                                    const val = uploadVals[task.id];
-                                    if (!val) { alert('Please enter a filename'); return; }
-                                    setAssignments(prev => {
-                                      const filtered = prev.filter(a => a.id !== task.id);
-                                      return [...filtered, {
-                                        id: task.id,
-                                        learnerName: activeLearner.fullName,
-                                        title: task.title,
-                                        status: 'Under Review',
-                                        submittedDate: new Date().toLocaleDateString(),
-                                        feedback: 'Awaiting review grading by Content Reviewer.',
-                                        fileName: val,
-                                        attempts: (existing?.attempts || 0) + 1
-                                      }];
-                                    });
-                                    setUploadVals(prev => ({ ...prev, [task.id]: '' }));
-                                    logAction(`Submitted assignment: ${task.title}`, 'Learner');
+                              <div style={{marginTop: '16px'}}>
+                                <div 
+                                  style={{
+                                    border: '2px dashed #cbd5e1',
+                                    borderRadius: '8px',
+                                    padding: '20px',
+                                    textAlign: 'center',
+                                    background: '#f8fafc',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s',
+                                    position: 'relative'
                                   }}
-                                  style={{flexShrink: 0}}
+                                  onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
+                                  onMouseOut={e => e.currentTarget.style.borderColor = '#cbd5e1'}
+                                  onClick={() => document.getElementById(`file-input-${task.id}`).click()}
                                 >
-                                  <Upload size={15} /> {existing ? 'Resubmit' : 'Submit'}
-                                </button>
+                                  <input
+                                    id={`file-input-${task.id}`}
+                                    type="file"
+                                    accept="image/*,application/pdf,.xlsx,.xls,.docx,.doc"
+                                    style={{display: 'none'}}
+                                    onChange={(e) => {
+                                      const file = e.target.files[0];
+                                      if (!file) return;
+                                      
+                                      const reader = new FileReader();
+                                      reader.onload = (event) => {
+                                        setUploadVals(prev => ({
+                                          ...prev,
+                                          [task.id]: {
+                                            name: file.name,
+                                            size: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+                                            type: file.type,
+                                            data: event.target.result
+                                          }
+                                        }));
+                                      };
+                                      reader.readAsDataURL(file);
+                                    }}
+                                  />
+                                  
+                                  {uploadVals[task.id]?.name ? (
+                                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px'}}>
+                                      {uploadVals[task.id].type?.startsWith('image/') ? (
+                                        <img src={uploadVals[task.id].data} style={{maxHeight: '100px', borderRadius: '6px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'}} alt="Upload preview" />
+                                      ) : (
+                                        <FileText size={32} style={{color: 'var(--primary)'}} />
+                                      )}
+                                      <div style={{fontSize: '0.85rem', fontWeight: 600, color: 'var(--text)'}}>{uploadVals[task.id].name}</div>
+                                      <div style={{fontSize: '0.75rem', color: 'var(--text-muted)'}}>{uploadVals[task.id].size} · Ready to submit</div>
+                                      <span style={{fontSize: '0.75rem', color: 'var(--primary)', textDecoration: 'underline'}}>Click to change file</span>
+                                    </div>
+                                  ) : (
+                                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px'}}>
+                                      <Upload size={24} style={{color: '#64748b'}} />
+                                      <div style={{fontSize: '0.85rem', fontWeight: 600, color: '#334155'}}>Click to upload file or image</div>
+                                      <div style={{fontSize: '0.72rem', color: '#64748b'}}>Support PDF, Excel, Word, or Images up to 10MB</div>
+                                    </div>
+                                  )}
+                                </div>
+                                
+                                {uploadVals[task.id]?.name && (
+                                  <div style={{display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '12px'}}>
+                                    <button 
+                                      className="btn btn-secondary" 
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setUploadVals(prev => ({ ...prev, [task.id]: null }));
+                                      }}
+                                      style={{padding: '8px 16px', fontSize: '0.85rem'}}
+                                    >
+                                      Cancel
+                                    </button>
+                                    <button
+                                      className="btn btn-primary"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        const fileInfo = uploadVals[task.id];
+                                        if (!fileInfo) return;
+                                        setAssignments(prev => {
+                                          const filtered = prev.filter(a => a.id !== task.id);
+                                          return [...filtered, {
+                                            id: task.id,
+                                            learnerName: activeLearner.fullName,
+                                            title: task.title,
+                                            status: 'Under Review',
+                                            submittedDate: new Date().toLocaleDateString(),
+                                            feedback: 'Awaiting review grading by Content Reviewer.',
+                                            fileName: fileInfo.name,
+                                            fileSize: fileInfo.size,
+                                            fileType: fileInfo.type,
+                                            fileData: fileInfo.data,
+                                            attempts: (existing?.attempts || 0) + 1
+                                          }];
+                                        });
+                                        setUploadVals(prev => ({ ...prev, [task.id]: null }));
+                                        logAction(`Submitted assignment: ${task.title}`, 'Learner');
+                                      }}
+                                      style={{padding: '8px 20px', fontSize: '0.85rem'}}
+                                    >
+                                      Submit Assignment
+                                    </button>
+                                  </div>
+                                )}
                               </div>
                             )}
                           </div>
@@ -2099,15 +2412,29 @@ function App() {
                               <td>{res.version}</td>
                               <td>
                                 {res.downloadAllowed ? (
-                                  <button className="btn btn-secondary" style={{padding: '4px 8px', fontSize: '0.8rem'}} onClick={() => {
-                                    setResources(prev => prev.map(r => r.id === res.id ? { ...r, downloadCount: r.downloadCount + 1 } : r));
-                                    alert(`Downloading ${res.title}`);
-                                  }}>
-                                    <Download size={14} /> Download ({res.downloadCount})
-                                  </button>
-                                ) : (
-                                  <span className="badge badge-warning">Preview Only</span>
-                                )}
+                                   res.fileData ? (
+                                     <a 
+                                       href={res.fileData} 
+                                       download={res.fileName || `${res.title}.pdf`}
+                                       className="btn btn-secondary" 
+                                       style={{padding: '4px 8px', fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: '4px', textDecoration: 'none'}} 
+                                       onClick={() => {
+                                         setResources(prev => prev.map(r => r.id === res.id ? { ...r, downloadCount: r.downloadCount + 1 } : r));
+                                       }}
+                                     >
+                                       <Download size={14} /> Download ({res.downloadCount})
+                                     </a>
+                                   ) : (
+                                     <button className="btn btn-secondary" style={{padding: '4px 8px', fontSize: '0.8rem'}} onClick={() => {
+                                       setResources(prev => prev.map(r => r.id === res.id ? { ...r, downloadCount: r.downloadCount + 1 } : r));
+                                       alert(`Downloading ${res.title}`);
+                                     }}>
+                                       <Download size={14} /> Download ({res.downloadCount})
+                                     </button>
+                                   )
+                                 ) : (
+                                   <span className="badge badge-warning">Preview Only</span>
+                                 )}
                               </td>
                             </tr>
                           ))}
@@ -2227,10 +2554,10 @@ function App() {
                               pct: completedPercentage,
                               done: completedPercentage === 100,
                             }, {
-                              label: 'Submit 3 case study assignments',
-                              sub: `${assignments.filter(a => a.status === 'Approved').length} of 3 assignments approved`,
-                              pct: Math.round((assignments.filter(a => a.status === 'Approved').length / 3) * 100),
-                              done: assignments.filter(a => a.status === 'Approved').length >= 3,
+                              label: `Submit ${assignmentTasks.length} case study assignments`,
+                              sub: `${assignments.filter(a => a.status === 'Approved').length} of ${assignmentTasks.length} assignments approved`,
+                              pct: Math.round((assignments.filter(a => a.status === 'Approved').length / Math.max(1, assignmentTasks.length)) * 100),
+                              done: assignments.filter(a => a.status === 'Approved').length >= assignmentTasks.length,
                             }, {
                               label: 'Pass the final MCQ exam (≥80%)',
                               sub: examState.completed ? `Last score: ${examState.score}%` : 'Exam not yet attempted',
@@ -2471,16 +2798,38 @@ function App() {
                         </tr>
                       </thead>
                       <tbody>
-                        {assignments.map((sub) => (
-                          <tr key={sub.id}>
-                            <td>{sub.learnerName}</td>
-                            <td><span style={{fontFamily: 'monospace'}}>{sub.fileName}</span></td>
-                            <td>
-                              <span className={`badge ${
-                                sub.status === 'Approved' ? 'badge-success' : 
-                                sub.status === 'Under Review' ? 'badge-info' : 'badge-danger'
-                              }`}>{sub.status}</span>
-                            </td>
+                         {assignments.map((sub) => (
+                           <tr key={sub.id}>
+                             <td>{sub.learnerName}</td>
+                             <td>
+                               <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                 {sub.fileData ? (
+                                   sub.fileType?.startsWith('image/') ? (
+                                     <a href={sub.fileData} target="_blank" rel="noopener noreferrer" title="View full image">
+                                       <img src={sub.fileData} style={{width: '36px', height: '36px', borderRadius: '4px', objectFit: 'cover', border: '1px solid #cbd5e1', cursor: 'zoom-in'}} alt="Preview" />
+                                     </a>
+                                   ) : (
+                                     <a href={sub.fileData} download={sub.fileName} title="Download file" style={{width: '36px', height: '36px', background: '#e2e8f0', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b'}}>
+                                       <FileText size={18} />
+                                     </a>
+                                   )
+                                 ) : (
+                                   <div style={{width: '36px', height: '36px', background: '#e2e8f0', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b'}}>
+                                     <FileText size={18} />
+                                   </div>
+                                 )}
+                                 <div>
+                                   <span style={{fontFamily: 'monospace', fontSize: '0.85rem'}}>{sub.fileName}</span>
+                                   {sub.fileSize && <div style={{fontSize: '0.72rem', color: 'var(--text-muted)'}}>{sub.fileSize}</div>}
+                                 </div>
+                               </div>
+                             </td>
+                             <td>
+                               <span className={`badge ${
+                                 sub.status === 'Approved' ? 'badge-success' : 
+                                 sub.status === 'Under Review' ? 'badge-info' : 'badge-danger'
+                               }`}>{sub.status}</span>
+                             </td>
                             <td>
                               <div style={{display: 'flex', gap: '8px'}}>
                                 <button 
@@ -2714,17 +3063,17 @@ function App() {
 
                       <div className="admin-kpi-grid">
                         {[
-                          { icon: '💰', label: 'Total Revenue', value: `₹${orders.filter(o => o.status === 'Success').reduce((a, o) => a + o.amount, 0).toLocaleString('en-IN')}`, sub: `${orders.filter(o => o.status === 'Success').length} paid orders`, color: '#10b981', bg: '#d1fae5' },
-                          { icon: '👥', label: 'Enrolled Learners', value: learners.length, sub: `${learners.filter(l => l.status === 'Active').length} currently active`, color: '#1d4ed8', bg: '#dbeafe' },
-                          { icon: '🏆', label: 'Certified ABBs', value: learners.filter(l => l.stage === 'Certified').length, sub: 'Credentials issued', color: '#d97706', bg: '#fef3c7' },
-                          { icon: '📊', label: 'Avg. Completion', value: `${Math.round(learners.reduce((a, l) => a + (l.completedLessons.length / totalLessons * 100), 0) / Math.max(learners.length, 1))}%`, sub: 'Curriculum progress', color: '#7c3aed', bg: '#ede9fe' },
-                          { icon: '📝', label: 'Pending Reviews', value: assignments.filter(a => a.status === 'Under Review').length, sub: `${assignments.length} total submitted`, color: '#ea580c', bg: '#fff7ed' },
-                          { icon: '🎫', label: 'Open Tickets', value: tickets.filter(t => t.status === 'Open').length, sub: `${tickets.length} tickets total`, color: '#0284c7', bg: '#e0f2fe' },
+                          { icon: <CreditCard size={20} style={{color: '#10b981'}} />, label: 'Total Revenue', value: `₹${orders.filter(o => o.status === 'Success').reduce((a, o) => a + o.amount, 0).toLocaleString('en-IN')}`, sub: `${orders.filter(o => o.status === 'Success').length} paid orders`, color: '#10b981', bg: '#d1fae5' },
+                          { icon: <Users size={20} style={{color: '#1d4ed8'}} />, label: 'Enrolled Learners', value: learners.length, sub: `${learners.filter(l => l.status === 'Active').length} currently active`, color: '#1d4ed8', bg: '#dbeafe' },
+                          { icon: <Award size={20} style={{color: '#d97706'}} />, label: 'Certified ABBs', value: learners.filter(l => l.stage === 'Certified').length, sub: 'Credentials issued', color: '#d97706', bg: '#fef3c7' },
+                          { icon: <Star size={20} style={{color: '#7c3aed'}} />, label: 'Avg. Completion', value: `${Math.round(learners.reduce((a, l) => a + (l.completedLessons.length / totalLessons * 100), 0) / Math.max(learners.length, 1))}%`, sub: 'Curriculum progress', color: '#7c3aed', bg: '#ede9fe' },
+                          { icon: <FileText size={20} style={{color: '#ea580c'}} />, label: 'Pending Reviews', value: assignments.filter(a => a.status === 'Under Review').length, sub: `${assignments.length} total submitted`, color: '#ea580c', bg: '#fff7ed' },
+                          { icon: <HelpCircle size={20} style={{color: '#0284c7'}} />, label: 'Open Tickets', value: tickets.filter(t => t.status === 'Open').length, sub: `${tickets.length} tickets total`, color: '#0284c7', bg: '#e0f2fe' },
                         ].map(k => (
-                          <div key={k.label} className="admin-kpi-card">
-                            <div style={{width: '44px', height: '44px', borderRadius: '12px', background: k.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', marginBottom: '14px'}}>{k.icon}</div>
-                            <div style={{fontSize: '2rem', fontWeight: 800, color: k.color, lineHeight: 1}}>{k.value}</div>
-                            <div style={{fontWeight: 700, fontSize: '0.82rem', color: 'var(--text)', marginTop: '6px'}}>{k.label}</div>
+                          <div key={k.label} className="admin-kpi-card" style={{position: 'relative', overflow: 'hidden', padding: '16px 20px'}}>
+                            <div style={{width: '40px', height: '40px', borderRadius: '10px', background: k.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px'}}>{k.icon}</div>
+                            <div style={{fontSize: '1.8rem', fontWeight: 800, color: k.color, lineHeight: 1}}>{k.value}</div>
+                            <div style={{fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-dark)', marginTop: '8px'}}>{k.label}</div>
                             <div style={{fontSize: '0.73rem', color: 'var(--text-muted)', marginTop: '2px'}}>{k.sub}</div>
                           </div>
                         ))}
@@ -2765,16 +3114,18 @@ function App() {
                         </div>
 
                         <div className="checkout-card">
-                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem'}}>📋 Recent Activity</h4>
-                          <div style={{maxHeight: '300px', overflowY: 'auto'}}>
+                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px'}}><Clock size={16} style={{color: 'var(--primary)'}} /> Recent Activity Feed</h4>
+                          <div style={{maxHeight: '300px', overflowY: 'auto', paddingRight: '4px'}}>
                             {auditLogs.slice(0, 15).map((log, idx) => (
-                              <div key={idx} style={{display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px 0', borderBottom: idx < Math.min(auditLogs.length, 15) - 1 ? '1px solid var(--border)' : 'none', fontSize: '0.82rem'}}>
-                                <div style={{width: '8px', height: '8px', borderRadius: '50%', background: log.role === 'SuperAdmin' ? '#1d4ed8' : log.role === 'Learner' ? '#10b981' : '#f59e0b', marginTop: '5px', flexShrink: 0}} />
-                                <div style={{flex: 1, minWidth: 0}}>
-                                  <div style={{fontWeight: 600, color: 'var(--text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{log.action}</div>
-                                  <div style={{color: 'var(--text-muted)', marginTop: '1px', fontSize: '0.73rem'}}>{new Date(log.timestamp).toLocaleString()}</div>
+                              <div key={idx} style={{display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '10px 0', borderBottom: idx < Math.min(auditLogs.length, 15) - 1 ? '1px solid var(--border)' : 'none', fontSize: '0.82rem'}}>
+                                <div style={{width: '28px', height: '28px', borderRadius: '50%', background: log.role === 'SuperAdmin' ? '#e0e7ff' : log.role === 'Learner' ? '#d1fae5' : '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px'}}>
+                                  {log.role === 'SuperAdmin' ? <Shield size={13} style={{color: '#1d4ed8'}} /> : log.role === 'Learner' ? <Users size={13} style={{color: '#10b981'}} /> : <Settings size={13} style={{color: '#f59e0b'}} />}
                                 </div>
-                                <span className={`badge ${log.role === 'SuperAdmin' ? 'badge-danger' : log.role === 'Learner' ? 'badge-success' : 'badge-info'}`} style={{flexShrink: 0}}>{log.role}</span>
+                                <div style={{flex: 1, minWidth: 0}}>
+                                  <div style={{fontWeight: 600, color: 'var(--text-dark)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{log.action}</div>
+                                  <div style={{color: 'var(--text-muted)', marginTop: '2px', fontSize: '0.73rem'}}>{new Date(log.timestamp).toLocaleString()}</div>
+                                </div>
+                                <span className={`badge ${log.role === 'SuperAdmin' ? 'badge-danger' : log.role === 'Learner' ? 'badge-success' : 'badge-info'}`} style={{flexShrink: 0, fontSize: '0.68rem', padding: '3px 8px'}}>{log.role}</span>
                               </div>
                             ))}
                           </div>
@@ -2909,39 +3260,177 @@ function App() {
                   {/* ── ASSIGNMENTS ── */}
                   {adminTab === 'assignments' && ['SuperAdmin', 'SupportAdmin'].includes(currentRole) && (
                     <div>
+                      {/* Section 1: Submissions Pipeline */}
                       <div className="admin-content-header">
                         <div>
-                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Assignment Review</h2>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Learner Submissions Pipeline</h2>
                           <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Review, approve, or request resubmission of learner case study submissions.</p>
                         </div>
-                        <div style={{display: 'flex', gap: '8px'}}>
-                          <span className="badge badge-info" style={{fontSize: '0.82rem', padding: '5px 12px'}}>{assignments.filter(a => a.status === 'Under Review').length} Pending</span>
-                          <span className="badge badge-success" style={{fontSize: '0.82rem', padding: '5px 12px'}}>{assignments.filter(a => a.status === 'Approved').length} Approved</span>
+                        <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
+                          <span className="badge badge-info" style={{fontSize: '0.78rem', padding: '5px 12px', borderRadius: '20px'}}>{assignments.filter(a => a.status === 'Under Review').length} Pending</span>
+                          <span className="badge badge-success" style={{fontSize: '0.78rem', padding: '5px 12px', borderRadius: '20px'}}>{assignments.filter(a => a.status === 'Approved').length} Approved</span>
                         </div>
                       </div>
-                      <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-                        {assignments.map(sub => (
-                          <div key={sub.id} className="checkout-card" style={{borderLeft: `4px solid ${sub.status === 'Approved' ? '#10b981' : sub.status === 'Under Review' ? '#3b82f6' : sub.status === 'Resubmission Required' ? '#f59e0b' : '#ef4444'}`}}>
-                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', flexWrap: 'wrap', gap: '10px'}}>
-                              <div>
-                                <div style={{fontWeight: 800, fontSize: '1rem', marginBottom: '4px'}}>{sub.title}</div>
-                                <div style={{fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', gap: '12px', flexWrap: 'wrap'}}>
-                                  <span>👤 {sub.learnerName}</span>
-                                  <span>📎 <span style={{fontFamily: 'monospace'}}>{sub.fileName}</span></span>
-                                  <span>📅 {sub.submittedDate}</span>
-                                  <span>🔄 Attempt #{sub.attempts}</span>
+                      
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                        {assignments.length === 0 ? (
+                          <div style={{textAlign: 'center', padding: '24px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--text-muted)'}}>No submissions under review.</div>
+                        ) : (
+                          assignments.map(sub => (
+                            <div key={sub.id} className="checkout-card" style={{padding: '16px', borderRadius: '8px', borderLeft: `4px solid ${sub.status === 'Approved' ? '#10b981' : sub.status === 'Under Review' ? '#3b82f6' : sub.status === 'Resubmission Required' ? '#f59e0b' : '#ef4444'}`, boxShadow: '0 4px 12px rgba(0,0,0,0.02)'}}>
+                              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px', flexWrap: 'wrap', gap: '10px'}}>
+                                <div style={{display: 'flex', gap: '14px', alignItems: 'center'}}>
+                                  {sub.fileData ? (
+                                    sub.fileType?.startsWith('image/') ? (
+                                      <a href={sub.fileData} target="_blank" rel="noopener noreferrer" title="View full image">
+                                        <img src={sub.fileData} style={{width: '44px', height: '44px', borderRadius: '6px', objectFit: 'cover', border: '1px solid #cbd5e1', cursor: 'zoom-in'}} alt="Preview" />
+                                      </a>
+                                    ) : (
+                                      <a href={sub.fileData} download={sub.fileName} title="Download file" style={{width: '44px', height: '44px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', border: '1px solid var(--border)'}}>
+                                        <FileText size={20} />
+                                      </a>
+                                    )
+                                  ) : (
+                                    <div style={{width: '44px', height: '44px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', border: '1px solid var(--border)'}}>
+                                      <FileText size={20} />
+                                    </div>
+                                  )}
+                                  <div>
+                                    <div style={{fontWeight: 800, fontSize: '0.95rem', color: 'var(--text-dark)'}}>{sub.title}</div>
+                                    <div style={{fontSize: '0.78rem', color: 'var(--text-muted)', display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '3px'}}>
+                                      <span>👤 {sub.learnerName}</span>
+                                      <span>📎 <span style={{fontFamily: 'monospace'}}>{sub.fileName}</span> {sub.fileSize && `(${sub.fileSize})`}</span>
+                                      <span>📅 {sub.submittedDate}</span>
+                                      <span>🔄 Attempt #{sub.attempts}</span>
+                                    </div>
+                                  </div>
                                 </div>
+                                <span className={`badge ${sub.status === 'Approved' ? 'badge-success' : sub.status === 'Under Review' ? 'badge-info' : sub.status === 'Resubmission Required' ? 'badge-warning' : 'badge-danger'}`} style={{fontSize: '0.72rem', padding: '4px 10px'}}>{sub.status}</span>
                               </div>
-                              <span className={`badge ${sub.status === 'Approved' ? 'badge-success' : sub.status === 'Under Review' ? 'badge-info' : sub.status === 'Resubmission Required' ? 'badge-warning' : 'badge-danger'}`}>{sub.status}</span>
+                              {sub.feedback && <div style={{background: '#f8fafc', border: '1px solid var(--border)', borderRadius: '6px', padding: '8px 12px', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '10px'}}>💬 <em>{sub.feedback}</em></div>}
+                              <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                                <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.76rem', color: 'var(--success)', borderColor: 'var(--success)', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Approved', feedback: 'Approved. Recast sheets meet professional guidelines.'} : s)); logAction(`Approved assignment ${sub.id}`, currentRole); }}><Check size={12} /> Approve</button>
+                                <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.76rem', color: '#d97706', borderColor: '#d97706', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Resubmission Required', feedback: 'Please fix working capital normalizations and resubmit.'} : s)); logAction(`Resubmission requested for ${sub.id}`, currentRole); }}><RefreshCw size={12} /> Resubmission</button>
+                                <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.76rem', color: 'var(--danger)', borderColor: 'var(--danger)', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Rejected', feedback: 'Submission does not meet minimum requirements.'} : s)); logAction(`Rejected ${sub.id}`, currentRole); }}><X size={12} /> Reject</button>
+                              </div>
                             </div>
-                            {sub.feedback && <div style={{background: '#f8fafc', border: '1px solid var(--border)', borderRadius: 'var(--r-sm)', padding: '10px 14px', fontSize: '0.83rem', color: 'var(--text-muted)', marginBottom: '14px'}}>💬 <em>{sub.feedback}</em></div>}
-                            <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                              <button className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem', color: 'var(--success)', borderColor: 'var(--success)'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Approved', feedback: 'Approved. Recast sheets meet professional guidelines.'} : s)); logAction(`Approved assignment ${sub.id}`, currentRole); }}><Check size={13} /> Approve</button>
-                              <button className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem', color: '#d97706', borderColor: '#d97706'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Resubmission Required', feedback: 'Please fix working capital normalizations and resubmit.'} : s)); logAction(`Resubmission requested for ${sub.id}`, currentRole); }}><RefreshCw size={13} /> Resubmission</button>
-                              <button className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => { setAssignments(prev => prev.map(s => s.id === sub.id ? {...s, status: 'Rejected', feedback: 'Submission does not meet minimum requirements.'} : s)); logAction(`Rejected ${sub.id}`, currentRole); }}><X size={13} /> Reject</button>
+                          ))
+                        )}
+                      </div>
+
+                      {/* Section 2: Manage Assignment Tasks */}
+                      <div className="admin-content-header" style={{marginTop: '32px', borderTop: '1px solid var(--border)', paddingTop: '20px'}}>
+                        <div>
+                          <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Manage Assignment Tasks</h2>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Add or remove assignment tasks required for course completion.</p>
+                        </div>
+                        <span className="badge badge-info" style={{fontSize: '0.8rem', padding: '6px 14px'}}>{assignmentTasks.length} Tasks Required</span>
+                      </div>
+
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px'}}>
+                        {assignmentTasks.map((task, idx) => (
+                          <div key={task.id} className="checkout-card" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderRadius: '8px'}}>
+                            <div>
+                              <strong style={{fontSize: '0.9rem', color: 'var(--text-dark)'}}>{idx + 1}. {task.title}</strong>
+                              <div style={{fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', gap: '10px'}}>
+                                <span>📚 {task.ref}</span>
+                                <span>⏱ {task.dueNote}</span>
+                                <span>📎 <span style={{fontFamily: 'monospace'}}>{task.fileHint}</span></span>
+                              </div>
+                              <div style={{fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '6px', maxWidth: '680px'}}>{task.desc}</div>
                             </div>
+                            <button 
+                              className="btn btn-secondary" 
+                              style={{padding: '4px 8px', fontSize: '0.72rem', color: 'var(--danger)', borderColor: 'var(--danger)', flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: '3px'}}
+                              onClick={() => {
+                                if (window.confirm('Delete this assignment task? This will remove it from the requirements list.')) {
+                                  setAssignmentTasks(prev => prev.filter(t => t.id !== task.id));
+                                  logAction(`Deleted assignment task: ${task.title}`, currentRole);
+                                }
+                              }}
+                            >
+                              <Trash size={11} /> Remove
+                            </button>
                           </div>
                         ))}
+                      </div>
+
+                      {/* Add New Assignment Task Form */}
+                      <div className="checkout-card" style={{background: '#fafbff', padding: '16px', border: '1px solid var(--border)', borderRadius: '8px'}}>
+                        <h4 style={{margin: '0 0 12px', fontWeight: 800, fontSize: '0.9rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '6px'}}><Plus size={14} style={{color: 'var(--primary)'}} /> Add Assignment Task</h4>
+                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px', marginBottom: '10px'}}>
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px'}}
+                            placeholder="Task Title" 
+                            value={newAssignmentTitle} 
+                            onChange={e => setNewAssignmentTitle(e.target.value)} 
+                          />
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px'}}
+                            placeholder="Reference Lessons (e.g. Module 6 — Lesson 21)" 
+                            value={newAssignmentRef} 
+                            onChange={e => setNewAssignmentRef(e.target.value)} 
+                          />
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px'}}
+                            placeholder="Due Timeline (e.g. End of Module 7)" 
+                            value={newAssignmentDue} 
+                            onChange={e => setNewAssignmentDue(e.target.value)} 
+                          />
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px'}}
+                            placeholder="File Name Hint (e.g. recast_work.xlsx)" 
+                            value={newAssignmentHint} 
+                            onChange={e => setNewAssignmentHint(e.target.value)} 
+                          />
+                        </div>
+                        <div style={{display: 'flex', gap: '8px', alignItems: 'center', marginTop: '10px'}}>
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px', flex: 1}}
+                            placeholder="Task Description details..." 
+                            value={newAssignmentDesc} 
+                            onChange={e => setNewAssignmentDesc(e.target.value)} 
+                          />
+                        </div>
+                        <button 
+                          className="btn btn-primary"
+                          style={{marginTop: '12px', padding: '6px 16px', fontSize: '0.78rem'}}
+                          onClick={() => {
+                            if (!newAssignmentTitle || !newAssignmentDesc) {
+                              alert('Title and Description are required.');
+                              return;
+                            }
+                            const newTask = {
+                              id: 'as-' + Date.now(),
+                              num: assignmentTasks.length + 1,
+                              title: newAssignmentTitle,
+                              desc: newAssignmentDesc,
+                              ref: newAssignmentRef || 'N/A',
+                              dueNote: newAssignmentDue || 'N/A',
+                              fileHint: newAssignmentHint || 'assignment_upload.pdf'
+                            };
+                            setAssignmentTasks(prev => [...prev, newTask]);
+                            logAction(`Added assignment task: ${newAssignmentTitle}`, currentRole);
+                            setNewAssignmentTitle("");
+                            setNewAssignmentDesc("");
+                            setNewAssignmentRef("");
+                            setNewAssignmentDue("");
+                            setNewAssignmentHint("");
+                            alert('New Assignment Task added successfully.');
+                          }}
+                        >
+                          <Plus size={14} /> Add Assignment Task
+                        </button>
                       </div>
                     </div>
                   )}
@@ -2952,51 +3441,367 @@ function App() {
                       <div className="admin-content-header">
                         <div>
                           <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>Course Content Manager</h2>
-                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Edit module titles, lesson video URLs, and downloadable resources.</p>
+                          <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Add, edit, or delete modules, lessons, and downloadable files.</p>
                         </div>
-                        <div style={{display: 'flex', gap: '8px'}}>
-                          <span className="badge badge-info">{totalLessons} Lessons</span>
+                        <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
+                          <span className="badge badge-info">{modules.reduce((acc, m) => acc + m.lessons.length, 0)} Lessons</span>
                           <span className="badge badge-success">{modules.length} Modules</span>
                         </div>
                       </div>
-                      {modules.map((mod, modIdx) => (
-                        <div key={mod.id} className="checkout-card" style={{marginBottom: '12px'}}>
-                          <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px'}}>
-                            <div style={{width: '34px', height: '34px', borderRadius: '50%', background: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.85rem', flexShrink: 0}}>{modIdx + 1}</div>
-                            <div style={{flex: 1, fontWeight: 700, fontSize: '0.95rem'}}>{mod.title}</div>
-                            <button className="btn btn-secondary" style={{padding: '3px 10px', fontSize: '0.75rem', flexShrink: 0}} onClick={() => { const t = prompt('New module title:', mod.title); if (t) { setModules(prev => prev.map(m => m.id === mod.id ? {...m, title: t} : m)); logAction(`Renamed module ${mod.id}`, currentRole); } }}><Tag size={11} /> Rename</button>
-                          </div>
-                          <div style={{paddingLeft: '46px'}}>
-                            {mod.lessons.map((les, lesIdx) => (
-                              <div key={les.id} style={{display: 'flex', alignItems: 'center', gap: '10px', padding: '7px 0', borderBottom: lesIdx < mod.lessons.length - 1 ? '1px solid var(--border)' : 'none'}}>
-                                <Play size={12} style={{color: 'var(--text-light)', flexShrink: 0}} />
-                                <div style={{flex: 1, minWidth: 0}}>
-                                  <div style={{fontWeight: 600, fontSize: '0.855rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{les.title}</div>
-                                  <div style={{fontSize: '0.72rem', color: 'var(--text-muted)'}}>⏱ {les.duration} · <span style={{fontFamily: 'monospace'}}>{les.videoUrl}</span></div>
-                                </div>
-                                <button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.72rem', flexShrink: 0}} onClick={() => { const u = prompt('New video URL:', les.videoUrl); if (u) { setModules(prev => prev.map(m => ({...m, lessons: m.lessons.map(l => l.id === les.id ? {...l, videoUrl: u} : l)}))); logAction(`Updated video ${les.id}`, currentRole); } }}>Replace Video</button>
-                              </div>
-                            ))}
-                          </div>
+
+                      {/* Add New Module Form */}
+                      <div className="checkout-card" style={{border: '2px dashed var(--border)', background: '#fafbff', marginBottom: '20px'}}>
+                        <h4 style={{margin: '0 0 12px', fontWeight: 800}}><Plus size={15} style={{verticalAlign: 'middle', marginRight: '6px'}} />Create New Module</h4>
+                        <div style={{display: 'flex', gap: '12px'}}>
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            placeholder="Enter new module title (e.g. Module 11: Integration & Post-Merger Advisory)..." 
+                            value={newModuleTitle}
+                            onChange={e => setNewModuleTitle(e.target.value)}
+                            style={{flex: 1}}
+                          />
+                          <button 
+                            className="btn btn-primary"
+                            onClick={() => {
+                              const title = newModuleTitle.trim();
+                              if (!title) {
+                                alert('Module title is required.');
+                                return;
+                              }
+                              const newMod = {
+                                id: modules.length + 1,
+                                title,
+                                lessons: []
+                              };
+                              setModules(prev => [...prev, newMod]);
+                              logAction(`Created new module: ${title}`, currentRole);
+                              setNewModuleTitle("");
+                              alert('Module created successfully.');
+                            }}
+                          >
+                            Create Module
+                          </button>
                         </div>
-                      ))}
-                      <div className="checkout-card" style={{borderColor: 'var(--accent)'}}>
-                        <h4 style={{margin: '0 0 14px', fontWeight: 800}}>📦 Resource Downloads</h4>
-                        <div className="table-container">
-                          <table className="data-table">
-                            <thead><tr><th>Title</th><th>Version</th><th>Date</th><th>Downloads</th><th>Action</th></tr></thead>
-                            <tbody>
-                              {resources.map(r => (
-                                <tr key={r.id}>
-                                  <td style={{fontWeight: 600}}>{r.title}</td>
-                                  <td><span className="badge badge-info">{r.version}</span></td>
-                                  <td style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>{r.date}</td>
-                                  <td>{r.downloadCount}</td>
-                                  <td><button className="btn btn-secondary" style={{padding: '3px 8px', fontSize: '0.73rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => { setResources(prev => prev.filter(res => res.id !== r.id)); logAction(`Removed resource ${r.id}`, currentRole); }}><Trash size={11} /> Remove</button></td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                      </div>
+
+                      {modules.map((mod, modIdx) => {
+                        const modResources = resources.filter(r => r.moduleId === mod.id);
+                        const isExpanded = expandedModuleId === mod.id;
+                        return (
+                          <div key={mod.id} className="checkout-card" style={{marginBottom: '16px', borderLeft: '4px solid var(--primary)', borderRadius: '8px', padding: isExpanded ? '20px' : '12px 20px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)'}}>
+                            {/* Module Header */}
+                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: isExpanded ? '1px solid var(--border)' : 'none', paddingBottom: isExpanded ? '14px' : '0px', marginBottom: isExpanded ? '20px' : '0px', flexWrap: 'wrap', gap: '10px'}}>
+                              <div 
+                                style={{display: 'flex', alignItems: 'center', gap: '12px', flex: 1, cursor: 'pointer', userSelect: 'none'}}
+                                onClick={() => setExpandedModuleId(prev => prev === mod.id ? null : mod.id)}
+                              >
+                                {isExpanded ? <ChevronDown size={18} style={{color: 'var(--text-muted)'}} /> : <ChevronRight size={18} style={{color: 'var(--text-muted)'}} />}
+                                <div style={{width: '36px', height: '36px', borderRadius: '50%', background: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0}}>{modIdx + 1}</div>
+                                {editingModuleId === mod.id ? (
+                                  <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    style={{fontSize: '1rem', padding: '4px 8px', fontWeight: 800, flex: 1}} 
+                                    value={editModuleTitle} 
+                                    onChange={e => setEditModuleTitle(e.target.value)} 
+                                    onClick={e => e.stopPropagation()}
+                                  />
+                                ) : (
+                                  <div style={{fontWeight: 800, fontSize: '1.1rem', color: 'var(--text-dark)'}}>{mod.title}</div>
+                                )}
+                              </div>
+                              <div style={{display: 'flex', gap: '8px'}}>
+                                {editingModuleId === mod.id ? (
+                                  <>
+                                    <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.78rem', color: 'var(--success)', borderColor: 'var(--success)'}} onClick={() => {
+                                      if (!editModuleTitle.trim()) { alert('Module title is required.'); return; }
+                                      setModules(prev => prev.map(m => m.id === mod.id ? {...m, title: editModuleTitle.trim()} : m));
+                                      logAction(`Renamed module ${mod.id} to ${editModuleTitle.trim()}`, currentRole);
+                                      setEditingModuleId(null);
+                                    }}><Check size={12} /> Save</button>
+                                    <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.78rem'}} onClick={() => setEditingModuleId(null)}>Cancel</button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.78rem', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => { setEditingModuleId(mod.id); setEditModuleTitle(mod.title); }}><Tag size={12} /> Rename</button>
+                                    <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.78rem', color: 'var(--danger)', borderColor: 'var(--danger)', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => { if (window.confirm(`Delete "${mod.title}"? This will delete all lessons and contents inside it.`)) { setModules(prev => prev.filter(m => m.id !== mod.id)); logAction(`Deleted module ${mod.id}: ${mod.title}`, currentRole); } }}><Trash size={12} /> Delete Module</button>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+
+                            {isExpanded && (
+                              <div>
+                                {/* Lessons Management inside Module */}
+                                <div style={{marginBottom: '24px'}}>
+                                  <h5 style={{fontWeight: 700, margin: '0 0 12px', fontSize: '0.92rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '6px'}}>📖 Lessons ({mod.lessons.length})</h5>
+                                  {mod.lessons.length === 0 ? (
+                                    <p style={{fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', margin: '0 0 16px 12px'}}>No lessons in this module yet.</p>
+                                  ) : (
+                                    <div style={{display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px', paddingLeft: '8px'}}>
+                                      {mod.lessons.map((les, lesIdx) => (
+                                        <div key={les.id} style={{display: 'flex', alignItems: 'center', gap: '14px', padding: '12px 16px', background: '#f8fafc', border: '1px solid var(--border)', borderRadius: '8px', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+                                          <div style={{flex: 1, minWidth: '200px'}}>
+                                            {editingLessonId === les.id ? (
+                                              <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px'}}>
+                                                <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '6px 10px'}} value={editLessonTitle} onChange={e => setEditLessonTitle(e.target.value)} placeholder="Lesson Title" />
+                                                <div style={{display: 'flex', gap: '8px'}}>
+                                                  <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '6px 10px', width: '120px'}} value={editLessonDuration} onChange={e => setEditLessonDuration(e.target.value)} placeholder="Duration (e.g. 15 mins)" />
+                                                  <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '6px 10px', flex: 1}} value={editLessonVideoUrl} onChange={e => setEditLessonVideoUrl(e.target.value)} placeholder="Video Filename/URL" />
+                                                </div>
+                                              </div>
+                                            ) : (
+                                              <>
+                                                <div style={{fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-dark)'}}>{les.title}</div>
+                                                <div style={{fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', gap: '12px'}}>
+                                                  <span>⏱ {les.duration}</span>
+                                                  <span>📹 <span style={{fontFamily: 'monospace', background: '#eef2f6', padding: '2px 6px', borderRadius: '4px'}}>{les.videoUrl}</span></span>
+                                                </div>
+                                              </>
+                                            )}
+                                          </div>
+                                          
+                                          <div style={{display: 'flex', gap: '8px'}}>
+                                            {editingLessonId === les.id ? (
+                                              <>
+                                                <button className="btn btn-secondary" style={{padding: '4px 10px', fontSize: '0.75rem', color: 'var(--success)', borderColor: 'var(--success)'}} onClick={() => {
+                                                  if (!editLessonTitle.trim()) { alert('Lesson title is required.'); return; }
+                                                  setModules(prev => prev.map(m => m.id === mod.id ? {
+                                                    ...m,
+                                                    lessons: m.lessons.map(l => l.id === les.id ? { ...l, title: editLessonTitle.trim(), duration: editLessonDuration.trim() || '10 mins', videoUrl: editLessonVideoUrl.trim() || 'default.mp4' } : l)
+                                                  } : m));
+                                                  logAction(`Edited lesson ${les.id}: ${editLessonTitle}`, currentRole);
+                                                  setEditingLessonId(null);
+                                                  alert('Lesson details updated successfully.');
+                                                }}><Check size={12} /> Save</button>
+                                                <button className="btn btn-secondary" style={{padding: '4px 10px', fontSize: '0.75rem'}} onClick={() => setEditingLessonId(null)}>Cancel</button>
+                                              </>
+                                            ) : (
+                                              <>
+                                                <button className="btn btn-secondary" style={{padding: '4px 10px', fontSize: '0.75rem'}} onClick={() => {
+                                                  setEditingLessonId(les.id);
+                                                  setEditLessonTitle(les.title);
+                                                  setEditLessonDuration(les.duration);
+                                                  setEditLessonVideoUrl(les.videoUrl);
+                                                }}>Edit</button>
+                                                <button className="btn btn-secondary" style={{padding: '4px 10px', fontSize: '0.75rem', color: 'var(--danger)', borderColor: 'var(--danger)'}} onClick={() => {
+                                                  if (window.confirm(`Delete lesson "${les.title}"?`)) {
+                                                    setModules(prev => prev.map(m => m.id === mod.id ? { ...m, lessons: m.lessons.filter(l => l.id !== les.id) } : m));
+                                                    logAction(`Deleted lesson: ${les.title}`, currentRole);
+                                                  }
+                                                }}>Remove</button>
+                                              </>
+                                            )}
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+
+                                  {/* Add Lesson Form */}
+                                  <div style={{background: '#f8fafc', padding: '10px 14px', border: '1px solid var(--border)', borderRadius: '6px', marginLeft: '8px', marginTop: '10px'}}>
+                                    <div style={{fontWeight: 700, fontSize: '0.8rem', marginBottom: '8px', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '4px'}}><Plus size={12} style={{color: 'var(--primary)'}} /> Add Lesson</div>
+                                    <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center'}}>
+                                      <input type="text" className="form-control" style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px', flex: 2, minWidth: '140px'}} id={`nl-title-${mod.id}`} placeholder="Lesson Title" />
+                                      <input type="text" className="form-control" style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px', flex: 1, minWidth: '80px'}} id={`nl-dur-${mod.id}`} placeholder="Duration" />
+                                      <input type="text" className="form-control" style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px', flex: 2, minWidth: '140px'}} id={`nl-url-${mod.id}`} placeholder="Video Filename" />
+                                      <button className="btn btn-primary" style={{padding: '5px 14px', fontSize: '0.78rem', height: '32px'}} onClick={() => {
+                                        const tEl = document.getElementById(`nl-title-${mod.id}`);
+                                        const dEl = document.getElementById(`nl-dur-${mod.id}`);
+                                        const uEl = document.getElementById(`nl-url-${mod.id}`);
+                                        if (!tEl || !tEl.value.trim()) { alert('Lesson Title is required.'); return; }
+                                        const t = tEl.value.trim();
+                                        const d = dEl?.value.trim() || "10 mins";
+                                        const u = uEl?.value.trim() || "lesson.mp4";
+                                        const newL = {
+                                          id: `${mod.id}-${Date.now()}`,
+                                          title: t,
+                                          duration: d,
+                                          videoUrl: u,
+                                          summary: `Summary of ${t}`
+                                        };
+                                        setModules(prev => prev.map(m => m.id === mod.id ? { ...m, lessons: [...m.lessons, newL] } : m));
+                                        logAction(`Added lesson "${t}" to module ${mod.id}`, currentRole);
+                                        tEl.value = '';
+                                        if (dEl) dEl.value = '';
+                                        if (uEl) uEl.value = '';
+                                        alert('Lesson added successfully.');
+                                      }}>Add</button>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Downloadable Resources for this module */}
+                                <div>
+                                  <h5 style={{fontWeight: 700, margin: '0 0 12px', fontSize: '0.92rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '6px'}}>📎 Module Resources ({modResources.length})</h5>
+                                  {modResources.length > 0 && (
+                                    <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px', paddingLeft: '8px'}}>
+                                      {modResources.map(r => (
+                                        <div key={r.id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc', padding: '10px 16px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '0.82rem'}}>
+                                          <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                            <FileText size={16} style={{color: 'var(--primary)'}} />
+                                            <strong>{r.title}</strong>
+                                            <span className="badge badge-info" style={{fontSize: '0.7rem', padding: '2px 6px'}}>{r.version}</span>
+                                          </div>
+                                          <button className="btn btn-secondary" style={{padding: '4px 10px', fontSize: '0.75rem', color: 'var(--danger)', borderColor: 'var(--danger)', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => {
+                                            setResources(prev => prev.filter(res => res.id !== r.id));
+                                            logAction(`Removed resource ${r.title} from module ${mod.id}`, currentRole);
+                                          }}><Trash size={12} /> Delete</button>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+
+                                  {/* Add Resource Form for Module */}
+                                  <div style={{background: '#f8fafc', padding: '10px 14px', border: '1px solid var(--border)', borderRadius: '6px', marginLeft: '8px', marginTop: '10px'}}>
+                                    <div style={{fontWeight: 700, fontSize: '0.8rem', marginBottom: '8px', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '4px'}}><Plus size={12} style={{color: 'var(--primary)'}} /> Add Resource</div>
+                                    <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center'}}>
+                                      <input type="text" className="form-control" style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px', flex: 2, minWidth: '120px'}} id={`nr-title-${mod.id}`} placeholder="Resource Title" />
+                                      <input type="text" className="form-control" style={{fontSize: '0.78rem', padding: '5px 8px', height: '32px', flex: 1, minWidth: '60px'}} id={`nr-ver-${mod.id}`} placeholder="Version" />
+                                      <input type="file" className="form-control" style={{fontSize: '0.78rem', padding: '3px 8px', height: '32px', flex: 2, minWidth: '120px', background: '#fff'}} id={`nr-file-${mod.id}`} />
+                                      <button className="btn btn-primary" style={{padding: '5px 14px', fontSize: '0.78rem', height: '32px'}} onClick={() => {
+                                        const tEl = document.getElementById(`nr-title-${mod.id}`);
+                                        const vEl = document.getElementById(`nr-ver-${mod.id}`);
+                                        const fileEl = document.getElementById(`nr-file-${mod.id}`);
+                                        if (!tEl || !tEl.value.trim()) { alert('Resource title is required.'); return; }
+                                        const t = tEl.value.trim();
+                                        const v = vEl?.value.trim() || 'v1.0';
+                                        const file = fileEl?.files[0];
+
+                                        const saveResource = (fileData = null, fileName = null, fileType = null, fileSize = null) => {
+                                          const newRes = {
+                                            id: `res-${Date.now()}`,
+                                            title: t,
+                                            description: file ? `Uploaded document: ${file.name}` : `Resource associated with module ${mod.id}`,
+                                            version: v,
+                                            date: new Date().toISOString().split('T')[0],
+                                            downloadAllowed: true,
+                                            level: 'Module-level',
+                                            moduleId: mod.id,
+                                            downloadCount: 0,
+                                            fileData,
+                                            fileName,
+                                            fileType,
+                                            fileSize
+                                          };
+                                          setResources(prev => [...prev, newRes]);
+                                          logAction(`Added resource "${t}" to module ${mod.id}`, currentRole);
+                                          tEl.value = '';
+                                          if (vEl) vEl.value = '';
+                                          if (fileEl) fileEl.value = '';
+                                          alert('Resource added successfully.');
+                                        };
+
+                                        if (file) {
+                                          const reader = new FileReader();
+                                          reader.onload = (e) => {
+                                            saveResource(
+                                              e.target.result,
+                                              file.name,
+                                              file.type,
+                                              (file.size / (1024 * 1024)).toFixed(2) + ' MB'
+                                            );
+                                          };
+                                          reader.readAsDataURL(file);
+                                        } else {
+                                          saveResource();
+                                        }
+                                      }}>Add Resource</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+
+                      {/* Course-wide Resources section */}
+                      <div className="checkout-card" style={{borderColor: 'var(--accent)', marginTop: '28px', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)'}}>
+                        <h4 style={{margin: '0 0 16px', fontWeight: 800, color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px'}}>📦 Course-wide Download Resources</h4>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px'}}>
+                          {resources.filter(r => r.moduleId === null).map(r => (
+                            <div key={r.id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc', padding: '12px 18px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '0.85rem'}}>
+                              <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                <FileText size={18} style={{color: 'var(--primary)'}} />
+                                <div>
+                                  <strong>{r.title}</strong>
+                                  <span className="badge badge-info" style={{fontSize: '0.72rem', padding: '2px 6px', marginLeft: '8px'}}>{r.version}</span>
+                                  <span style={{fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '12px'}}>({r.date})</span>
+                                </div>
+                              </div>
+                              <button className="btn btn-secondary" style={{padding: '5px 12px', fontSize: '0.75rem', color: 'var(--danger)', borderColor: 'var(--danger)', display: 'inline-flex', alignItems: 'center', gap: '4px'}} onClick={() => {
+                                setResources(prev => prev.filter(res => res.id !== r.id));
+                                logAction(`Removed course-wide resource ${r.title}`, currentRole);
+                              }}><Trash size={12} /> Remove</button>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Add course-wide resource */}
+                        <div style={{background: '#fafbff', padding: '16px', border: '1px solid var(--border)', borderRadius: '8px'}}>
+                          <div style={{fontWeight: 700, fontSize: '0.88rem', marginBottom: '12px', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '6px'}}><Plus size={14} style={{color: 'var(--primary)'}} /> Add Course-wide Resource</div>
+                          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '12px'}}>
+                            <div>
+                              <label style={{display: 'block', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px'}}>Resource Title</label>
+                              <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={newResourceTitle} onChange={e => setNewResourceTitle(e.target.value)} placeholder="Resource Title (e.g. Official Student Guide)" />
+                            </div>
+                            <div>
+                              <label style={{display: 'block', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px'}}>Version</label>
+                              <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={newResourceVer} onChange={e => setNewResourceVer(e.target.value)} placeholder="Version (e.g. v2.1)" />
+                            </div>
+                            <div>
+                              <label style={{display: 'block', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px'}}>Select Document File</label>
+                              <input type="file" className="form-control" style={{fontSize: '0.8rem', padding: '6px', height: 'auto', background: '#fff'}} id="nr-file-global" />
+                            </div>
+                          </div>
+                          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                            <button className="btn btn-primary" style={{padding: '8px 20px', fontSize: '0.82rem'}} onClick={() => {
+                              if (!newResourceTitle.trim()) { alert('Resource title is required.'); return; }
+                              const fileEl = document.getElementById('nr-file-global');
+                              const file = fileEl?.files[0];
+                              
+                              const saveResource = (fileData = null, fileName = null, fileType = null, fileSize = null) => {
+                                const newRes = {
+                                  id: `res-${Date.now()}`,
+                                  title: newResourceTitle.trim(),
+                                  description: file ? `Uploaded course resource: ${file.name}` : 'Course-wide download package',
+                                  version: newResourceVer.trim() || 'v1.0',
+                                  date: new Date().toISOString().split('T')[0],
+                                  downloadAllowed: true,
+                                  level: 'Course-wide',
+                                  moduleId: null,
+                                  downloadCount: 0,
+                                  fileData,
+                                  fileName,
+                                  fileType,
+                                  fileSize
+                                };
+                                setResources(prev => [...prev, newRes]);
+                                logAction(`Created course-wide resource: ${newResourceTitle}`, currentRole);
+                                setNewResourceTitle("");
+                                setNewResourceVer("");
+                                if (fileEl) fileEl.value = '';
+                                alert('Course-wide resource added successfully.');
+                              };
+
+                              if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                  saveResource(
+                                    e.target.result,
+                                    file.name,
+                                    file.type,
+                                    (file.size / (1024 * 1024)).toFixed(2) + ' MB'
+                                  );
+                                };
+                                reader.readAsDataURL(file);
+                              } else {
+                                saveResource();
+                              }
+                            }}>Add Resource</button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3038,27 +3843,154 @@ function App() {
                       </div>
                       <div className="checkout-card" style={{border: '2px dashed var(--border)', background: '#fafbff'}}>
                         <h4 style={{margin: '0 0 16px', fontWeight: 800}}><Plus size={15} style={{verticalAlign: 'middle', marginRight: '6px'}} />Add New Question</h4>
-                        <div className="form-group"><label className="form-label">Question Text</label><textarea className="form-control" rows="2" placeholder="Enter the question..." id="nq-text" /></div>
-                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '14px'}}>
-                          <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Type</label><select className="form-control" id="nq-type"><option>MCQ</option><option>True-False</option><option>Multi-Select</option></select></div>
-                          <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Difficulty</label><select className="form-control" id="nq-diff"><option>Easy</option><option>Medium</option><option>Hard</option></select></div>
-                          <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Topic</label><input type="text" className="form-control" id="nq-topic" placeholder="e.g. Valuation" /></div>
+                        
+                        <div className="form-group">
+                          <label className="form-label">Question Text</label>
+                          <textarea 
+                            className="form-control" 
+                            rows="2" 
+                            placeholder="Enter the question text..." 
+                            value={newQuestionText}
+                            onChange={e => setNewQuestionText(e.target.value)}
+                          />
                         </div>
-                        <div className="form-group"><label className="form-label">Options (comma-separated)</label><input type="text" className="form-control" id="nq-options" placeholder="Option A, Option B, Option C, Option D" /></div>
-                        <div className="form-group"><label className="form-label">Correct Answer Index(es) — 0-based, comma-separated</label><input type="text" className="form-control" id="nq-correct" placeholder="e.g. 1  or  0,2 for multi-select" /></div>
-                        <button className="btn btn-primary" onClick={() => {
-                          const text = document.getElementById('nq-text').value.trim();
-                          const type = document.getElementById('nq-type').value;
-                          const diff = document.getElementById('nq-diff').value;
-                          const topic = document.getElementById('nq-topic').value.trim();
-                          const opts = document.getElementById('nq-options').value.split(',').map(s => s.trim()).filter(Boolean);
-                          const correct = document.getElementById('nq-correct').value.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
-                          if (!text || opts.length < 2 || correct.length === 0) { alert('Fill all required fields.'); return; }
-                          setQuestionBank(prev => [...prev, { id: Date.now(), type, question: text, options: opts, correct, difficulty: diff, topic }]);
-                          logAction(`Added question: ${text.substring(0, 40)}`, currentRole);
-                          ['nq-text', 'nq-topic', 'nq-options', 'nq-correct'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-                          alert('Question added successfully.');
-                        }}><Plus size={14} /> Add Question</button>
+                        
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '14px'}}>
+                          <div className="form-group" style={{marginBottom: 0}}>
+                            <label className="form-label">Type</label>
+                            <select 
+                              className="form-control" 
+                              value={newQuestionType}
+                              onChange={e => {
+                                const t = e.target.value;
+                                setNewQuestionType(t);
+                                setNewQuestionCorrect([]);
+                                if (t === 'True-False') {
+                                  setNewQuestionOptions(['True', 'False']);
+                                } else {
+                                  setNewQuestionOptions(['', '', '', '']);
+                                }
+                              }}
+                            >
+                              <option>MCQ</option>
+                              <option>True-False</option>
+                              <option>Multi-Select</option>
+                            </select>
+                          </div>
+                          <div className="form-group" style={{marginBottom: 0}}>
+                            <label className="form-label">Difficulty</label>
+                            <select 
+                              className="form-control" 
+                              value={newQuestionDiff}
+                              onChange={e => setNewQuestionDiff(e.target.value)}
+                            >
+                              <option>Easy</option>
+                              <option>Medium</option>
+                              <option>Hard</option>
+                            </select>
+                          </div>
+                          <div className="form-group" style={{marginBottom: 0}}>
+                            <label className="form-label">Topic</label>
+                            <input 
+                              type="text" 
+                              className="form-control" 
+                              placeholder="e.g. Valuation" 
+                              value={newQuestionTopic}
+                              onChange={e => setNewQuestionTopic(e.target.value)}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Options Input Section */}
+                        <div className="form-group" style={{marginBottom: '16px'}}>
+                          <label className="form-label">Configure Options & Select Correct Answer(s)</label>
+                          <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+                            {newQuestionOptions.map((opt, oi) => {
+                              const isChecked = newQuestionCorrect.includes(oi);
+                              return (
+                                <div key={oi} style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                                  {/* Selection Checkbox/Radio */}
+                                  {newQuestionType === 'Multi-Select' ? (
+                                    <input 
+                                      type="checkbox" 
+                                      checked={isChecked}
+                                      style={{width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)'}}
+                                      onChange={() => {
+                                        setNewQuestionCorrect(prev => 
+                                          isChecked ? prev.filter(v => v !== oi) : [...prev, oi]
+                                        );
+                                      }}
+                                    />
+                                  ) : (
+                                    <input 
+                                      type="radio" 
+                                      name="new-question-correct-radio"
+                                      checked={isChecked}
+                                      style={{width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary)'}}
+                                      onChange={() => setNewQuestionCorrect([oi])}
+                                    />
+                                  )}
+                                  
+                                  {/* Option Input Field */}
+                                  <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    style={{flex: 1}}
+                                    placeholder={`Option ${String.fromCharCode(65 + oi)}`} 
+                                    value={opt}
+                                    readOnly={newQuestionType === 'True-False'}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
+                                      setNewQuestionOptions(prev => {
+                                        const nextOpts = [...prev];
+                                        nextOpts[oi] = val;
+                                        return nextOpts;
+                                      });
+                                    }}
+                                  />
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        <button 
+                          className="btn btn-primary" 
+                          onClick={() => {
+                            const trimmedText = newQuestionText.trim();
+                            const trimmedTopic = newQuestionTopic.trim();
+                            const cleanedOptions = newQuestionOptions.map(o => o.trim()).filter(Boolean);
+                            
+                            if (!trimmedText) { alert('Please enter question text.'); return; }
+                            if (cleanedOptions.length < 2) { alert('Please configure at least 2 options.'); return; }
+                            if (newQuestionCorrect.length === 0) { alert('Please select at least one correct answer.'); return; }
+
+                            setQuestionBank(prev => [...prev, { 
+                              id: Date.now(), 
+                              type: newQuestionType, 
+                              question: trimmedText, 
+                              options: newQuestionOptions, 
+                              correct: newQuestionCorrect, 
+                              difficulty: newQuestionDiff, 
+                              topic: trimmedTopic || 'General'
+                            }]);
+                            
+                            logAction(`Added question: ${trimmedText.substring(0, 40)}`, currentRole);
+                            
+                            // Reset state
+                            setNewQuestionText("");
+                            setNewQuestionTopic("");
+                            setNewQuestionCorrect([]);
+                            if (newQuestionType === 'True-False') {
+                              setNewQuestionOptions(['True', 'False']);
+                            } else {
+                              setNewQuestionOptions(['', '', '', '']);
+                            }
+                            alert('Question added successfully.');
+                          }}
+                        >
+                          <Plus size={14} /> Add Question
+                        </button>
                       </div>
                     </div>
                   )}
@@ -3071,56 +4003,81 @@ function App() {
                           <h2 style={{margin: 0, fontSize: '1.5rem', fontWeight: 800}}>LMS Settings</h2>
                           <p style={{margin: '4px 0 0', color: 'var(--text-muted)', fontSize: '0.875rem'}}>Configure pricing, certification rules, legal text, and system toggles.</p>
                         </div>
-                        <button className="btn btn-primary" style={{padding: '10px 24px'}} onClick={() => { logAction('Saved LMS settings', 'SuperAdmin'); alert('Settings saved.'); }}><Check size={14} /> Save All</button>
+                        <button className="btn btn-primary" style={{padding: '8px 20px', fontSize: '0.85rem'}} onClick={() => { logAction('Saved LMS settings', 'SuperAdmin'); alert('Settings saved.'); }}><Check size={14} /> Save All</button>
                       </div>
-                      <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                        <div className="checkout-card">
-                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><CreditCard size={15} style={{color: 'var(--primary)'}} /> Pricing & GST</h4>
-                          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px'}}>
-                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Base Course Fee (₹)</label><input type="number" className="form-control" value={settings.price} onChange={e => setSettings({...settings, price: parseInt(e.target.value) || 0})} /></div>
-                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">GST Rate (%)</label><input type="number" className="form-control" value={settings.gstRate} onChange={e => setSettings({...settings, gstRate: parseInt(e.target.value) || 0})} /></div>
+                      <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                        <div className="checkout-card" style={{padding: '16px 20px', borderRadius: '8px'}}>
+                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px'}}><CreditCard size={16} style={{color: 'var(--primary)'}} /> Pricing & GST</h4>
+                          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px'}}>
+                            <div className="form-group" style={{margin: 0}}>
+                              <label className="form-label" style={{fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)'}}>Base Course Fee (₹)</label>
+                              <input type="number" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={settings.price} onChange={e => setSettings({...settings, price: parseInt(e.target.value) || 0})} />
+                            </div>
+                            <div className="form-group" style={{margin: 0}}>
+                              <label className="form-label" style={{fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)'}}>GST Rate (%)</label>
+                              <input type="number" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={settings.gstRate} onChange={e => setSettings({...settings, gstRate: parseInt(e.target.value) || 0})} />
+                            </div>
                           </div>
-                          <div style={{marginTop: '14px', padding: '12px 16px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 'var(--r-sm)', fontSize: '0.875rem'}}>
-                            💡 Total billed to learner: <strong>₹{(settings.price * (1 + settings.gstRate / 100)).toLocaleString('en-IN')}</strong> (incl. GST)
+                          <div style={{marginTop: '12px', padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '6px', fontSize: '0.8rem', color: '#166534', display: 'flex', alignItems: 'center', gap: '6px'}}>
+                            <span>💡 Total billed to learner: <strong>₹{(settings.price * (1 + settings.gstRate / 100)).toLocaleString('en-IN')}</strong> (incl. GST)</span>
                           </div>
                         </div>
-                        <div className="checkout-card">
-                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><Award size={15} style={{color: 'var(--accent)'}} /> Certificate Configuration</h4>
-                          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px'}}>
-                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">ABB ID Format</label><input type="text" className="form-control" value={settings.certIdFormat} onChange={e => setSettings({...settings, certIdFormat: e.target.value})} /></div>
-                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Authorized Signatory</label><input type="text" className="form-control" value={settings.signatoryName} onChange={e => setSettings({...settings, signatoryName: e.target.value})} /></div>
+
+                        <div className="checkout-card" style={{padding: '16px 20px', borderRadius: '8px'}}>
+                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px'}}><Award size={16} style={{color: 'var(--accent)'}} /> Certificate Configuration</h4>
+                          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px'}}>
+                            <div className="form-group" style={{margin: 0}}>
+                              <label className="form-label" style={{fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)'}}>ABB ID Format</label>
+                              <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={settings.certIdFormat} onChange={e => setSettings({...settings, certIdFormat: e.target.value})} />
+                            </div>
+                            <div className="form-group" style={{margin: 0}}>
+                              <label className="form-label" style={{fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)'}}>Authorized Signatory</label>
+                              <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={settings.signatoryName} onChange={e => setSettings({...settings, signatoryName: e.target.value})} />
+                            </div>
                           </div>
                         </div>
-                        <div className="checkout-card">
-                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><Settings size={15} style={{color: 'var(--text-muted)'}} /> System Toggles</h4>
-                          <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+
+                        <div className="checkout-card" style={{padding: '16px 20px', borderRadius: '8px'}}>
+                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px'}}><Settings size={16} style={{color: 'var(--text-muted)'}} /> System Toggles</h4>
+                          <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
                             {[
                               { key: 'automaticIssuance', label: 'Auto-Issue Certificate on Exam Pass', desc: 'Automatically generate certificate when a learner scores ≥80%.' },
                               { key: 'sequentialMode', label: 'Enforce Sequential Lesson Progression', desc: 'Learners must complete each lesson before unlocking the next.' },
                               { key: 'revealAnswers', label: 'Reveal Correct Answers After Exam', desc: 'Show learners the correct answers after exam submission.' },
                             ].map(t => (
-                              <label key={t.key} style={{display: 'flex', gap: '14px', alignItems: 'flex-start', padding: '14px 16px', border: `1.5px solid ${settings[t.key] ? 'var(--primary)' : 'var(--border)'}`, borderRadius: 'var(--r-sm)', cursor: 'pointer', background: settings[t.key] ? '#eff6ff' : '#fff', transition: 'all .2s'}}>
-                                <input type="checkbox" checked={settings[t.key]} onChange={e => setSettings({...settings, [t.key]: e.target.checked})} style={{marginTop: '3px', width: '16px', height: '16px', accentColor: 'var(--primary)', flexShrink: 0}} />
-                                <div><div style={{fontWeight: 700, fontSize: '0.9rem'}}>{t.label}</div><div style={{fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '2px'}}>{t.desc}</div></div>
+                              <label key={t.key} style={{display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '10px 14px', border: `1.5px solid ${settings[t.key] ? 'var(--primary)' : 'var(--border)'}`, borderRadius: '6px', cursor: 'pointer', background: settings[t.key] ? '#eff6ff' : '#fff', transition: 'all .15s'}}>
+                                <input type="checkbox" checked={settings[t.key]} onChange={e => setSettings({...settings, [t.key]: e.target.checked})} style={{marginTop: '3px', width: '15px', height: '15px', accentColor: 'var(--primary)', flexShrink: 0}} />
+                                <div>
+                                  <div style={{fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-dark)'}}>{t.label}</div>
+                                  <div style={{fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px'}}>{t.desc}</div>
+                                </div>
                               </label>
                             ))}
                           </div>
                         </div>
-                        <div className="checkout-card">
-                          <h4 style={{margin: '0 0 16px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><FileText size={15} style={{color: 'var(--info)'}} /> Legal Terms Configurator</h4>
-                          <div style={{display: 'grid', gridTemplateColumns: '140px 1fr', gap: '20px'}}>
-                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Legal Version</label><input type="text" className="form-control" value={settings.legalVersion} onChange={e => setSettings({...settings, legalVersion: e.target.value})} /></div>
-                            <div className="form-group" style={{marginBottom: 0}}><label className="form-label">Disclaimer Text</label><textarea rows="3" className="form-control" value={settings.legalText} onChange={e => setSettings({...settings, legalText: e.target.value})} /></div>
+
+                        <div className="checkout-card" style={{padding: '16px 20px', borderRadius: '8px'}}>
+                          <h4 style={{margin: '0 0 14px', fontWeight: 800, fontSize: '1rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px'}}><FileText size={16} style={{color: 'var(--info)'}} /> Legal Terms Configurator</h4>
+                          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px'}}>
+                            <div className="form-group" style={{margin: 0}}>
+                              <label className="form-label" style={{fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)'}}>Legal Version</label>
+                              <input type="text" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={settings.legalVersion} onChange={e => setSettings({...settings, legalVersion: e.target.value})} />
+                            </div>
+                            <div className="form-group" style={{margin: 0}}>
+                              <label className="form-label" style={{fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)'}}>Disclaimer Text</label>
+                              <textarea rows="2" className="form-control" style={{fontSize: '0.82rem', padding: '8px'}} value={settings.legalText} onChange={e => setSettings({...settings, legalText: e.target.value})} />
+                            </div>
                           </div>
                         </div>
-                        <div className="checkout-card" style={{borderColor: 'var(--accent)'}}>
-                          <h4 style={{margin: '0 0 12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px'}}><Award size={15} style={{color: 'var(--accent)'}} /> Manual Certification Approval</h4>
-                          <p style={{fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '16px'}}>Issue certification manually for any learner who has met all requirements.</p>
-                          <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}>
+
+                        <div className="checkout-card" style={{padding: '16px 20px', borderRadius: '8px', borderColor: 'var(--accent)'}}>
+                          <h4 style={{margin: '0 0 10px', fontWeight: 800, fontSize: '1rem', color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px'}}><Award size={16} style={{color: 'var(--accent)'}} /> Manual Certification Approval</h4>
+                          <p style={{fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '12px'}}>Issue certification manually for any learner who has met all requirements.</p>
+                          <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
                             {learners.map(l => (
-                              <button key={l.id} className={`btn ${l.stage === 'Certified' ? 'btn-secondary' : 'btn-accent'}`} disabled={l.stage === 'Certified'} style={{padding: '9px 18px', fontSize: '0.875rem'}}
+                              <button key={l.id} className={`btn ${l.stage === 'Certified' ? 'btn-secondary' : 'btn-accent'}`} disabled={l.stage === 'Certified'} style={{padding: '6px 14px', fontSize: '0.78rem', display: 'inline-flex', alignItems: 'center', gap: '4px'}}
                                 onClick={() => { setLearners(prev => prev.map(u => u.id === l.id ? {...u, stage: 'Certified'} : u)); logAction(`Manually certified ${l.fullName}`, 'SuperAdmin'); alert(`Certificate issued for ${l.fullName}.`); }}>
-                                {l.stage === 'Certified' ? <><CheckCircle size={13} /> {l.fullName} — Certified</> : <><Award size={13} /> Issue — {l.fullName}</>}
+                                {l.stage === 'Certified' ? <><CheckCircle size={12} /> {l.fullName}</> : <><Award size={12} /> Issue — {l.fullName}</>}
                               </button>
                             ))}
                           </div>
@@ -3142,20 +4099,27 @@ function App() {
                       <div style={{marginBottom: '16px', position: 'relative'}}>
                         <Search size={14} style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)'}} />
                         <input type="text" className="form-control" placeholder="Filter by action or role..." style={{paddingLeft: '36px'}}
-                          onChange={e => { const v = e.target.value.toLowerCase(); document.querySelectorAll('.audit-row').forEach(r => { r.style.display = r.textContent.toLowerCase().includes(v) ? '' : 'none'; }); }} />
+                          value={auditSearchQuery}
+                          onChange={e => setAuditSearchQuery(e.target.value)} />
                       </div>
                       <div className="table-container">
                         <table className="data-table">
                           <thead><tr><th>Timestamp</th><th>Action</th><th>Role</th><th>IP Address</th></tr></thead>
                           <tbody>
-                            {auditLogs.map((log, idx) => (
-                              <tr key={idx} className="audit-row">
-                                <td style={{fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap'}}>{new Date(log.timestamp).toLocaleString()}</td>
-                                <td style={{fontSize: '0.875rem'}}>{log.action}</td>
-                                <td><span className={`badge ${log.role === 'SuperAdmin' ? 'badge-danger' : log.role === 'Learner' ? 'badge-success' : 'badge-info'}`}>{log.role}</span></td>
-                                <td style={{fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)'}}>{log.ip}</td>
-                              </tr>
-                            ))}
+                            {auditLogs
+                              .filter(log => 
+                                !auditSearchQuery ||
+                                log.action.toLowerCase().includes(auditSearchQuery.toLowerCase()) ||
+                                log.role.toLowerCase().includes(auditSearchQuery.toLowerCase())
+                              )
+                              .map((log, idx) => (
+                                <tr key={idx} className="audit-row">
+                                  <td style={{fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap'}}>{new Date(log.timestamp).toLocaleString()}</td>
+                                  <td style={{fontSize: '0.875rem'}}>{log.action}</td>
+                                  <td><span className={`badge ${log.role === 'SuperAdmin' ? 'badge-danger' : log.role === 'Learner' ? 'badge-success' : 'badge-info'}`}>{log.role}</span></td>
+                                  <td style={{fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)'}}>{log.ip}</td>
+                                </tr>
+                              ))}
                           </tbody>
                         </table>
                       </div>
@@ -3241,6 +4205,47 @@ function App() {
           &copy; 2026 Yoova Business Broking (YBB). All rights reserved. &nbsp;|&nbsp; ABB Certification Platform MVP v1.0
         </div>
       </footer>
+
+      {toast && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          background: toast.type === 'error' ? '#fee2e2' : toast.type === 'warning' ? '#fef3c7' : toast.type === 'info' ? '#e0f2fe' : '#d1fae5',
+          border: `1.5px solid ${toast.type === 'error' ? '#f87171' : toast.type === 'warning' ? '#f59e0b' : toast.type === 'info' ? '#38bdf8' : '#34d399'}`,
+          color: toast.type === 'error' ? '#991b1b' : toast.type === 'warning' ? '#92400e' : toast.type === 'info' ? '#0369a1' : '#065f46',
+          padding: '14px 22px',
+          borderRadius: '8px',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+          zIndex: 10000,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          fontSize: '0.9rem',
+          fontWeight: 700,
+          animation: 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+          maxWidth: '380px',
+          wordBreak: 'break-word'
+        }}>
+          <span style={{fontSize: '1.2rem', lineHeight: 1}}>
+            {toast.type === 'error' ? '❌' : toast.type === 'warning' ? '⚠️' : toast.type === 'info' ? 'ℹ️' : '✅'}
+          </span>
+          <div>{toast.message}</div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes slideIn {
+          from {
+            transform: translateY(120%) scale(0.9);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }
