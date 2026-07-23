@@ -10,126 +10,126 @@ const INITIAL_MODULES = [
     id: 1,
     title: "Module 1: Foundations of Business Broking",
     lessons: [
-      { id: "1-1", title: "Module 1- Introduction", duration: "12 mins", summary: "Overview of buy-side, sell-side, and transaction advisory roles.", videoUrl: "Module 1- Introduction.mp4" },
-      { id: "1-2", title: "Module 1 - Lesson 1", duration: "18 mins", summary: "Understanding the boundary of professional certifications vs state licenses.", videoUrl: "Module 1 - Lesson 1.mp4" },
-      { id: "1-3", title: "Module 1 - Lesson 2", duration: "15 mins", summary: "Step-by-step breakdown of the deal lifecycle from listing to close.", videoUrl: "Module 1 - Lesson 2.mp4" },
-      { id: "1-4", title: "Module 1 - Lesson 3", duration: "14 mins", summary: "EBITDA, SDE, Net Working Capital, and deal multiples explained.", videoUrl: "Module 1 - Lesson 3.mp4" },
-      { id: "1-5", title: "Module 1 - Lesson 4", duration: "20 mins", summary: "Fiduciary duties, confidentiality obligations, and conflict of interest rules.", videoUrl: "Module 1 - Lesson 4.mp4" }
+      { id: "1-1", title: "Module 1- Introduction", duration: "12 mins", summary: "Overview of buy-side, sell-side, and transaction advisory roles.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201-%20Intro.mp4" },
+      { id: "1-2", title: "Module 1 - Lesson 1", duration: "18 mins", summary: "Understanding the boundary of professional certifications vs state licenses.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%201.mp4" },
+      { id: "1-3", title: "Module 1 - Lesson 2", duration: "15 mins", summary: "Step-by-step breakdown of the deal lifecycle from listing to close.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%202.mp4" },
+      { id: "1-4", title: "Module 1 - Lesson 3", duration: "14 mins", summary: "EBITDA, SDE, Net Working Capital, and deal multiples explained.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%203.mp4" },
+      { id: "1-5", title: "Module 1 - Lesson 4", duration: "20 mins", summary: "Fiduciary duties, confidentiality obligations, and conflict of interest rules.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%204.mp4" }
     ]
   },
   {
     id: 2,
     title: "Module 2: Business Valuation & Financial Analysis",
     lessons: [
-      { id: "2-1", title: "Module 2 - Introduction", duration: "22 mins", summary: "Adjusting owner-operator add-backs to calculate Seller's Discretionary Earnings (SDE).", videoUrl: "Module 2 - Introduction.mp4" },
-      { id: "2-2", title: "Module 2 - Lesson 5", duration: "25 mins", summary: "Applying industry-specific valuation multiples based on risk profile.", videoUrl: "Module 2 - Lesson 5.mp4" },
-      { id: "2-3", title: "Module 2 - Lesson 6", duration: "19 mins", summary: "Balance-sheet driven valuations for asset-heavy and distressed businesses.", videoUrl: "Module 2 - Lesson 6.mp4" },
-      { id: "2-4", title: "Module 2 - Lesson 7", duration: "21 mins", summary: "Using transaction databases and deal comps to benchmark asking prices.", videoUrl: "Module 2 - Lesson 7.mp4" }
+      { id: "2-1", title: "Module 2 - Introduction", duration: "22 mins", summary: "Adjusting owner-operator add-backs to calculate Seller's Discretionary Earnings (SDE).", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Introduction.mp4" },
+      { id: "2-2", title: "Module 2 - Lesson 5", duration: "25 mins", summary: "Applying industry-specific valuation multiples based on risk profile.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%205.mp4" },
+      { id: "2-3", title: "Module 2 - Lesson 6", duration: "19 mins", summary: "Balance-sheet driven valuations for asset-heavy and distressed businesses.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%206.mp4" },
+      { id: "2-4", title: "Module 2 - Lesson 7", duration: "21 mins", summary: "Using transaction databases and deal comps to benchmark asking prices.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%207.mp4" }
     ]
   },
   {
     id: 3,
     title: "Module 3: Marketing a Business for Sale",
     lessons: [
-      { id: "3-1", title: "Module 3 - Introduction", duration: "16 mins", summary: "Crafting compelling anonymous teasers that attract qualified buyer enquiries.", videoUrl: "Module 3 - Introduction.mp4" },
-      { id: "3-2", title: "Module 3 - Lesson 9", duration: "28 mins", summary: "Full structure and content of a professional CIM package.", videoUrl: "Module 3 - Lesson 9.mp4" },
-      { id: "3-3", title: "Module 3 - Lesson 10", duration: "17 mins", summary: "Strategic approaches to identify and approach financial and strategic buyers.", videoUrl: "Module 3 - Lesson 10.mp4" },
-      { id: "3-4", title: "Module 3 - Lesson 11", duration: "14 mins", summary: "Using online marketplaces and proprietary buyer databases for deal exposure.", videoUrl: "Module 3 - Lesson 11.mp4" },
-      { id: "3-5", title: "Module 3 - Lesson 12", duration: "20 mins", summary: "Screening buyers, enforcing NDAs, and releasing confidential information appropriately.", videoUrl: "Module 3 - Lesson 12.mp4" }
+      { id: "3-1", title: "Module 3 - Introduction", duration: "16 mins", summary: "Crafting compelling anonymous teasers that attract qualified buyer enquiries.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Introduction.mp4" },
+      { id: "3-2", title: "Module 3 - Lesson 9", duration: "28 mins", summary: "Full structure and content of a professional CIM package.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%209.mp4" },
+      { id: "3-3", title: "Module 3 - Lesson 10", duration: "17 mins", summary: "Strategic approaches to identify and approach financial and strategic buyers.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2010.mp4" },
+      { id: "3-4", title: "Module 3 - Lesson 11", duration: "14 mins", summary: "Using online marketplaces and proprietary buyer databases for deal exposure.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2011.mp4" },
+      { id: "3-5", title: "Module 3 - Lesson 12", duration: "20 mins", summary: "Screening buyers, enforcing NDAs, and releasing confidential information appropriately.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2012.mp4" }
     ]
   },
   {
     id: 4,
     title: "Module 4: Buyer Qualification & Management",
     lessons: [
-      { id: "4-1", title: "Module 4 - Introduction", duration: "15 mins", summary: "How private equity, family offices, and strategic acquirers differ in intent and approach.", videoUrl: "Module 4 - Introduction.mp4" },
-      { id: "4-2", title: "Module 4 - Lesson 13", duration: "18 mins", summary: "Evaluating financial capacity, operational fit, and deal readiness.", videoUrl: "Module 4 - Lesson 13.mp4" },
-      { id: "4-3", title: "Module 4 - Lesson 14", duration: "22 mins", summary: "How buyers finance acquisitions through banks, SBA-equivalents, and seller financing.", videoUrl: "Module 4 - Lesson 14.mp4" },
-      { id: "4-4", title: "Module 4 - Lesson 15", duration: "17 mins", summary: "Facilitating seller-buyer meetings while maintaining confidentiality and control.", videoUrl: "Module 4 - Lesson 15.mp4" },
-      { id: "4-5", title: "Module 4 - Lesson 16", duration: "24 mins", summary: "Key LOI components: price, structure, exclusivity, contingencies, and closing timelines.", videoUrl: "Module 4 - Lesson 16.mp4" }
+      { id: "4-1", title: "Module 4 - Introduction", duration: "15 mins", summary: "How private equity, family offices, and strategic acquirers differ in intent and approach.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Introduction.mp4" },
+      { id: "4-2", title: "Module 4 - Lesson 13", duration: "18 mins", summary: "Evaluating financial capacity, operational fit, and deal readiness.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2013.mp4" },
+      { id: "4-3", title: "Module 4 - Lesson 14", duration: "22 mins", summary: "How buyers finance acquisitions through banks, SBA-equivalents, and seller financing.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2014.mp4" },
+      { id: "4-4", title: "Module 4 - Lesson 15", duration: "17 mins", summary: "Facilitating seller-buyer meetings while maintaining confidentiality and control.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2015.mp4" },
+      { id: "4-5", title: "Module 4 - Lesson 16", duration: "24 mins", summary: "Key LOI components: price, structure, exclusivity, contingencies, and closing timelines.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2016%20.mp4" }
     ]
   },
   {
     id: 5,
     title: "Module 5: Due Diligence Process",
     lessons: [
-      { id: "5-1", title: "MODULE 5 - INTRODUCTION", duration: "16 mins", summary: "Organising a virtual data room with financial, legal, and operational documents.", videoUrl: "MODULE 5 - INTRODUCTION.mp4" },
-      { id: "5-2", title: "Module 5 - Lesson 17", duration: "25 mins", summary: "Reviewing tax returns, P&L statements, accounts receivable, and EBITDA adjustments.", videoUrl: "Module 5 - Lesson 17.mp4" },
-      { id: "5-3", title: "Module 5 - Lesson 18", duration: "18 mins", summary: "Staff contracts, vendor agreements, IP rights, and operational continuity checks.", videoUrl: "Module 5 - Lesson 18.mp4" },
-      { id: "5-4", title: "Module 5 - Lesson 19", duration: "20 mins", summary: "Licences, litigation risk, regulatory compliance, and pending liabilities.", videoUrl: "Module 5 - Lesson 19.mp4" },
-      { id: "5-5", title: "Module 5 - Lesson 20", duration: "15 mins", summary: "Keeping deals from falling apart when issues are discovered post-LOI.", videoUrl: "Module 5 - Lesson 20.mp4" }
+      { id: "5-1", title: "MODULE 5 - INTRODUCTION", duration: "16 mins", summary: "Organising a virtual data room with financial, legal, and operational documents.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/MODULE%205%20-%20%20INTRODUCTION.mp4" },
+      { id: "5-2", title: "Module 5 - Lesson 17", duration: "25 mins", summary: "Reviewing tax returns, P&L statements, accounts receivable, and EBITDA adjustments.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2017.mp4" },
+      { id: "5-3", title: "Module 5 - Lesson 18", duration: "18 mins", summary: "Staff contracts, vendor agreements, IP rights, and operational continuity checks.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2018.mp4" },
+      { id: "5-4", title: "Module 5 - Lesson 19", duration: "20 mins", summary: "Licences, litigation risk, regulatory compliance, and pending liabilities.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2019.mp4" },
+      { id: "5-5", title: "Module 5 - Lesson 20", duration: "15 mins", summary: "Keeping deals from falling apart when issues are discovered post-LOI.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2020.mp4" }
     ]
   },
   {
     id: 6,
     title: "Module 6: Deal Structuring & Negotiation",
     lessons: [
-      { id: "6-1", title: "Module 6 - Introduction", duration: "15 mins", summary: "Introduction to deal mechanisms, options, and purchase structure.", videoUrl: "Module 6 - Introduction.mp4" },
-      { id: "6-2", title: "Module 6 - Lesson 21", duration: "22 mins", summary: "Choosing the right deal structure for seller tax efficiency and buyer protection.", videoUrl: "Module 6 - Lesson 21.mp4" },
-      { id: "6-3", title: "Module 6 - Lesson 22", duration: "20 mins", summary: "Structuring performance-linked payments and bridging valuation gaps.", videoUrl: "Module 6 - Lesson 22.mp4" },
-      { id: "6-4", title: "Module 6 - Lesson 23", duration: "18 mins", summary: "Principled negotiation, BATNA analysis, and closing concessions strategically.", videoUrl: "Module 6 - Lesson 23.mp4" },
-      { id: "6-5", title: "Module 6 - Lesson 24", duration: "24 mins", summary: "Key legal protections for both parties in a business sale agreement.", videoUrl: "Module 6 - Lesson 24.mp4" },
-      { id: "6-6", title: "Module 6 - Lesson 25", duration: "14 mins", summary: "Managing deal momentum and preventing buyers from backing out post-exclusivity.", videoUrl: "Module 6 - Lesson 25.mp4" },
-      { id: "6-7", title: "Module 6- Lesson 26", duration: "21 mins", summary: "Understanding capital structures, leverage, and mezzanine debt options.", videoUrl: "Module 6- Lesson 26.mp4" },
-      { id: "6-8", title: "Module 6 - Lesson 27", duration: "19 mins", summary: "How capitalization choices impact value creation and investment returns.", videoUrl: "Module 6 - Lesson 27.mp4" }
+      { id: "6-1", title: "Module 6 - Introduction", duration: "15 mins", summary: "Introduction to deal mechanisms, options, and purchase structure.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Introduction%20(1).mp4" },
+      { id: "6-2", title: "Module 6 - Lesson 21", duration: "22 mins", summary: "Choosing the right deal structure for seller tax efficiency and buyer protection.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2021.mp4" },
+      { id: "6-3", title: "Module 6 - Lesson 22", duration: "20 mins", summary: "Structuring performance-linked payments and bridging valuation gaps.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2022.mp4" },
+      { id: "6-4", title: "Module 6 - Lesson 23", duration: "18 mins", summary: "Principled negotiation, BATNA analysis, and closing concessions strategically.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2023.mp4" },
+      { id: "6-5", title: "Module 6 - Lesson 24", duration: "24 mins", summary: "Key legal protections for both parties in a business sale agreement.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2024%20.mp4" },
+      { id: "6-6", title: "Module 6 - Lesson 25", duration: "14 mins", summary: "Managing deal momentum and preventing buyers from backing out post-exclusivity.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2025.mp4" },
+      { id: "6-7", title: "Module 6- Lesson 26", duration: "21 mins", summary: "Understanding capital structures, leverage, and mezzanine debt options.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206-%20Lesson%2026.mp4" },
+      { id: "6-8", title: "Module 6 - Lesson 27", duration: "19 mins", summary: "How capitalization choices impact value creation and investment returns.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2027%20.mp4" }
     ]
   },
   {
     id: 7,
     title: "Module 7: Closing the Transaction",
     lessons: [
-      { id: "7-1", title: "Module 7 - Introduction", duration: "14 mins", summary: "Introduction to the closing phase, transaction checkpoints, and milestones.", videoUrl: "Module 7 - Introduction.mp4" },
-      { id: "7-2", title: "Module 7 - Lesson 28", duration: "25 mins", summary: "Key clauses, conditions precedent, and closing mechanics in the SPA.", videoUrl: "Module 7 - Lesson 28.mp4" },
-      { id: "7-3", title: "Module 7 - Lesson 29", duration: "15 mins", summary: "Coordinating a professional advisory team through the closing process.", videoUrl: "Module 7 - Lesson 29.mp4" },
-      { id: "7-4", title: "Module 7 - Lesson 30", duration: "19 mins", summary: "Payment mechanics, escrow releases, and funds-flow waterfalls.", videoUrl: "Module 7 - Lesson 30.mp4" },
-      { id: "7-5", title: "Module 7 - Lesson 31", duration: "17 mins", summary: "Staff, customer, and vendor communication during business ownership transfer.", videoUrl: "Module 7 - Lesson 31.mp4" },
-      { id: "7-6", title: "Module 7 - Lesson 32", duration: "13 mins", summary: "Retention support, referral obligations, and relationship maintenance post-close.", videoUrl: "Module 7 - Lesson 32.mp4" },
-      { id: "7-7", title: "Module 7 - Lesson 33", duration: "18 mins", summary: "Ensuring all legal declarations and required disclosures are completed properly.", videoUrl: "Module 7 - Lesson 33.mp4" },
-      { id: "7-8", title: "Module 7 - Lesson 34", duration: "20 mins", summary: "Allocating success fees, managing holdbacks, and closing bank escrow accounts.", videoUrl: "Module 7 - Lesson 34.mp4" }
+      { id: "7-1", title: "Module 7 - Introduction", duration: "14 mins", summary: "Introduction to the closing phase, transaction checkpoints, and milestones.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20Introduction.mp4" },
+      { id: "7-2", title: "Module 7 - Lesson 28", duration: "25 mins", summary: "Key clauses, conditions precedent, and closing mechanics in the SPA.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2028.mp4" },
+      { id: "7-3", title: "Module 7 - Lesson 29", duration: "15 mins", summary: "Coordinating a professional advisory team through the closing process.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2029.mp4" },
+      { id: "7-4", title: "Module 7 - Lesson 30", duration: "19 mins", summary: "Payment mechanics, escrow releases, and funds-flow waterfalls.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2030.mp4" },
+      { id: "7-5", title: "Module 7 - Lesson 31", duration: "17 mins", summary: "Staff, customer, and vendor communication during business ownership transfer.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2031.mp4" },
+      { id: "7-6", title: "Module 7 - Lesson 32", duration: "13 mins", summary: "Retention support, referral obligations, and relationship maintenance post-close.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2032.mp4" },
+      { id: "7-7", title: "Module 7 - Lesson 33", duration: "18 mins", summary: "Ensuring all legal declarations and required disclosures are completed properly.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2033.mp4" },
+      { id: "7-8", title: "Module 7 - Lesson 34", duration: "20 mins", summary: "Allocating success fees, managing holdbacks, and closing bank escrow accounts.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2034.mp4" }
     ]
   },
   {
     id: 8,
     title: "Module 8: Client Management & Professional Practice",
     lessons: [
-      { id: "8-1", title: "Module 8 - Introduction", duration: "13 mins", summary: "Overview of professional parameters, standards, and workflow strategies.", videoUrl: "Module 8 - Introduction.mp4" },
-      { id: "8-2", title: "Module 8 - Lesson 35", duration: "16 mins", summary: "Drafting and presenting listing agreements, exclusivity, and commission structures.", videoUrl: "Module 8 - Lesson 35.mp4" },
-      { id: "8-3", title: "Module 8 - Lesson 36", duration: "18 mins", summary: "Educating sellers on realistic valuations, timelines, and deal certainty.", videoUrl: "Module 8 - Lesson 36.mp4" },
-      { id: "8-4", title: "Module 8 - Lesson 37", duration: "14 mins", summary: "Maintaining an organised deal pipeline using CRM tools and activity tracking.", videoUrl: "Module 8 - Lesson 37.mp4" },
-      { id: "8-5", title: "Module 8 - Lesson 38", duration: "20 mins", summary: "Building referral relationships with accountants, lawyers, and wealth managers.", videoUrl: "Module 8 - Lesson 38.mp4" },
-      { id: "8-6", title: "Module 8 - Lesson 39", duration: "17 mins", summary: "Maintaining records, compliance checklists, and YBB professional standards.", videoUrl: "Module 8 - Lesson 39.mp4" },
-      { id: "8-7", title: "Module 8 - Lesson 40", duration: "19 mins", summary: "Positioning yourself as a transaction expert through content and events.", videoUrl: "Module 8 - Lesson 40.mp4" },
-      { id: "8-8", title: "Module 8 - Lesson 41", duration: "22 mins", summary: "Navigating advisory pricing models, retaining deposits, and sharing commissions.", videoUrl: "Module 8 - Lesson 41.mp4" },
-      { id: "8-9", title: "Module 8 - Lesson 42", duration: "15 mins", summary: "Protecting your brokerage firm against operational and client-side advisory risks.", videoUrl: "Module 8 - Lesson 42.mp4" }
+      { id: "8-1", title: "Module 8 - Introduction", duration: "13 mins", summary: "Overview of professional parameters, standards, and workflow strategies.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Introduction.mp4" },
+      { id: "8-2", title: "Module 8 - Lesson 35", duration: "16 mins", summary: "Drafting and presenting listing agreements, exclusivity, and commission structures.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2035.mp4" },
+      { id: "8-3", title: "Module 8 - Lesson 36", duration: "18 mins", summary: "Educating sellers on realistic valuations, timelines, and deal certainty.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2036.mp4" },
+      { id: "8-4", title: "Module 8 - Lesson 37", duration: "14 mins", summary: "Maintaining an organised deal pipeline using CRM tools and activity tracking.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2037.mp4" },
+      { id: "8-5", title: "Module 8 - Lesson 38", duration: "20 mins", summary: "Building referral relationships with accountants, lawyers, and wealth managers.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2038.mp4" },
+      { id: "8-6", title: "Module 8 - Lesson 39", duration: "17 mins", summary: "Maintaining records, compliance checklists, and YBB professional standards.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2039.mp4" },
+      { id: "8-7", title: "Module 8 - Lesson 40", duration: "19 mins", summary: "Positioning yourself as a transaction expert through content and events.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2040.mp4" },
+      { id: "8-8", title: "Module 8 - Lesson 41", duration: "22 mins", summary: "Navigating advisory pricing models, retaining deposits, and sharing commissions.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2041.mp4" },
+      { id: "8-9", title: "Module 8 - Lesson 42", duration: "15 mins", summary: "Protecting your brokerage firm against operational and client-side advisory risks.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2042.mp4" }
     ]
   },
   {
     id: 9,
     title: "Module 9: Industry Sectors & Specialisation",
     lessons: [
-      { id: "9-1", title: "Module 9 - Introduction", duration: "12 mins", summary: "Overview of industry specialization and transaction nuances across sectors.", videoUrl: "Module 9 - Introduction.mp4" },
-      { id: "9-2", title: "Module 9 - Lesson 43", duration: "18 mins", summary: "Lease assignments, goodwill valuation, and inventory deals in retail and F&B.", videoUrl: "Module 9 - Lesson 43.mp4" },
-      { id: "9-3", title: "Module 9 - Lesson 44", duration: "21 mins", summary: "Asset-heavy transactions, plant valuation, and environmental due diligence.", videoUrl: "Module 9 - Lesson 44.mp4" },
-      { id: "9-4", title: "MODULE 9 - Lesson 45", duration: "19 mins", summary: "Recurring revenue models, client retention risk, and IP valuation in services/tech.", videoUrl: "MODULE 9 - Lesson 45.mp4" }
+      { id: "9-1", title: "Module 9 - Introduction", duration: "12 mins", summary: "Overview of industry specialization and transaction nuances across sectors.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Introduction.mp4" },
+      { id: "9-2", title: "Module 9 - Lesson 43", duration: "18 mins", summary: "Lease assignments, goodwill valuation, and inventory deals in retail and F&B.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Lesson%2043.mp4" },
+      { id: "9-3", title: "Module 9 - Lesson 44", duration: "21 mins", summary: "Asset-heavy transactions, plant valuation, and environmental due diligence.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Lesson%2044.mp4" },
+      { id: "9-4", title: "MODULE 9 - Lesson 45", duration: "19 mins", summary: "Recurring revenue models, client retention risk, and IP valuation in services/tech.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/MODULE%209%20-%20Lesson%2045.mp4" }
     ]
   },
   {
     id: 10,
     title: "Module 10: Certification Readiness & Capstone",
     lessons: [
-      { id: "10-1", title: "Module 10 - Introduction", duration: "11 mins", summary: "Overview of requirements, practical benchmarks, and mock practice runs.", videoUrl: "Module 10 - Introduction.mp4" },
-      { id: "10-2", title: "Module 10 - Lesson 46", duration: "14 mins", summary: "Exam structure, MCQ patterns, and time management strategies for the final assessment.", videoUrl: "Module 10 - Lesson 46.mp4" },
-      { id: "10-3", title: "Module 10 - Lesson 47", duration: "30 mins", summary: "Full transaction walkthrough: valuation to SPA signing using a realistic case study.", videoUrl: "Module 10 - Lesson 47.mp4" },
-      { id: "10-4", title: "Module 10 - Lesson 48", duration: "10 mins", summary: "How your unique ABB ID is generated, certificate issued, and verified by third parties.", videoUrl: "Module 10 - Lesson 48.mp4" },
-      { id: "10-5", title: "Module 10 - Lesson 49", duration: "12 mins", summary: "Staying current with M&A trends, annual renewal, and YBB community membership.", videoUrl: "Module 10 - Lesson 49.mp4" }
+      { id: "10-1", title: "Module 10 - Introduction", duration: "11 mins", summary: "Overview of requirements, practical benchmarks, and mock practice runs.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Introduction.mp4" },
+      { id: "10-2", title: "Module 10 - Lesson 46", duration: "14 mins", summary: "Exam structure, MCQ patterns, and time management strategies for the final assessment.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2046.mp4" },
+      { id: "10-3", title: "Module 10 - Lesson 47", duration: "30 mins", summary: "Full transaction walkthrough: valuation to SPA signing using a realistic case study.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2047.mp4" },
+      { id: "10-4", title: "Module 10 - Lesson 48", duration: "10 mins", summary: "How your unique ABB ID is generated, certificate issued, and verified by third parties.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2048.mp4" },
+      { id: "10-5", title: "Module 10 - Lesson 49", duration: "12 mins", summary: "Staying current with M&A trends, annual renewal, and YBB community membership.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2049.mp4" }
     ]
   },
   {
     id: 11,
     title: "Module 11: Ethics & Professional Obligations",
     lessons: [
-      { id: "11-1", title: "Module 11 - Introduction", duration: "10 mins", summary: "Overview of final ethics guidelines, compliance, and fiduciary obligations.", videoUrl: "Module 11 - Introduction.mp4" },
-      { id: "11-2", title: "Module 11 - Lesson 50", duration: "16 mins", summary: "Final declaration, professional obligations, and ethical standards of an ABB holder.", videoUrl: "Module 11 - Lesson 50.mp4" }
+      { id: "11-1", title: "Module 11 - Introduction", duration: "10 mins", summary: "Overview of final ethics guidelines, compliance, and fiduciary obligations.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2011%20-%20Introduction.mp4" },
+      { id: "11-2", title: "Module 11 - Lesson 50", duration: "16 mins", summary: "Final declaration, professional obligations, and ethical standards of an ABB holder.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2011%20-%20Lesson%2050.mp4" }
     ]
   }
 ];const INITIAL_ASSIGNMENT_TASKS = [
@@ -267,7 +267,22 @@ function App() {
   // User database simulation
   const [learners, setLearners] = useState(() => {
     const saved = localStorage.getItem('ybb_learners');
-    return saved ? JSON.parse(saved) : [
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        const updated = parsed.map(l => {
+          if (l.id === 'usr-201' && l.completedLessons?.includes('1-1') && l.completedLessons?.includes('1-2') && l.completedLessons.length === 2) {
+            return { ...l, completedLessons: [] };
+          }
+          return l;
+        });
+        localStorage.setItem('ybb_learners', JSON.stringify(updated));
+        return updated;
+      } catch (e) {
+        // fallback
+      }
+    }
+    return [
       {
         id: "usr-201",
         fullName: "Rohan Kumar",
@@ -280,7 +295,7 @@ function App() {
         gstNumber: "29AAAAA1111A1Z1",
         status: "Active",
         stage: "Enrolled", 
-        completedLessons: ["1-1", "1-2"],
+        completedLessons: [],
         attempts: 0,
         photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80"
       }
@@ -297,7 +312,8 @@ function App() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (parsed.length < 11 || parsed[0]?.lessons[0]?.title !== "Module 1- Introduction") {
+        if (parsed.length < 11 || parsed[0]?.lessons[0]?.title !== "Module 1- Introduction" || !parsed[0]?.lessons[0]?.videoUrl?.startsWith("http")) {
+          localStorage.setItem('ybb_modules', JSON.stringify(INITIAL_MODULES));
           return INITIAL_MODULES;
         }
         return parsed;
@@ -321,7 +337,7 @@ function App() {
   });
 
   // Active Lesson
-  const [activeLessonId, setActiveLessonId] = useState("1-3");
+  const [activeLessonId, setActiveLessonId] = useState("1-1");
   const [watchPercentage, setWatchPercentage] = useState(0);
 
   // Assignment submissions
@@ -2090,72 +2106,115 @@ function App() {
 
 
                   {/* Course Player Container */}
-                  <div className="course-player-container">
-                    <div className="video-section">
-                      <div className="video-placeholder">
-                        <div className="play-overlay">
-                          <Play size={48} style={{color: 'white', marginBottom: '12px'}} />
-                          <span>Stream Secure Video Lesson (HLS/DRM Enforced)</span>
-                          <span style={{fontSize: '0.75rem', color: '#64748b'}}>Download disabled on player interface.</span>
-                        </div>
-                      </div>
+                  {(() => {
+                    const currentLesson = (() => {
+                      for (const m of modules) {
+                        const found = m.lessons.find(l => l.id === activeLessonId);
+                        if (found) return found;
+                      }
+                      return null;
+                    })();
 
-                      <div style={{marginTop: '20px'}}>
-                        <h3>
-                          {(() => {
-                            let found = "";
-                            modules.forEach(m => {
-                              const match = m.lessons.find(l => l.id === activeLessonId);
-                              if (match) found = match.title;
-                            });
-                            return found || "1.1 Introduction";
-                          })()}
-                        </h3>
-                        <div style={{display: 'flex', gap: '10px', margin: '10px 0'}}>
-                          <button className="btn btn-secondary" onClick={() => setWatchPercentage(100)}>
-                            Simulate Watch to 100%
-                          </button>
-                          <button 
-                            className="btn btn-primary" 
-                            onClick={() => markLessonComplete(activeLessonId)}
-                            disabled={activeLearner.completedLessons.includes(activeLessonId) || watchPercentage < 100}
-                          >
-                            {activeLearner.completedLessons.includes(activeLessonId) ? "Completed" : "Complete Lesson"}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="modules-list">
-                      {modules.map((mod) => (
-                        <div key={mod.id}>
-                          <div className="module-header">{mod.title}</div>
-                          {mod.lessons.map((les) => {
-                            const locked = isLessonLocked(les.id);
-                            return (
-                              <div 
-                                key={les.id}
-                                className={`lesson-item ${activeLessonId === les.id ? 'active' : ''} ${locked ? 'locked' : ''}`}
-                                onClick={() => !locked && setActiveLessonId(les.id)}
+                    return (
+                      <div className="course-player-container">
+                        <div className="video-section">
+                          <div className="video-placeholder" style={{ background: '#000', borderRadius: 'var(--r-sm)', overflow: 'hidden' }}>
+                            {currentLesson?.videoUrl && currentLesson.videoUrl.startsWith('http') ? (
+                              <video
+                                key={currentLesson.id}
+                                src={currentLesson.videoUrl}
+                                controls
+                                autoPlay
+                                controlsList="nodownload"
+                                onContextMenu={e => e.preventDefault()}
+                                onTimeUpdate={(e) => {
+                                  const pct = Math.round((e.target.currentTime / (e.target.duration || 1)) * 100);
+                                  if (pct > watchPercentage) setWatchPercentage(pct);
+                                }}
+                                onEnded={() => {
+                                  setWatchPercentage(100);
+                                  markLessonComplete(activeLessonId);
+                                }}
+                                style={{ width: '100%', height: '100%', maxHeight: '480px', objectFit: 'contain' }}
                               >
-                                <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                                  {activeLearner.completedLessons.includes(les.id) ? (
-                                    <CheckCircle size={16} style={{color: 'var(--success)'}} />
-                                  ) : locked ? (
-                                    <Lock size={14} />
-                                  ) : (
-                                    <Play size={14} />
-                                  )}
-                                  <span>{les.title}</span>
-                                </div>
-                                <span style={{fontSize: '0.75rem'}}>{les.duration}</span>
+                                Your browser does not support the video tag.
+                              </video>
+                            ) : (
+                              <div className="play-overlay">
+                                <Play size={48} style={{color: 'white', marginBottom: '12px'}} />
+                                <span>Stream Secure Video Lesson (HLS/DRM Enforced)</span>
+                                <span style={{fontSize: '0.75rem', color: '#64748b'}}>Download disabled on player interface.</span>
                               </div>
-                            );
-                          })}
+                            )}
+                          </div>
+
+                          <div style={{marginTop: '20px'}}>
+                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px'}}>
+                              <div>
+                                <h3 style={{fontSize: '1.2rem', fontWeight: 700, margin: '0 0 6px'}}>
+                                  {currentLesson?.title || "1.1 Introduction"}
+                                </h3>
+                                {currentLesson?.summary && (
+                                  <p style={{fontSize: '0.875rem', color: 'var(--text-muted)', margin: 0}}>{currentLesson.summary}</p>
+                                )}
+                              </div>
+                              {currentLesson?.duration && (
+                                <span className="badge badge-info" style={{fontSize: '0.78rem', padding: '4px 10px'}}>⏱ {currentLesson.duration}</span>
+                              )}
+                            </div>
+
+                            <div style={{display: 'flex', gap: '10px', margin: '16px 0 0', flexWrap: 'wrap'}}>
+                              <button className="btn btn-secondary" onClick={() => setWatchPercentage(100)}>
+                                Simulate Watch to 100%
+                              </button>
+                              <button 
+                                className="btn btn-primary" 
+                                onClick={() => markLessonComplete(activeLessonId)}
+                                disabled={activeLearner.completedLessons.includes(activeLessonId) || watchPercentage < 100}
+                              >
+                                {activeLearner.completedLessons.includes(activeLessonId) ? "Completed" : "Complete Lesson"}
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
+
+                        <div className="modules-list">
+                          {modules.map((mod) => (
+                            <div key={mod.id}>
+                              <div className="module-header">{mod.title}</div>
+                              {mod.lessons.map((les) => {
+                                const locked = isLessonLocked(les.id);
+                                return (
+                                  <div 
+                                    key={les.id}
+                                    className={`lesson-item ${activeLessonId === les.id ? 'active' : ''} ${locked ? 'locked' : ''}`}
+                                    onClick={() => {
+                                      if (!locked) {
+                                        setActiveLessonId(les.id);
+                                        setWatchPercentage(0);
+                                      }
+                                    }}
+                                  >
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                      {activeLearner.completedLessons.includes(les.id) ? (
+                                        <CheckCircle size={16} style={{color: 'var(--success)'}} />
+                                      ) : locked ? (
+                                        <Lock size={14} />
+                                      ) : (
+                                        <Play size={14} />
+                                      )}
+                                      <span>{les.title}</span>
+                                    </div>
+                                    <span style={{fontSize: '0.75rem'}}>{les.duration}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
                   </>}
                   {dashTab === 'assignments' && <>
 
