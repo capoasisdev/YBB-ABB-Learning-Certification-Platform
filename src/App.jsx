@@ -1939,21 +1939,30 @@ function App() {
                 Verify Certificate
               </button>
               {currentRole !== "Visitor" ? (
-                <div className="nav-user">
-                  <Shield size={16} />
-                  <span>{activeLearner.fullName} ({currentRole})</span>
-                  <button 
-                    onClick={async () => {
-                      try { await supabase.auth.signOut(); } catch (e) {}
-                      setCurrentRole("Visitor");
-                      setMobileMenuOpen(false);
-                      navigate("home");
-                    }}
-                    style={{background: 'none', border: 'none', display: 'flex', color: 'var(--danger)', cursor: 'pointer'}}
+                <>
+                  <button
+                    className="btn btn-primary"
+                    style={{ padding: '8px 20px', fontSize: '0.9rem', fontWeight: 700 }}
+                    onClick={() => { navigate("dashboard"); setMobileMenuOpen(false); }}
                   >
-                    <LogOut size={16} />
+                    🏠 Dashboard
                   </button>
-                </div>
+                  <div className="nav-user">
+                    <Shield size={16} />
+                    <span>{activeLearner.fullName} ({currentRole})</span>
+                    <button 
+                      onClick={async () => {
+                        try { await supabase.auth.signOut(); } catch (e) {}
+                        setCurrentRole("Visitor");
+                        setMobileMenuOpen(false);
+                        navigate("home");
+                      }}
+                      style={{background: 'none', border: 'none', display: 'flex', color: 'var(--danger)', cursor: 'pointer'}}
+                    >
+                      <LogOut size={16} />
+                    </button>
+                  </div>
+                </>
               ) : (
                 <button className="btn btn-primary" onClick={() => { navigate("register"); setMobileMenuOpen(false); }}>
                   Register / Log In
