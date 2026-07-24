@@ -1634,20 +1634,40 @@ function App() {
   const openRazorpayModal = async ({ amountPaise, receipt, description, onSuccess, onError }) => {
     try {
       // Step 1 – Create order server-side
+      // NOTE: /api/* routes only work on Vercel or via `npx vercel dev`.
+      //       They return 404 HTML when running plain `npm run dev`.
       const orderRes = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: amountPaise, currency: 'INR', receipt }),
       });
-      const orderData = await orderRes.json();
+
+      let orderData;
+      const contentType = orderRes.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        orderData = await orderRes.json();
+      } else {
+        // Likely a 404 HTML response – means /api/* endpoint isn't running
+        throw new Error(
+          orderRes.status === 404
+            ? 'Payment API not found. Run `npx vercel dev` instead of `npm run dev` to test payments locally, or deploy to Vercel.'
+            : `Server error ${orderRes.status}: ${await orderRes.text()}`
+        );
+      }
+
       if (!orderRes.ok) {
         throw new Error(orderData.error || 'Failed to create payment order.');
       }
 
       // Step 2 – Open Razorpay modal
-      const rzpKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
+      // KEY_ID is a public key – safe to embed as fallback in frontend code
+      const rzpKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_THJTrTczufaqWI';
+
       if (!window.Razorpay) {
-        throw new Error('Razorpay SDK not loaded. Please refresh the page.');
+        throw new Error('Razorpay SDK not loaded. Please refresh the page and try again.');
+      }
+      if (!rzpKeyId) {
+        throw new Error('Razorpay Key ID is missing. Check VITE_RAZORPAY_KEY_ID in your .env file.');
       }
 
       const rzp = new window.Razorpay({
@@ -1704,6 +1724,7 @@ function App() {
   };
 
   // Course enrolment payment (Checkout screen)
+
   const handlePayment = async () => {
     const amountPaise = Math.round(totalBilledPrice * 100); // ₹ → paise
     const orderNo = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
