@@ -1895,33 +1895,6 @@ function App() {
     <div className="app-container">
       {currentScreen !== "final_exam" && (
         <>
-          {/* Simulation Role Switcher Bar */}
-          <div className="role-bar">
-            <div>
-              <strong>LMS Sandbox Admin Controls:</strong> Switch roles to test different user journeys and system logic.
-            </div>
-            <div className="role-selector">
-              {["Visitor", "Learner", "Reviewer", "SupportAdmin", "ContentAdmin", "SuperAdmin"].map((role) => (
-                <button
-                  key={role}
-                  onClick={() => {
-                    setCurrentRole(role);
-                    if (role === "Visitor") {
-                      navigate("home");
-                    } else if (["SuperAdmin", "ContentAdmin", "SupportAdmin"].includes(role)) {
-                      navigate("admin");
-                    } else {
-                      navigate("dashboard");
-                    }
-                    logAction("Switched Role view to " + role, "Admin");
-                  }}
-                  className={`role-btn ${currentRole === role ? 'active' : ''}`}
-                >
-                  {role}
-                </button>
-              ))}
-            </div>
-          </div>
 
           {/* Main Header / Navigation */}
           <header className="navbar">
