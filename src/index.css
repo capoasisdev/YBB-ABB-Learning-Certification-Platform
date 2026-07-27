@@ -49,7 +49,7 @@
    ============================================= */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -273,13 +273,14 @@
 }
 
 .welcome-banner::after {
-  content: '🎓';
+  content: '';
   position: absolute;
   right: 28px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 4rem;
-  opacity: .18;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
 }
 
 
@@ -454,34 +455,43 @@ h5 {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
-  font-size: 0.9rem;
+  gap: 10px;
+  font-size: 0.85rem;
 }
 
 .nav-link {
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
-  transition: color .18s;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
+  transition: color .18s, border-color .18s, background .18s;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-size: 0.84rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
   color: var(--primary);
-  border-bottom-color: var(--primary);
+  background: rgba(30, 58, 138, 0.07);
+  font-weight: 700;
 }
 
 .nav-user {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   background: #f1f5f9;
-  padding: 6px 14px;
-  border-radius: 30px;
-  font-size: 0.88rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
   font-weight: 600;
   border: 1px solid var(--border);
+  white-space: nowrap;
 }
 
 /* =============================================
@@ -3133,5 +3143,105 @@ textarea.form-control {
   }
   .exam-right-column {
     width: 100%;
+  }
+}
+
+.hero-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* =============================================
+   MOBILE RESPONSIVE ENHANCEMENTS
+   ============================================= */
+@media (max-width: 768px) {
+  .hero-bg {
+    padding: 32px 16px !important;
+  }
+
+  .hero-title {
+    font-size: 2.1rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .hero-badge-tag {
+    font-size: 0.65rem !important;
+    padding: 6px 12px !important;
+    line-height: 1.4 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: left;
+    gap: 6px !important;
+  }
+
+  .hero-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .content-wrapper {
+    padding: 16px 12px !important;
+  }
+
+  .tab-page-header {
+    padding: 20px 16px !important;
+  }
+
+  .dash-overview-bar {
+    padding: 20px 16px !important;
+  }
+
+  .dash-sidebar {
+    width: 100% !important;
+  }
+
+  .checkout-card {
+    padding: 20px 16px !important;
+  }
+
+  /* Make hero buttons full-width or stack cleanly on mobile */
+  .hero-bg button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Help & Support Mobile Layout Improvements */
+  .contact-option-card {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+    margin-bottom: 8px;
+  }
+
+  .profile-section-body div[style*="gridTemplateColumns: '1fr 1fr'"],
+  .profile-section-body div[style*="grid-template-columns: 1fr 1fr"],
+  .profile-section-body div[style*="grid-template-columns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Force ticket form 2-col inputs to stack on mobile */
+  .support-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .support-faq-links {
+    grid-template-columns: 1fr !important;
   }
 }

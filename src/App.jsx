@@ -3,7 +3,7 @@ import { supabase } from './supabaseClient';
 import ybbLogo from './assets/YBB_Logo.png';
 import { 
   BookOpen, Award, CheckCircle, Lock, Play, Download, Upload, AlertCircle, Home, Menu,
-  HelpCircle, Shield, Settings, Users, CreditCard, Clock, FileText, Check, X, ArrowRight, RefreshCw, LogOut, CheckSquare, Search, Eye, Filter, Trash, Plus, Tag, HelpCircle as FaqIcon, Mail, Target, Award as CertIcon, Star, ChevronDown, ChevronRight
+  HelpCircle, Shield, Settings, Users, CreditCard, Clock, FileText, Check, X, ArrowRight, RefreshCw, LogOut, CheckSquare, Search, Eye, Filter, Trash, Plus, Tag, HelpCircle as FaqIcon, Mail, Target, Award as CertIcon, Star, ChevronDown, ChevronRight, GraduationCap, User
 } from 'lucide-react';
 
 // --- MOCK DATABASE / DEFAULT STATES ---
@@ -12,126 +12,126 @@ const INITIAL_MODULES = [
     id: 1,
     title: "Module 1: Foundations of Business Broking",
     lessons: [
-      { id: "1-1", title: "Module 1- Introduction", duration: "12 mins", summary: "Overview of buy-side, sell-side, and transaction advisory roles.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201-%20Intro.mp4" },
-      { id: "1-2", title: "Module 1 - Lesson 1", duration: "18 mins", summary: "Understanding the boundary of professional certifications vs state licenses.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%201.mp4" },
-      { id: "1-3", title: "Module 1 - Lesson 2", duration: "15 mins", summary: "Step-by-step breakdown of the deal lifecycle from listing to close.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%202.mp4" },
-      { id: "1-4", title: "Module 1 - Lesson 3", duration: "14 mins", summary: "EBITDA, SDE, Net Working Capital, and deal multiples explained.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%203.mp4" },
-      { id: "1-5", title: "Module 1 - Lesson 4", duration: "20 mins", summary: "Fiduciary duties, confidentiality obligations, and conflict of interest rules.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%204.mp4" }
+      { id: "1-1", title: "Module 1- Introduction", duration: "2:52 mins", summary: "Overview of buy-side, sell-side, and transaction advisory roles.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201-%20Intro.mp4" },
+      { id: "1-2", title: "Module 1 - Lesson 1", duration: "6:28 mins", summary: "Understanding the boundary of professional certifications vs state licenses.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%201.mp4" },
+      { id: "1-3", title: "Module 1 - Lesson 2", duration: "8 mins", summary: "Step-by-step breakdown of the deal lifecycle from listing to close.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%202.mp4" },
+      { id: "1-4", title: "Module 1 - Lesson 3", duration: "7 mins", summary: "EBITDA, SDE, Net Working Capital, and deal multiples explained.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%203.mp4" },
+      { id: "1-5", title: "Module 1 - Lesson 4", duration: "7:50 mins", summary: "Fiduciary duties, confidentiality obligations, and conflict of interest rules.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%201%20-%20Lesson%204.mp4" }
     ]
   },
   {
     id: 2,
     title: "Module 2: Business Valuation & Financial Analysis",
     lessons: [
-      { id: "2-1", title: "Module 2 - Introduction", duration: "22 mins", summary: "Adjusting owner-operator add-backs to calculate Seller's Discretionary Earnings (SDE).", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Introduction.mp4" },
-      { id: "2-2", title: "Module 2 - Lesson 5", duration: "25 mins", summary: "Applying industry-specific valuation multiples based on risk profile.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%205.mp4" },
-      { id: "2-3", title: "Module 2 - Lesson 6", duration: "19 mins", summary: "Balance-sheet driven valuations for asset-heavy and distressed businesses.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%206.mp4" },
-      { id: "2-4", title: "Module 2 - Lesson 7", duration: "21 mins", summary: "Using transaction databases and deal comps to benchmark asking prices.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%207.mp4" }
+      { id: "2-1", title: "Module 2 - Introduction", duration: "1:33 mins", summary: "Adjusting owner-operator add-backs to calculate Seller's Discretionary Earnings (SDE).", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Introduction.mp4" },
+      { id: "2-2", title: "Module 2 - Lesson 5", duration: "5:50 mins", summary: "Applying industry-specific valuation multiples based on risk profile.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%205.mp4" },
+      { id: "2-3", title: "Module 2 - Lesson 6", duration: "6 mins", summary: "Balance-sheet driven valuations for asset-heavy and distressed businesses.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%206.mp4" },
+      { id: "2-4", title: "Module 2 - Lesson 7", duration: "6:30 mins", summary: "Using transaction databases and deal comps to benchmark asking prices.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%202%20-%20Lesson%207.mp4" }
     ]
   },
   {
     id: 3,
     title: "Module 3: Marketing a Business for Sale",
     lessons: [
-      { id: "3-1", title: "Module 3 - Introduction", duration: "16 mins", summary: "Crafting compelling anonymous teasers that attract qualified buyer enquiries.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Introduction.mp4" },
-      { id: "3-2", title: "Module 3 - Lesson 9", duration: "28 mins", summary: "Full structure and content of a professional CIM package.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%209.mp4" },
-      { id: "3-3", title: "Module 3 - Lesson 10", duration: "17 mins", summary: "Strategic approaches to identify and approach financial and strategic buyers.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2010.mp4" },
-      { id: "3-4", title: "Module 3 - Lesson 11", duration: "14 mins", summary: "Using online marketplaces and proprietary buyer databases for deal exposure.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2011.mp4" },
-      { id: "3-5", title: "Module 3 - Lesson 12", duration: "20 mins", summary: "Screening buyers, enforcing NDAs, and releasing confidential information appropriately.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2012.mp4" }
+      { id: "3-1", title: "Module 3 - Introduction", duration: "1:12 mins", summary: "Crafting compelling anonymous teasers that attract qualified buyer enquiries.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Introduction.mp4" },
+      { id: "3-2", title: "Module 3 - Lesson 9", duration: "6:25 mins", summary: "Full structure and content of a professional CIM package.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%209.mp4" },
+      { id: "3-3", title: "Module 3 - Lesson 10", duration: "7:35 mins", summary: "Strategic approaches to identify and approach financial and strategic buyers.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2010.mp4" },
+      { id: "3-4", title: "Module 3 - Lesson 11", duration: "7:50 mins", summary: "Using online marketplaces and proprietary buyer databases for deal exposure.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2011.mp4" },
+      { id: "3-5", title: "Module 3 - Lesson 12", duration: "6:60 mins", summary: "Screening buyers, enforcing NDAs, and releasing confidential information appropriately.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%203%20-%20Lesson%2012.mp4" }
     ]
   },
   {
     id: 4,
     title: "Module 4: Buyer Qualification & Management",
     lessons: [
-      { id: "4-1", title: "Module 4 - Introduction", duration: "15 mins", summary: "How private equity, family offices, and strategic acquirers differ in intent and approach.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Introduction.mp4" },
-      { id: "4-2", title: "Module 4 - Lesson 13", duration: "18 mins", summary: "Evaluating financial capacity, operational fit, and deal readiness.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2013.mp4" },
-      { id: "4-3", title: "Module 4 - Lesson 14", duration: "22 mins", summary: "How buyers finance acquisitions through banks, SBA-equivalents, and seller financing.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2014.mp4" },
-      { id: "4-4", title: "Module 4 - Lesson 15", duration: "17 mins", summary: "Facilitating seller-buyer meetings while maintaining confidentiality and control.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2015.mp4" },
-      { id: "4-5", title: "Module 4 - Lesson 16", duration: "24 mins", summary: "Key LOI components: price, structure, exclusivity, contingencies, and closing timelines.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2016%20.mp4" }
+      { id: "4-1", title: "Module 4 - Introduction", duration: "1:26 mins", summary: "How private equity, family offices, and strategic acquirers differ in intent and approach.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Introduction.mp4" },
+      { id: "4-2", title: "Module 4 - Lesson 13", duration: "6 mins", summary: "Evaluating financial capacity, operational fit, and deal readiness.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2013.mp4" },
+      { id: "4-3", title: "Module 4 - Lesson 14", duration: "6:52 mins", summary: "How buyers finance acquisitions through banks, SBA-equivalents, and seller financing.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2014.mp4" },
+      { id: "4-4", title: "Module 4 - Lesson 15", duration: "6:20 mins", summary: "Facilitating seller-buyer meetings while maintaining confidentiality and control.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2015.mp4" },
+      { id: "4-5", title: "Module 4 - Lesson 16", duration: "6:40 mins", summary: "Key LOI components: price, structure, exclusivity, contingencies, and closing timelines.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%204%20-%20Lesson%2016%20.mp4" }
     ]
   },
   {
     id: 5,
     title: "Module 5: Due Diligence Process",
     lessons: [
-      { id: "5-1", title: "MODULE 5 - INTRODUCTION", duration: "16 mins", summary: "Organising a virtual data room with financial, legal, and operational documents.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/MODULE%205%20-%20%20INTRODUCTION.mp4" },
-      { id: "5-2", title: "Module 5 - Lesson 17", duration: "25 mins", summary: "Reviewing tax returns, P&L statements, accounts receivable, and EBITDA adjustments.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2017.mp4" },
-      { id: "5-3", title: "Module 5 - Lesson 18", duration: "18 mins", summary: "Staff contracts, vendor agreements, IP rights, and operational continuity checks.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2018.mp4" },
-      { id: "5-4", title: "Module 5 - Lesson 19", duration: "20 mins", summary: "Licences, litigation risk, regulatory compliance, and pending liabilities.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2019.mp4" },
-      { id: "5-5", title: "Module 5 - Lesson 20", duration: "15 mins", summary: "Keeping deals from falling apart when issues are discovered post-LOI.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2020.mp4" }
+      { id: "5-1", title: "MODULE 5 - INTRODUCTION", duration: "1:30 mins", summary: "Organising a virtual data room with financial, legal, and operational documents.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/MODULE%205%20-%20%20INTRODUCTION.mp4" },
+      { id: "5-2", title: "Module 5 - Lesson 17", duration: "7 mins", summary: "Reviewing tax returns, P&L statements, accounts receivable, and EBITDA adjustments.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2017.mp4" },
+      { id: "5-3", title: "Module 5 - Lesson 18", duration: "7 mins", summary: "Staff contracts, vendor agreements, IP rights, and operational continuity checks.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2018.mp4" },
+      { id: "5-4", title: "Module 5 - Lesson 19", duration: "8:57 mins", summary: "Licences, litigation risk, regulatory compliance, and pending liabilities.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2019.mp4" },
+      { id: "5-5", title: "Module 5 - Lesson 20", duration: "7:27 mins", summary: "Keeping deals from falling apart when issues are discovered post-LOI.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%205%20-%20Lesson%2020.mp4" }
     ]
   },
   {
     id: 6,
     title: "Module 6: Deal Structuring & Negotiation",
     lessons: [
-      { id: "6-1", title: "Module 6 - Introduction", duration: "15 mins", summary: "Introduction to deal mechanisms, options, and purchase structure.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Introduction%20(1).mp4" },
-      { id: "6-2", title: "Module 6 - Lesson 21", duration: "22 mins", summary: "Choosing the right deal structure for seller tax efficiency and buyer protection.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2021.mp4" },
-      { id: "6-3", title: "Module 6 - Lesson 22", duration: "20 mins", summary: "Structuring performance-linked payments and bridging valuation gaps.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2022.mp4" },
-      { id: "6-4", title: "Module 6 - Lesson 23", duration: "18 mins", summary: "Principled negotiation, BATNA analysis, and closing concessions strategically.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2023.mp4" },
-      { id: "6-5", title: "Module 6 - Lesson 24", duration: "24 mins", summary: "Key legal protections for both parties in a business sale agreement.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2024%20.mp4" },
-      { id: "6-6", title: "Module 6 - Lesson 25", duration: "14 mins", summary: "Managing deal momentum and preventing buyers from backing out post-exclusivity.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2025.mp4" },
-      { id: "6-7", title: "Module 6- Lesson 26", duration: "21 mins", summary: "Understanding capital structures, leverage, and mezzanine debt options.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206-%20Lesson%2026.mp4" },
-      { id: "6-8", title: "Module 6 - Lesson 27", duration: "19 mins", summary: "How capitalization choices impact value creation and investment returns.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2027%20.mp4" }
+      { id: "6-1", title: "Module 6 - Introduction", duration: "1:30 mins", summary: "Introduction to deal mechanisms, options, and purchase structure.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Introduction%20(1).mp4" },
+      { id: "6-2", title: "Module 6 - Lesson 21", duration: "7:43 mins", summary: "Choosing the right deal structure for seller tax efficiency and buyer protection.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2021.mp4" },
+      { id: "6-3", title: "Module 6 - Lesson 22", duration: "8:10 mins", summary: "Structuring performance-linked payments and bridging valuation gaps.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2022.mp4" },
+      { id: "6-4", title: "Module 6 - Lesson 23", duration: "7:56 mins", summary: "Principled negotiation, BATNA analysis, and closing concessions strategically.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2023.mp4" },
+      { id: "6-5", title: "Module 6 - Lesson 24", duration: "7:16 mins", summary: "Key legal protections for both parties in a business sale agreement.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2024%20.mp4" },
+      { id: "6-6", title: "Module 6 - Lesson 25", duration: "8:10 mins", summary: "Managing deal momentum and preventing buyers from backing out post-exclusivity.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2025.mp4" },
+      { id: "6-7", title: "Module 6- Lesson 26", duration: "8:20 mins", summary: "Understanding capital structures, leverage, and mezzanine debt options.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206-%20Lesson%2026.mp4" },
+      { id: "6-8", title: "Module 6 - Lesson 27", duration: "8:17 mins", summary: "How capitalization choices impact value creation and investment returns.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%206%20-%20Lesson%2027%20.mp4" }
     ]
   },
   {
     id: 7,
     title: "Module 7: Closing the Transaction",
     lessons: [
-      { id: "7-1", title: "Module 7 - Introduction", duration: "14 mins", summary: "Introduction to the closing phase, transaction checkpoints, and milestones.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20Introduction.mp4" },
-      { id: "7-2", title: "Module 7 - Lesson 28", duration: "25 mins", summary: "Key clauses, conditions precedent, and closing mechanics in the SPA.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2028.mp4" },
-      { id: "7-3", title: "Module 7 - Lesson 29", duration: "15 mins", summary: "Coordinating a professional advisory team through the closing process.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2029.mp4" },
-      { id: "7-4", title: "Module 7 - Lesson 30", duration: "19 mins", summary: "Payment mechanics, escrow releases, and funds-flow waterfalls.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2030.mp4" },
-      { id: "7-5", title: "Module 7 - Lesson 31", duration: "17 mins", summary: "Staff, customer, and vendor communication during business ownership transfer.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2031.mp4" },
-      { id: "7-6", title: "Module 7 - Lesson 32", duration: "13 mins", summary: "Retention support, referral obligations, and relationship maintenance post-close.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2032.mp4" },
-      { id: "7-7", title: "Module 7 - Lesson 33", duration: "18 mins", summary: "Ensuring all legal declarations and required disclosures are completed properly.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2033.mp4" },
-      { id: "7-8", title: "Module 7 - Lesson 34", duration: "20 mins", summary: "Allocating success fees, managing holdbacks, and closing bank escrow accounts.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2034.mp4" }
+      { id: "7-1", title: "Module 7 - Introduction", duration: "1 mins", summary: "Introduction to the closing phase, transaction checkpoints, and milestones.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20Introduction.mp4" },
+      { id: "7-2", title: "Module 7 - Lesson 28", duration: "6:56 mins", summary: "Key clauses, conditions precedent, and closing mechanics in the SPA.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2028.mp4" },
+      { id: "7-3", title: "Module 7 - Lesson 29", duration: "8:52 mins", summary: "Coordinating a professional advisory team through the closing process.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2029.mp4" },
+      { id: "7-4", title: "Module 7 - Lesson 30", duration: "8:40 mins", summary: "Payment mechanics, escrow releases, and funds-flow waterfalls.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2030.mp4" },
+      { id: "7-5", title: "Module 7 - Lesson 31", duration: "9:20 mins", summary: "Staff, customer, and vendor communication during business ownership transfer.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2031.mp4" },
+      { id: "7-6", title: "Module 7 - Lesson 32", duration: "9:23 mins", summary: "Retention support, referral obligations, and relationship maintenance post-close.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2032.mp4" },
+      { id: "7-7", title: "Module 7 - Lesson 33", duration: "8 mins", summary: "Ensuring all legal declarations and required disclosures are completed properly.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2033.mp4" },
+      { id: "7-8", title: "Module 7 - Lesson 34", duration: "8:35 mins", summary: "Allocating success fees, managing holdbacks, and closing bank escrow accounts.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%207%20-%20Lesson%2034.mp4" }
     ]
   },
   {
     id: 8,
     title: "Module 8: Client Management & Professional Practice",
     lessons: [
-      { id: "8-1", title: "Module 8 - Introduction", duration: "13 mins", summary: "Overview of professional parameters, standards, and workflow strategies.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Introduction.mp4" },
-      { id: "8-2", title: "Module 8 - Lesson 35", duration: "16 mins", summary: "Drafting and presenting listing agreements, exclusivity, and commission structures.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2035.mp4" },
-      { id: "8-3", title: "Module 8 - Lesson 36", duration: "18 mins", summary: "Educating sellers on realistic valuations, timelines, and deal certainty.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2036.mp4" },
-      { id: "8-4", title: "Module 8 - Lesson 37", duration: "14 mins", summary: "Maintaining an organised deal pipeline using CRM tools and activity tracking.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2037.mp4" },
-      { id: "8-5", title: "Module 8 - Lesson 38", duration: "20 mins", summary: "Building referral relationships with accountants, lawyers, and wealth managers.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2038.mp4" },
-      { id: "8-6", title: "Module 8 - Lesson 39", duration: "17 mins", summary: "Maintaining records, compliance checklists, and YBB professional standards.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2039.mp4" },
-      { id: "8-7", title: "Module 8 - Lesson 40", duration: "19 mins", summary: "Positioning yourself as a transaction expert through content and events.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2040.mp4" },
-      { id: "8-8", title: "Module 8 - Lesson 41", duration: "22 mins", summary: "Navigating advisory pricing models, retaining deposits, and sharing commissions.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2041.mp4" },
-      { id: "8-9", title: "Module 8 - Lesson 42", duration: "15 mins", summary: "Protecting your brokerage firm against operational and client-side advisory risks.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2042.mp4" }
+      { id: "8-1", title: "Module 8 - Introduction", duration: "1:8 mins", summary: "Overview of professional parameters, standards, and workflow strategies.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Introduction.mp4" },
+      { id: "8-2", title: "Module 8 - Lesson 35", duration: "8:30 mins", summary: "Drafting and presenting listing agreements, exclusivity, and commission structures.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2035.mp4" },
+      { id: "8-3", title: "Module 8 - Lesson 36", duration: "9 mins", summary: "Educating sellers on realistic valuations, timelines, and deal certainty.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2036.mp4" },
+      { id: "8-4", title: "Module 8 - Lesson 37", duration: "9:20 mins", summary: "Maintaining an organised deal pipeline using CRM tools and activity tracking.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2037.mp4" },
+      { id: "8-5", title: "Module 8 - Lesson 38", duration: "8:45 mins", summary: "Building referral relationships with accountants, lawyers, and wealth managers.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2038.mp4" },
+      { id: "8-6", title: "Module 8 - Lesson 39", duration: "9:20 mins", summary: "Maintaining records, compliance checklists, and YBB professional standards.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2039.mp4" },
+      { id: "8-7", title: "Module 8 - Lesson 40", duration: "8:57 mins", summary: "Positioning yourself as a transaction expert through content and events.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2040.mp4" },
+      { id: "8-8", title: "Module 8 - Lesson 41", duration: "9:06 mins", summary: "Navigating advisory pricing models, retaining deposits, and sharing commissions.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2041.mp4" },
+      { id: "8-9", title: "Module 8 - Lesson 42", duration: "9:14 mins", summary: "Protecting your brokerage firm against operational and client-side advisory risks.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%208%20-%20Lesson%2042.mp4" }
     ]
   },
   {
     id: 9,
     title: "Module 9: Industry Sectors & Specialisation",
     lessons: [
-      { id: "9-1", title: "Module 9 - Introduction", duration: "12 mins", summary: "Overview of industry specialization and transaction nuances across sectors.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Introduction.mp4" },
-      { id: "9-2", title: "Module 9 - Lesson 43", duration: "18 mins", summary: "Lease assignments, goodwill valuation, and inventory deals in retail and F&B.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Lesson%2043.mp4" },
-      { id: "9-3", title: "Module 9 - Lesson 44", duration: "21 mins", summary: "Asset-heavy transactions, plant valuation, and environmental due diligence.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Lesson%2044.mp4" },
-      { id: "9-4", title: "MODULE 9 - Lesson 45", duration: "19 mins", summary: "Recurring revenue models, client retention risk, and IP valuation in services/tech.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/MODULE%209%20-%20Lesson%2045.mp4" }
+      { id: "9-1", title: "Module 9 - Introduction", duration: "1:13 mins", summary: "Overview of industry specialization and transaction nuances across sectors.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Introduction.mp4" },
+      { id: "9-2", title: "Module 9 - Lesson 43", duration: "9:43 mins", summary: "Lease assignments, goodwill valuation, and inventory deals in retail and F&B.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Lesson%2043.mp4" },
+      { id: "9-3", title: "Module 9 - Lesson 44", duration: "9:16 mins", summary: "Asset-heavy transactions, plant valuation, and environmental due diligence.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%209%20-%20Lesson%2044.mp4" },
+      { id: "9-4", title: "MODULE 9 - Lesson 45", duration: "9:46 mins", summary: "Recurring revenue models, client retention risk, and IP valuation in services/tech.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/MODULE%209%20-%20Lesson%2045.mp4" }
     ]
   },
   {
     id: 10,
     title: "Module 10: Certification Readiness & Capstone",
     lessons: [
-      { id: "10-1", title: "Module 10 - Introduction", duration: "11 mins", summary: "Overview of requirements, practical benchmarks, and mock practice runs.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Introduction.mp4" },
-      { id: "10-2", title: "Module 10 - Lesson 46", duration: "14 mins", summary: "Exam structure, MCQ patterns, and time management strategies for the final assessment.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2046.mp4" },
-      { id: "10-3", title: "Module 10 - Lesson 47", duration: "30 mins", summary: "Full transaction walkthrough: valuation to SPA signing using a realistic case study.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2047.mp4" },
-      { id: "10-4", title: "Module 10 - Lesson 48", duration: "10 mins", summary: "How your unique ABB ID is generated, certificate issued, and verified by third parties.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2048.mp4" },
-      { id: "10-5", title: "Module 10 - Lesson 49", duration: "12 mins", summary: "Staying current with M&A trends, annual renewal, and YBB community membership.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2049.mp4" }
+      { id: "10-1", title: "Module 10 - Introduction", duration: "1:03 mins", summary: "Overview of requirements, practical benchmarks, and mock practice runs.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Introduction.mp4" },
+      { id: "10-2", title: "Module 10 - Lesson 46", duration: "9:12 mins", summary: "Exam structure, MCQ patterns, and time management strategies for the final assessment.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2046.mp4" },
+      { id: "10-3", title: "Module 10 - Lesson 47", duration: "9 mins", summary: "Full transaction walkthrough: valuation to SPA signing using a realistic case study.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2047.mp4" },
+      { id: "10-4", title: "Module 10 - Lesson 48", duration: "8:33 mins", summary: "How your unique ABB ID is generated, certificate issued, and verified by third parties.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2048.mp4" },
+      { id: "10-5", title: "Module 10 - Lesson 49", duration: "9:45 mins", summary: "Staying current with M&A trends, annual renewal, and YBB community membership.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2010%20-%20Lesson%2049.mp4" }
     ]
   },
   {
     id: 11,
     title: "Module 11: Ethics & Professional Obligations",
     lessons: [
-      { id: "11-1", title: "Module 11 - Introduction", duration: "10 mins", summary: "Overview of final ethics guidelines, compliance, and fiduciary obligations.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2011%20-%20Introduction.mp4" },
-      { id: "11-2", title: "Module 11 - Lesson 50", duration: "16 mins", summary: "Final declaration, professional obligations, and ethical standards of an ABB holder.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2011%20-%20Lesson%2050.mp4" }
+      { id: "11-1", title: "Module 11 - Introduction", duration: "52 sec", summary: "Overview of final ethics guidelines, compliance, and fiduciary obligations.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2011%20-%20Introduction.mp4" },
+      { id: "11-2", title: "Module 11 - Lesson 50", duration: "8:28 mins", summary: "Final declaration, professional obligations, and ethical standards of an ABB holder.", videoUrl: "https://pub-073da652b58c4e308816f08c68960bb2.r2.dev/Course%20Videos/Module%2011%20-%20Lesson%2050.mp4" }
     ]
   }
 ];
@@ -992,12 +992,12 @@ const INITIAL_ORDERS = [
 
 // --- ADMIN CREDENTIALS REGISTRY ---
 const ADMIN_CREDENTIALS = [
-  { email: 'superadmin@ybb.in',     password: 'SuperAdmin2026!', role: 'SuperAdmin',    name: 'Arjun Mehta',     avatar: 'https://ui-avatars.com/api/?name=Arjun+Mehta&background=1e3a8a&color=fff&size=96' },
-  { email: 'content.admin@ybb.in',  password: 'ContentPass2026!', role: 'ContentAdmin',   name: 'Priya Sharma',    avatar: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=7c3aed&color=fff&size=96' },
-  { email: 'content@ybb.in',        password: 'ContentPass2026!', role: 'ContentAdmin',   name: 'Priya Sharma',    avatar: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=7c3aed&color=fff&size=96' },
-  { email: 'support.admin@ybb.in',  password: 'SupportPass2026!', role: 'SupportAdmin',   name: 'Karan Patel',     avatar: 'https://ui-avatars.com/api/?name=Karan+Patel&background=0284c7&color=fff&size=96' },
-  { email: 'support@ybb.in',        password: 'SupportPass2026!', role: 'SupportAdmin',   name: 'Karan Patel',     avatar: 'https://ui-avatars.com/api/?name=Karan+Patel&background=0284c7&color=fff&size=96' },
-  { email: 'reviewer@ybb.in',       password: 'ReviewerPass2026!', role: 'Reviewer',       name: 'Dr. Rajesh Verma', avatar: 'https://ui-avatars.com/api/?name=Rajesh+Verma&background=059669&color=fff&size=96' },
+  { email: 'superadmin@ybb.in',     role: 'SuperAdmin',    name: 'Arjun Mehta',     avatar: 'https://ui-avatars.com/api/?name=Arjun+Mehta&background=1e3a8a&color=fff&size=96' },
+  { email: 'content.admin@ybb.in',  role: 'ContentAdmin',   name: 'Priya Sharma',    avatar: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=7c3aed&color=fff&size=96' },
+  { email: 'content@ybb.in',        role: 'ContentAdmin',   name: 'Priya Sharma',    avatar: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=7c3aed&color=fff&size=96' },
+  { email: 'support.admin@ybb.in',  role: 'SupportAdmin',   name: 'Karan Patel',     avatar: 'https://ui-avatars.com/api/?name=Karan+Patel&background=0284c7&color=fff&size=96' },
+  { email: 'support@ybb.in',        role: 'SupportAdmin',   name: 'Karan Patel',     avatar: 'https://ui-avatars.com/api/?name=Karan+Patel&background=0284c7&color=fff&size=96' },
+  { email: 'reviewer@ybb.in',       role: 'Reviewer',       name: 'Dr. Rajesh Verma', avatar: 'https://ui-avatars.com/api/?name=Rajesh+Verma&background=059669&color=fff&size=96' },
 ];
 
 // --- HISTORY API ROUTER ---
@@ -1015,6 +1015,11 @@ const SCREEN_TO_PATH_MAP = {
   final_exam:      '/final-exam',
   admin:           '/admin',
   verification:    '/verify',
+  refund_policy:   '/refund-policy',
+  privacy_policy:  '/privacy-policy',
+  exam_overview:   '/exam-overview',
+  terms_of_use:    '/terms-of-use',
+  terms_of_purchase: '/terms-of-purchase'
 };
 const PATH_TO_SCREEN_MAP = Object.fromEntries(
   Object.entries(SCREEN_TO_PATH_MAP).map(([k, v]) => [v, k])
@@ -1120,6 +1125,10 @@ function App() {
   });
   const [learnerLoginError, setLearnerLoginError] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [faqOpenIndex, setFaqOpenIndex] = useState(null);
+  const [verifySearchInput, setVerifySearchInput] = useState("");
+  const [verifyResult, setVerifyResult] = useState(null);
+  const [verifyError, setVerifyError] = useState("");
 
   // Supabase Auth and Database sync
   const [supabaseSession, setSupabaseSession] = useState(null);
@@ -1175,7 +1184,12 @@ function App() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (parsed.length < 11 || parsed[0]?.lessons[0]?.title !== "Module 1- Introduction" || !parsed[0]?.lessons[0]?.videoUrl?.startsWith("http")) {
+        if (
+          parsed.length < 11 || 
+          parsed[0]?.lessons[0]?.title !== "Module 1- Introduction" || 
+          !parsed[0]?.lessons[0]?.videoUrl?.startsWith("http") ||
+          parsed[0]?.lessons[0]?.duration !== INITIAL_MODULES[0]?.lessons[0]?.duration
+        ) {
           localStorage.setItem('ybb_modules', JSON.stringify(INITIAL_MODULES));
           return INITIAL_MODULES;
         }
@@ -1447,6 +1461,28 @@ function App() {
       window.history.pushState({ screen, param }, '', path);
     }
     setCurrentScreen(screen);
+
+    // Dynamic Title Management for SEO & Accessibility
+    const titles = {
+      home: "YBB ABB | Authorised Business Broker Certification – Yoova Business Broking",
+      syllabus: "Course Curriculum | Authorised Business Broker (ABB) – YBB",
+      faq: "Frequently Asked Questions | ABB Certification – YBB",
+      support: "Contact Support | Yoova Business Broking (YBB)",
+      register: "Register Account | YBB ABB Learning Platform",
+      forgot_password: "Reset Password | YBB ABB Learning Platform",
+      checkout: "Tuition Checkout | YBB ABB Certification",
+      payment_result: "Payment Confirmation | YBB ABB Certification",
+      dashboard: "Learner Dashboard | YBB ABB Certification",
+      final_exam: "Final Assessment | Authorised Business Broker (ABB)",
+      admin: "Admin Control Panel | YBB Platform",
+      verification: "Public Credential Verification | YBB ABB",
+      refund_policy: "Refund & Cancellation Policy | YBB ABB",
+      privacy_policy: "Privacy Policy | Yoova Business Broking",
+      exam_overview: "Assessment Overview | YBB ABB Certification",
+      terms_of_use: "Terms of Use | Yoova Business Broking",
+      terms_of_purchase: "Terms of Purchase | Yoova Business Broking"
+    };
+    document.title = titles[screen] || "Authorised Business Broker (ABB) Certification – YBB";
   };
 
   // Override window.alert to render our custom Toast notifications dynamically
@@ -1866,20 +1902,18 @@ function App() {
 
     setTimeout(() => {
       const emailClean = (adminLoginEmail || '').toLowerCase().trim();
+      if (!adminLoginPassword) {
+        setAdminLoginError('Password is required');
+        setAdminLoginLoading(false);
+        return;
+      }
       let match = ADMIN_CREDENTIALS.find(
-        cred => cred.email.toLowerCase() === emailClean && cred.password === adminLoginPassword
+        cred => cred.email.toLowerCase() === emailClean
       );
       if (!match) {
-        match = ADMIN_CREDENTIALS.find(
-          cred => cred.email.toLowerCase() === emailClean
-        );
-      }
-      if (!match) {
-        if (emailClean.includes('super')) match = ADMIN_CREDENTIALS[0];
-        else if (emailClean.includes('content')) match = ADMIN_CREDENTIALS[1];
-        else if (emailClean.includes('support')) match = ADMIN_CREDENTIALS[3];
-        else if (emailClean.includes('review')) match = ADMIN_CREDENTIALS[5];
-        else match = ADMIN_CREDENTIALS[0]; // default fallback to SuperAdmin
+        setAdminLoginError('Invalid administrator credentials.');
+        setAdminLoginLoading(false);
+        return;
       }
 
       setAdminAuth(match);
@@ -1943,49 +1977,49 @@ function App() {
             </button>
 
             <nav className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
-              <span className="nav-link" onClick={() => { navigate("home"); setMobileMenuOpen(false); }}>Home</span>
-              <span className="nav-link" onClick={() => { navigate("syllabus"); setMobileMenuOpen(false); }}>Curriculum</span>
-              <span className="nav-link" onClick={() => { navigate("faq"); setMobileMenuOpen(false); }}>FAQ</span>
-              <span className="nav-link" onClick={() => { navigate("support"); setMobileMenuOpen(false); }}>Contact</span>
+              <button type="button" className={`nav-link ${currentScreen === 'home' ? 'active' : ''}`} onClick={() => { navigate("home"); setMobileMenuOpen(false); }}>Home</button>
+              <button type="button" className={`nav-link ${currentScreen === 'syllabus' ? 'active' : ''}`} onClick={() => { navigate("syllabus"); setMobileMenuOpen(false); }}>Curriculum</button>
+              <button type="button" className={`nav-link ${currentScreen === 'faq' ? 'active' : ''}`} onClick={() => { navigate("faq"); setMobileMenuOpen(false); }}>FAQ</button>
+              <button type="button" className={`nav-link ${currentScreen === 'support' ? 'active' : ''}`} onClick={() => { navigate("support"); setMobileMenuOpen(false); }}>Contact</button>
               {currentRole !== "Visitor" && (
-                <span 
-                  className="nav-link" 
+                <button 
+                  type="button"
+                  className={`nav-link ${currentScreen === 'final_exam' ? 'active' : ''}`}
                   onClick={() => { navigate("final_exam"); setMobileMenuOpen(false); }}
-                  style={{ color: '#fbbf24', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                  style={{ color: '#d97706', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                 >
-                  🎓 Final Exam
-                </span>
+                  <GraduationCap size={15} /> Final Exam
+                </button>
               )}
-              <button className="btn btn-secondary" onClick={() => { navigate("verification"); setMobileMenuOpen(false); }}>
+              <button type="button" className="btn btn-secondary" style={{padding: '6px 14px', fontSize: '0.82rem'}} onClick={() => { navigate("verification"); setMobileMenuOpen(false); }}>
                 Verify Certificate
               </button>
               {currentRole !== "Visitor" ? (
                 <>
                   <button
+                    type="button"
                     className="btn btn-primary"
-                    style={{ padding: '8px 20px', fontSize: '0.9rem', fontWeight: 700 }}
+                    style={{ padding: '6px 14px', fontSize: '0.82rem', fontWeight: 700 }}
                     onClick={() => { navigate("dashboard"); setMobileMenuOpen(false); }}
                   >
-                    🏠 Dashboard
+                    <Home size={14} /> Dashboard
                   </button>
-                  <div className="nav-user">
-                    <Shield size={16} />
-                    <span>{activeLearner.fullName} ({currentRole})</span>
                     <button 
+                      type="button" 
+                      className="btn btn-secondary" 
                       onClick={async () => {
                         try { await supabase.auth.signOut(); } catch (e) {}
                         setCurrentRole("Visitor");
                         setMobileMenuOpen(false);
                         navigate("home");
                       }}
-                      style={{background: 'none', border: 'none', display: 'flex', color: 'var(--danger)', cursor: 'pointer'}}
+                      style={{display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 14px', fontSize: '0.82rem'}}
                     >
-                      <LogOut size={16} />
+                      <LogOut size={14} /> Log Out
                     </button>
-                  </div>
-                </>
-              ) : (
-                <button className="btn btn-primary" onClick={() => { navigate("register"); setMobileMenuOpen(false); }}>
+                  </>
+                ) : (
+                <button type="button" className="btn btn-primary" onClick={() => { navigate("register"); setMobileMenuOpen(false); }}>
                   Register / Log In
                 </button>
               )}
@@ -2003,14 +2037,14 @@ function App() {
             <div className="hero-bg" style={{marginBottom: '0', borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}>
               <div className="hero-grid-container" style={{position: 'relative', zIndex: 1}}>
                 <div>
-                  <span style={{display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(251,191,36,.15)', border: '1px solid rgba(251,191,36,.3)', color: '#fbbf24', padding: '5px 14px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.07em', marginBottom: '20px'}}>
-                    <Award size={13} /> India's Premier M&A Broker Credential
+                  <span className="hero-badge-tag">
+                    <Award size={14} style={{color: '#f59e0b', flexShrink: 0}} /> YBB Private Professional Certification in Business Broking
                   </span>
                   <h1 className="hero-title" style={{fontSize: '3.6rem', fontWeight: 800, lineHeight: 1.08, marginBottom: '20px', color: '#fff'}}>
                     Become an<br /><span>Authorised Business Broker</span>
                   </h1>
-                  <p style={{fontSize: '1.1rem', color: '#94a3b8', lineHeight: 1.75, maxWidth: '520px', marginBottom: '32px'}}>
-                    Master M&amp;A advisory, business valuation, CIM creation, and deal closing with India's only structured ABB certification programme from Yoova Business Broking.
+                  <p style={{fontSize: '1.1rem', color: '#94a3b8', lineHeight: 1.75, maxWidth: '560px', marginBottom: '32px'}}>
+                    Learn the complete process of professional Business Broking—from opportunity sourcing and business valuation to buyer identification, negotiation, due diligence and transaction closure.
                   </p>
                   <div style={{display: 'flex', gap: '14px', flexWrap: 'wrap'}}>
                     <button
@@ -2018,7 +2052,7 @@ function App() {
                       onClick={() => navigate("register")}
                       style={{background: 'linear-gradient(90deg, #f59e0b, #d97706)', color: '#fff', padding: '14px 30px', fontSize: '1rem', fontWeight: 700, borderRadius: '10px', boxShadow: '0 4px 18px rgba(217,119,6,.4)'}}
                     >
-                      Enroll Now <ArrowRight size={18} />
+                      Register for ABB Programme <ArrowRight size={18} />
                     </button>
                     <button
                       className="btn btn-secondary"
@@ -2029,7 +2063,7 @@ function App() {
                     </button>
                   </div>
                   <div style={{display: 'flex', gap: '24px', marginTop: '32px', flexWrap: 'wrap'}}>
-                    {[['1,200+', 'Certified ABBs'], ['10', 'Modules'], ['50+', 'Video Lessons']].map(([v, l]) => (
+                    {[['11', 'Modules'], ['50', 'Lessons'], ['1', 'ABB Workbook']].map(([v, l]) => (
                       <div key={l}>
                         <div style={{fontSize: '1.5rem', fontWeight: 800, color: '#fff'}}>{v}</div>
                         <div style={{fontSize: '0.78rem', color: '#64748b', fontWeight: 600}}>{l}</div>
@@ -2049,31 +2083,26 @@ function App() {
                     + GST {settings.gstRate}% &nbsp;&rarr;&nbsp; <strong style={{color: 'var(--accent)'}}>₹{(settings.price * (1 + settings.gstRate / 100)).toLocaleString('en-IN')} total</strong>
                   </div>
                   {[
-                    '10 comprehensive video modules',
+                    '11 comprehensive video modules',
+                    '50 DRM-secured lessons',
                     'ABB Learner Workbook & templates',
-                    '3 case study submissions',
-                    'Timed MCQ final examination',
-                    'Unique verifiable ABB credential',
-                    'Lifetime content access'
+                    'Final assessment',
+                    'Unique verifiable ABB credential'
                   ].map(item => (
                     <div key={item} style={{display: 'flex', gap: '10px', alignItems: 'center', padding: '7px 0', borderBottom: '1px solid #f1f5f9', fontSize: '0.875rem', color: '#334155'}}>
                       <CheckCircle size={15} style={{color: 'var(--success)', flexShrink: 0}} />
                       {item}
                     </div>
                   ))}
-                  <div style={{background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '8px', padding: '10px 14px', margin: '18px 0', fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '8px'}}>
-                    <Tag size={16} style={{color: '#b45309', flexShrink: 0}} />
-                    <span>Use code <strong style={{color: 'var(--primary)'}}>YBB10</strong> for <strong>10% off</strong> your enrolment fee.</span>
-                  </div>
-                  <button className="btn btn-accent btn-block" onClick={() => navigate("register")} style={{padding: '14px', fontSize: '1rem', borderRadius: '10px', background: 'linear-gradient(90deg, #1e3a8a, #1d4ed8)', boxShadow: '0 4px 16px rgba(30,58,138,.35)'}}>
-                    Proceed to Registration <ArrowRight size={16} />
+                  <button className="btn btn-accent btn-block" onClick={() => navigate("register")} style={{padding: '14px', fontSize: '1rem', borderRadius: '10px', background: 'linear-gradient(90deg, #1e3a8a, #1d4ed8)', boxShadow: '0 4px 16px rgba(30,58,138,.35)', marginTop: '20px'}}>
+                    Register for ABB Programme <ArrowRight size={16} />
                   </button>
                 </div>
               </div>
             </div>
 
             {/* WHY ABB - Features strip below hero */}
-            <div style={{background: 'var(--bg-card)', border: '1px solid var(--border)', borderTop: 'none', borderBottomLeftRadius: 'var(--r)', borderBottomRightRadius: 'var(--r)', padding: '40px 48px', marginBottom: '64px', boxShadow: 'var(--shadow-md)'}}>
+            <div style={{background: 'var(--bg-card)', border: '1px solid var(--border)', borderTop: 'none', borderBottomLeftRadius: 'var(--r)', borderBottomRightRadius: 'var(--r)', padding: '36px 40px', marginBottom: '32px', boxShadow: 'var(--shadow-md)'}}>
               <div className="features-grid">
                 {[
                   { icon: <BookOpen size={20} style={{color: '#1d4ed8'}} />, bg: '#eff6ff', label: 'Business Valuation', desc: 'Master SDE recasting, EBITDA multiples, asset and DCF methods.' },
@@ -2092,13 +2121,61 @@ function App() {
               </div>
             </div>
 
+            {/* Prominent Certification Scope & Disclaimer Notice */}
+            <div style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+              border: '1px solid #e2e8f0',
+              borderLeft: '4px solid var(--primary)',
+              borderRadius: '14px',
+              padding: '28px 32px',
+              marginBottom: '40px',
+              boxShadow: '0 10px 30px -5px rgba(15, 23, 42, 0.05)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#0f172a', fontWeight: 800, fontSize: '1.15rem', marginBottom: '18px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(30, 58, 138, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}>
+                  <Shield size={20} />
+                </div>
+                <span>Important Notice: Understanding Your ABB Certification Scope</span>
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '18px', fontSize: '0.88rem', color: '#475569', lineHeight: 1.65 }}>
+                <div style={{ background: '#fff', padding: '18px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s' }}>
+                  <strong style={{ color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', fontSize: '0.92rem' }}>
+                    <FileText size={17} style={{ color: 'var(--primary)', flexShrink: 0 }} /> Private Professional Credential
+                  </strong>
+                  ABB is a private professional certification issued by Yoova Business Broking (YBB). It is not a government license, statutory qualification, or state-mandated credential.
+                </div>
+
+                <div style={{ background: '#fff', padding: '18px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s' }}>
+                  <strong style={{ color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', fontSize: '0.92rem' }}>
+                    <Users size={17} style={{ color: '#d97706', flexShrink: 0 }} /> Independent Qualification
+                  </strong>
+                  Earning ABB certification does not automatically make someone a YBB Authorised Partner, nor does it confer agency or partnership status with Yoova Business Broking.
+                </div>
+
+                <div style={{ background: '#fff', padding: '18px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s' }}>
+                  <strong style={{ color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', fontSize: '0.92rem' }}>
+                    <BookOpen size={17} style={{ color: '#2563eb', flexShrink: 0 }} /> Educational Scope
+                  </strong>
+                  Certification does not automatically grant proprietary deal listings, network access, or transaction-participation rights with YBB.
+                </div>
+
+                <div style={{ background: '#fff', padding: '18px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s' }}>
+                  <strong style={{ color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', fontSize: '0.92rem' }}>
+                    <Target size={17} style={{ color: '#059669', flexShrink: 0 }} /> No Income Guarantee
+                  </strong>
+                  Completion of the programme does not guarantee business deal closures, client mandates, employment, or specific income outcomes.
+                </div>
+              </div>
+            </div>
+
             {/* Stats row */}
-            <div className="stats-grid" style={{marginBottom: '72px'}}>
+            <div className="stats-grid" style={{marginBottom: '44px'}}>
               {[
-                { label: "Video Lessons", value: "50+", desc: "DRM-secured streams across 10 modules" },
-                { label: "Case Exercises", value: "10+", desc: "Excel, CIM & deal simulation formats" },
-                { label: "Graduated Alumni", value: "1,200+", desc: "Certified ABBs across India" },
-                { label: "Credential Verification", value: "Instant", desc: "Via unique ABB ID public portal" }
+                { label: "11 Modules", value: "11", desc: "Comprehensive course modules" },
+                { label: "50 Lessons", value: "50", desc: "DRM-secured video lessons" },
+                { label: "ABB Workbook", value: "Included", desc: "Practical templates & guides" },
+                { label: "Assessment and Certification", value: "Included", desc: "Exam & unique ABB ID verification" }
               ].map((stat, idx) => (
                 <div key={idx} className="stat-card">
                   <div className="stat-value">{stat.value}</div>
@@ -2109,17 +2186,17 @@ function App() {
             </div>
 
             {/* Journey Roadmap */}
-            <div style={{marginBottom: '72px'}}>
+            <div style={{marginBottom: '48px'}}>
               <h2 className="section-title">The Career Acceleration Journey</h2>
               <p className="section-sub">A clear, end-to-end milestone tracker representing your complete path to certification.</p>
               <div style={{maxWidth: '640px', margin: '0 auto', padding: '36px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--r)', boxShadow: 'var(--shadow-md)'}}>
                 {[
                   { step: "1", title: "Registration & Account Setup", desc: "Establish your billing record and confirm certificate nomenclature." },
-                  { step: "2", title: "10-Module Video Training", desc: "Study valuation recasting, CIM creation, data rooms, and transaction closing." },
+                  { step: "2", title: "11-Module Video Training", desc: "Study valuation recasting, CIM creation, data rooms, and transaction closing." },
                   { step: "3", title: "Case Study & Assignment Submission", desc: "Upload Excel models and deal teasers for reviewer evaluation." },
-                  { step: "4", title: "Timed MCQ Final Examination", desc: "Score ≥80% on a 50-question timed assessment covering all 10 modules." },
+                  { step: "4", title: "Final Examination", desc: "Complete the final assessment covering the programme curriculum." },
                   { step: "5", title: "YBB Code of Conduct Acceptance", desc: "Digitally accept the professional standards and ethics declaration." },
-                  { step: "6", title: "Instant Verifiable ABB Credentials", desc: "Receive your unique ABB ID and downloadable, publicly verifiable certificate." }
+                  { step: "6", title: "Verifiable ABB Credentials", desc: "Receive your unique ABB ID and downloadable, publicly verifiable certificate." }
                 ].map((item, idx, arr) => (
                   <div key={idx} className="journey-step" style={{paddingBottom: idx < arr.length - 1 ? '28px' : '0'}}>
                     <div className="step-circle">{item.step}</div>
@@ -2132,40 +2209,14 @@ function App() {
               </div>
             </div>
 
-            {/* Alumni Testimonials */}
-            <div style={{marginBottom: '64px'}}>
-              <h2 className="section-title">Alumni Success Spotlight</h2>
-              <p className="section-sub">Hear from certified ABBs who have transformed their careers.</p>
-              <div className="grid-3">
-                {[
-                  { name: "Ananya Sen", role: "M&A Advisory Partner, Mumbai", quote: "The recasting valuation modules and the YBB workbook helped me secure my first sell-side mandate. The Excel templates alone are worth the investment." },
-                  { name: "Vikram Malhotra", role: "Commercial Broker, Delhi NCR", quote: "Verifying my credentials via my unique ABB ID on the public portal gives immediate credibility to business seller clients. Game changer." },
-                  { name: "Suresh Pillai", role: "Corporate Transition Advisor, Kochi", quote: "The sequential gating model forced me to master every concept before the exam. I passed with 91% on my first attempt. Highly structured." }
-                ].map((testimonial, idx) => (
-                  <div key={idx} className="testimonial-card">
-                    <div className="stars">
-                      {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
-                    </div>
-                    <p style={{fontStyle: 'italic', fontSize: '0.9rem', marginBottom: '20px', lineHeight: 1.7}}>
-                      &ldquo;{testimonial.quote}&rdquo;
-                    </p>
-                    <div>
-                      <strong style={{fontSize: '0.95rem', display: 'block'}}>{testimonial.name}</strong>
-                      <span style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>{testimonial.role}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Final CTA Banner */}
-            <div style={{background: 'linear-gradient(135deg, #0f172a, #1e3a8a)', borderRadius: 'var(--r)', padding: '52px 48px', textAlign: 'center', marginBottom: '16px', position: 'relative', overflow: 'hidden'}}>
+            <div style={{background: 'linear-gradient(135deg, #0f172a, #1e3a8a)', borderRadius: 'var(--r)', padding: '48px 40px', textAlign: 'center', marginBottom: '16px', position: 'relative', overflow: 'hidden'}}>
               <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(circle at 70% 50%, rgba(29,78,216,.3), transparent 60%)', pointerEvents: 'none'}} />
               <div style={{position: 'relative', zIndex: 1}}>
                 <h2 style={{color: '#fff', fontSize: '2.2rem', fontWeight: 800, marginBottom: '12px'}}>Ready to Earn Your ABB Credential?</h2>
-                <p style={{color: '#94a3b8', fontSize: '1.05rem', marginBottom: '28px', maxWidth: '520px', margin: '0 auto 28px'}}>Join 1,200+ certified brokers across India. Your first step to a career in M&amp;A transaction advisory starts here.</p>
+                <p style={{color: '#94a3b8', fontSize: '1.05rem', marginBottom: '28px', maxWidth: '560px', margin: '0 auto 28px'}}>Your first step to a career in professional Business Broking starts here.</p>
                 <button className="btn" onClick={() => navigate("register")} style={{background: 'linear-gradient(90deg, #f59e0b, #d97706)', color: '#fff', padding: '15px 36px', fontSize: '1.05rem', fontWeight: 700, borderRadius: '10px', boxShadow: '0 4px 20px rgba(217,119,6,.4)'}}>
-                  Start Your Certification <ArrowRight size={18} />
+                  Register for ABB Programme <ArrowRight size={18} />
                 </button>
               </div>
             </div>
@@ -2216,14 +2267,14 @@ function App() {
             <h2 className="section-title">Frequently Asked Questions</h2>
             <p className="section-sub">Everything you need to know about the ABB Certification programme.</p>
             {[
-              { q: "Is the ABB Certification a statutory government license?", a: "No. The Authorised Business Broker (ABB) Certificate is a professional credential issued by Yoova Business Broking (YBB). It certifies completion of the YBB standard curriculum but is not a state licensing credential or government-issued certificate." },
-              { q: "How long do I have access to the course content?", a: "Learners receive lifetime access to all modules, video lessons, downloadable workbook resources, case templates, and future content updates at no additional fee." },
-              { q: "What happens if I fail the Final Examination?", a: "The number of reattempts is configured by the admin. By default, learners may reattempt after a 48-hour cooling period. You can track reattempt availability directly on your Learner Dashboard." },
-              { q: "How can employers or clients verify my ABB credentials?", a: "Every certificate carries a unique ABB ID (e.g. YBB-ABB-2026-1049). Employers, business sellers, and clients can instantly verify authenticity via our public Credentials Verification page with no login required." },
-              { q: "What is included in the course fee?", a: "The fee covers all 10 video modules (50+ lessons), the ABB Learner Workbook, practice case templates (Excel + PDF), 3 assignment submissions, the final MCQ examination, and issuance of the ABB Certificate with unique ID." },
-              { q: "Is there a refund policy?", a: "Refunds are subject to YBB's refund policy as configured by the admin. In general, refunds may be applicable before course progress exceeds 20%. Contact support for case-specific refund requests." },
-              { q: "Can I study at my own pace?", a: "Yes. The programme is entirely self-paced with no fixed deadlines. Sequential lesson gating is enforced to ensure conceptual mastery before proceeding, but you control when and how fast you progress." },
-              { q: "What is the passing score for the Final Exam?", a: "The minimum passing threshold is 80% (configured by admin). The timed MCQ exam contains questions spanning all 10 modules and tests both conceptual understanding and practical application." }
+              { q: "Is the ABB Certification a statutory government license?", a: "No. The Authorised Business Broker (ABB) Certificate is a private professional credential issued by Yoova Business Broking (YBB). It certifies completion of the YBB standard curriculum but is not a state licensing credential or government-issued certificate." },
+              { q: "How long do I have access to the course content?", a: "Learners receive access to all modules, video lessons, downloadable workbook resources, and course materials upon enrolment." },
+              { q: "What happens if I fail the Final Examination?", a: "Learners may reattempt the assessment according to platform settings. You can track reattempt availability directly on your Learner Dashboard." },
+              { q: "How can employers or clients verify my ABB credentials?", a: "Every certificate carries a unique ABB ID. Employers, business sellers, and clients can verify authenticity via our public Credentials Verification page." },
+              { q: "What is included in the course fee?", a: "The fee covers all 11 video modules (50 lessons), the ABB Learner Workbook, final assessment, and issuance of the ABB Certificate with unique ID." },
+              { q: "Is there a refund policy?", a: "Refunds are subject to YBB's refund policy. Contact support for case-specific refund requests." },
+              { q: "Can I study at my own pace?", a: "Yes. The programme is entirely self-paced with no fixed deadlines." },
+              { q: "What is the passing score for the Final Exam?", a: "The minimum passing threshold is configured by the admin assessment settings. The exam contains questions spanning course modules to test conceptual understanding and practical application." }
             ].map((faq, idx) => (
               <div key={idx} className="faq-item">
                 <div className="faq-trigger" onClick={() => setFaqOpenIndex(faqOpenIndex === idx ? null : idx)}>
@@ -2245,30 +2296,74 @@ function App() {
 
         {/* --- SCREEN 1D: PUBLIC CONTACT SUPPORT PAGE --- */}
         {currentScreen === "support" && (
-          <div style={{maxWidth: '550px', margin: '0 auto'}} className="checkout-card">
-            <h2 style={{textAlign: 'center', marginBottom: '8px'}}><Mail size={32} style={{color: 'var(--accent)', display: 'block', margin: '0 auto 10px'}} />Contact Support</h2>
-            <p className="text-muted" style={{textAlign: 'center', marginBottom: '24px', fontSize: '0.9rem'}}>
-              Have inquiries about YBB branding, invoicing, or course payments? Drop us a query.
-            </p>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              alert("Your query has been recorded. YBB support admin will reach out to you shortly.");
-              navigate("home");
-            }}>
-              <div className="form-group">
-                <label className="form-label">Your Name</label>
-                <input type="text" className="form-control" placeholder="John Doe" required />
+          <div style={{maxWidth: '920px', margin: '0 auto'}}>
+            <h2 className="section-title">Contact YBB Support</h2>
+            <p className="section-sub">Have inquiries about YBB certification, invoicing, or enrolment? Reach out to our dedicated team.</p>
+
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '32px', alignItems: 'start'}}>
+              {/* Official Business Information Panel */}
+              <div className="checkout-card" style={{height: '100%'}}>
+                <h3 style={{fontSize: '1.2rem', fontWeight: 800, color: 'var(--primary)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px'}}>
+                  <Shield size={20} style={{color: 'var(--accent)'}} /> Official Business Details
+                </h3>
+
+                <div style={{display: 'grid', gap: '18px', fontSize: '0.9rem', color: '#334155'}}>
+                  <div>
+                    <div style={{fontWeight: 700, color: '#0f172a', fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: '4px'}}>Company Legal Name</div>
+                    <div>Yoova Business Broking Private Limited (YBB)</div>
+                  </div>
+
+                  <div>
+                    <div style={{fontWeight: 700, color: '#0f172a', fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: '4px'}}>Official Support Email</div>
+                    <a href="mailto:yoovabusinessbroking@gmail.com" style={{color: 'var(--primary)', fontWeight: 600, textDecoration: 'none'}}>yoovabusinessbroking@gmail.com</a>
+                  </div>
+
+                  <div style={{borderTop: '1px solid #e2e8f0', paddingTop: '16px'}}>
+                    <div style={{fontWeight: 700, color: '#0f172a', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '.05em'}}>Expected Response Time</div>
+                    <div style={{fontWeight: 600, color: 'var(--success)', fontSize: '0.85rem', marginTop: '2px'}}>Within 24–48 Business Hours</div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <label className="form-label">Email Address</label>
-                <input type="email" className="form-control" placeholder="john@example.com" required />
+
+              {/* Inquiry Form */}
+              <div className="checkout-card">
+                <h3 style={{fontSize: '1.2rem', fontWeight: 800, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px'}}>
+                  <Mail size={20} style={{color: 'var(--accent)'}} /> Send an Enquiry
+                </h3>
+                <p className="text-muted" style={{marginBottom: '20px', fontSize: '0.88rem'}}>
+                  Fill out the form below and our support team will respond to your email.
+                </p>
+
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Your enquiry has been recorded. YBB Support will respond within 24–48 business hours.");
+                  navigate("home");
+                }}>
+                  <div className="form-group">
+                    <label className="form-label">Full Name *</label>
+                    <input type="text" className="form-control" placeholder="e.g. Rahul Sharma" required />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Email Address *</label>
+                    <input type="email" className="form-control" placeholder="rahul@example.com" required />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Category</label>
+                    <select className="form-control">
+                      <option value="General">General Enquiry</option>
+                      <option value="Billing">Billing &amp; Invoicing</option>
+                      <option value="Verification">Credential Verification</option>
+                      <option value="Technical">Technical Support</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Message Details *</label>
+                    <textarea className="form-control" rows="4" placeholder="How can the YBB support team assist you?" required />
+                  </div>
+                  <button type="submit" className="btn btn-primary btn-block">Submit Enquiry</button>
+                </form>
               </div>
-              <div className="form-group">
-                <label className="form-label">Message Details</label>
-                <textarea className="form-control" rows="4" placeholder="How can YBB team assist you?" required />
-              </div>
-              <button type="submit" className="btn btn-primary btn-block">Send Inquiry</button>
-            </form>
+            </div>
           </div>
         )}
 
@@ -2474,7 +2569,9 @@ function App() {
                   <div style={{background: '#f8fafc', padding: '12px', border: '1px solid var(--border-color)', borderRadius: '6px', marginBottom: '20px'}}>
                     <label style={{display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer', fontSize: '0.85rem'}}>
                       <input type="checkbox" required />
-                      <span>I agree to the platform Privacy Policy, Terms of Use (v{settings.legalVersion}), and acknowledge that the ABB certificate is a private credential.</span>
+                      <span>
+                        I agree to the platform <span style={{color: 'var(--primary)', textDecoration: 'underline', cursor: 'pointer'}} onClick={(e) => { e.preventDefault(); navigate("privacy_policy"); }}>Privacy Policy</span>, <span style={{color: 'var(--primary)', textDecoration: 'underline', cursor: 'pointer'}} onClick={(e) => { e.preventDefault(); navigate("terms_of_use"); }}>Terms of Use (v{settings.legalVersion})</span>, and acknowledge that the ABB certificate is a private credential.
+                      </span>
                     </label>
                   </div>
                   <button type="submit" className="btn btn-primary btn-block">
@@ -2489,92 +2586,7 @@ function App() {
                   Access your course dashboard, lessons, and assignments.
                 </p>
 
-                {/* Quick Demo & Admin Accounts Box */}
-                <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '14px 16px', marginBottom: '20px' }}>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1e293b', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Shield size={16} style={{ color: 'var(--primary)' }} /> Quick Demo & Admin Credentials
-                  </div>
-                  <div style={{ fontSize: '0.78rem', color: '#64748b', marginBottom: '10px' }}>
-                    Click any account to auto-fill credentials for testing:
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '8px' }}>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        setLearnerLoginForm({ email: 'superadmin@ybb.in', password: 'SuperAdmin2026!' });
-                        setCurrentRole("SuperAdmin");
-                        setLearnerLoginError("");
-                        logAction("Logged in as SuperAdmin via quick button", "SuperAdmin");
-                        navigate("admin");
-                      }}
-                      style={{ padding: '6px 10px', fontSize: '0.76rem', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px', background: '#fff' }}
-                    >
-                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>👑 Super Admin</span>
-                      <span style={{ color: '#475569', fontFamily: 'monospace' }}>superadmin@ybb.in</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        setLearnerLoginForm({ email: 'content.admin@ybb.in', password: 'ContentPass2026!' });
-                        setCurrentRole("ContentAdmin");
-                        setLearnerLoginError("");
-                        logAction("Logged in as ContentAdmin via quick button", "ContentAdmin");
-                        navigate("admin");
-                      }}
-                      style={{ padding: '6px 10px', fontSize: '0.76rem', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px', background: '#fff' }}
-                    >
-                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>📚 Content Admin</span>
-                      <span style={{ color: '#475569', fontFamily: 'monospace' }}>content.admin@ybb.in</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        setLearnerLoginForm({ email: 'support.admin@ybb.in', password: 'SupportPass2026!' });
-                        setCurrentRole("SupportAdmin");
-                        setLearnerLoginError("");
-                        logAction("Logged in as SupportAdmin via quick button", "SupportAdmin");
-                        navigate("admin");
-                      }}
-                      style={{ padding: '6px 10px', fontSize: '0.76rem', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px', background: '#fff' }}
-                    >
-                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>💬 Support Admin</span>
-                      <span style={{ color: '#475569', fontFamily: 'monospace' }}>support.admin@ybb.in</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        setLearnerLoginForm({ email: 'reviewer@ybb.in', password: 'ReviewerPass2026!' });
-                        setCurrentRole("Reviewer");
-                        setLearnerLoginError("");
-                        logAction("Logged in as Reviewer via quick button", "Reviewer");
-                        navigate("dashboard");
-                      }}
-                      style={{ padding: '6px 10px', fontSize: '0.76rem', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px', background: '#fff' }}
-                    >
-                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>📝 Reviewer</span>
-                      <span style={{ color: '#475569', fontFamily: 'monospace' }}>reviewer@ybb.in</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => {
-                        setLearnerLoginForm({ email: 'learner@example.com', password: 'LearnerPass2026!' });
-                        setCurrentRole("Learner");
-                        setLearnerLoginError("");
-                        logAction("Logged in as Demo Learner via quick button", "Learner");
-                        navigate("dashboard");
-                      }}
-                      style={{ padding: '6px 10px', fontSize: '0.76rem', textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2px', background: '#fff' }}
-                    >
-                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>🎓 Demo Learner</span>
-                      <span style={{ color: '#475569', fontFamily: 'monospace' }}>learner@example.com</span>
-                    </button>
-                  </div>
-                </div>
+
                 <form onSubmit={async (e) => {
                   e.preventDefault();
                   const emailInput = learnerLoginForm.email.trim();
@@ -2767,8 +2779,8 @@ function App() {
                 <button className="btn btn-secondary" onClick={() => navigate("register")}>
                   Edit Profile
                 </button>
-                <button className="btn btn-primary" onClick={handlePayment}>
-                  💳 Pay ₹{totalBilledPrice.toLocaleString('en-IN')} via Razorpay
+                <button className="btn btn-primary" onClick={handlePayment} style={{display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px'}}>
+                  <CreditCard size={18} /> Pay ₹{totalBilledPrice.toLocaleString('en-IN')} via Razorpay
                 </button>
               </div>
 
@@ -2883,7 +2895,7 @@ function App() {
                 {[
                   { icon: <BookOpen size={17} />, label: 'My Learning',  tab: 'my-learning' },
                   { icon: <CheckSquare size={17} />, label: 'Final Exam', tab: 'exam',
-                    badge: completedPercentage < 100 ? '🔒' : examState.passed ? '✓' : 'Ready' },
+                    badge: completedPercentage < 100 ? <Lock size={12} /> : examState.passed ? <Check size={12} /> : 'Ready' },
                   { icon: <FileText size={17} />,    label: 'Assignments',  tab: 'assignments' },
                   { icon: <Award size={17} />,       label: 'Certificate',  tab: 'certificate' },
                   { icon: <Users size={17} />,       label: 'Profile',      tab: 'profile' },
@@ -2952,7 +2964,7 @@ function App() {
                       { label: 'Lessons Done', value: activeLearner.completedLessons.length, sub: `of ${totalLessons} total` },
                       { label: 'Completion', value: `${completedPercentage}%`, sub: 'overall progress' },
                       { label: 'Exam Attempts', value: examState.attempts, sub: 'max 3 allowed' },
-                      { label: 'Exam Score', value: examState.completed ? `${examState.score}%` : ' - ', sub: examState.passed ? 'passed ✓' : examState.completed ? 'failed ✓”' : 'not taken yet' },
+                      { label: 'Exam Score', value: examState.completed ? `${examState.score}%` : ' - ', sub: examState.passed ? 'passed' : examState.completed ? 'failed' : 'not taken yet' },
                     ].map(k => (
                       <div key={k.label} className="kpi-tile">
                         <div className="kpi-label">{k.label}</div>
@@ -3131,7 +3143,9 @@ function App() {
                             }}
                           />
                           {activeLearner.stage === 'Certified' && (
-                            <div style={{fontSize: '0.75rem', color: 'var(--warning)', marginTop: '5px'}}>⚠ Name locked post-certification. Contact admin to change.</div>
+                            <div style={{fontSize: '0.75rem', color: 'var(--warning)', marginTop: '5px', display: 'flex', alignItems: 'center', gap: '4px'}}>
+                              <AlertCircle size={13} /> Name locked post-certification. Contact admin to change.
+                            </div>
                           )}
                         </div>
                         <div className="form-group" style={{marginBottom: 0}}>
@@ -3212,7 +3226,9 @@ function App() {
                   {/* Danger Zone */}
                   <div className="danger-zone-card">
                     <div>
-                      <div style={{fontWeight: 700, color: '#991b1b', marginBottom: '4px'}}>⚠ Deactivate Account</div>
+                      <div style={{fontWeight: 700, color: '#991b1b', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px'}}>
+                        <AlertCircle size={16} /> Deactivate Account
+                      </div>
                       <div style={{fontSize: '0.85rem', color: '#7f1d1d'}}>This will suspend your access to all course materials. Your certificate data is preserved.</div>
                     </div>
                     <button className="btn btn-secondary" disabled style={{borderColor: '#fca5a5', color: '#dc2626', opacity: 0.5, cursor: 'not-allowed'}}>
@@ -3226,19 +3242,21 @@ function App() {
                   {/* ══ PHASE 0: EXAM ENTRY GATE ══ */}
                   {!examLobby && !examState.started && !examState.completed && (
                     <div className="exam-lobby-gate">
-                      <div style={{fontSize: '4rem', marginBottom: '12px'}}>🎓</div>
+                      <div style={{color: 'var(--primary)', marginBottom: '12px', display: 'flex', justifyContent: 'center'}}>
+                        <GraduationCap size={64} />
+                      </div>
                       <h2 style={{margin: '0 0 8px', fontSize: '1.75rem', fontWeight: 800}}>ABB Final Certification Exam</h2>
                       <p style={{color: 'var(--text-muted)', fontSize: '0.95rem', margin: '0 0 28px', maxWidth: '480px', lineHeight: 1.7}}>
                         You are about to enter the proctored final exam. After clicking <strong>Enter Exam Room</strong>, a 2-minute preparation window begins — read all instructions carefully before starting.
                       </p>
                       <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '28px', width: '100%', maxWidth: '420px'}}>
                         {[
-                          { icon: '📝', label: 'Questions', value: questionBank.length },
-                          { icon: '⏱', label: 'Time Limit', value: '5 mins' },
-                          { icon: '🎯', label: 'Pass Score', value: '≥80%' },
+                          { icon: <FileText size={28} />, label: 'Questions', value: questionBank.length },
+                          { icon: <Clock size={28} />, label: 'Time Limit', value: '5 mins' },
+                          { icon: <Target size={28} />, label: 'Pass Score', value: '≥80%' },
                         ].map(s => (
                           <div key={s.label} className="exam-stat-chip">
-                            <div style={{fontSize: '1.8rem', marginBottom: '4px'}}>{s.icon}</div>
+                            <div style={{color: 'var(--primary)', marginBottom: '6px', display: 'flex', justifyContent: 'center'}}>{s.icon}</div>
                             <div style={{fontWeight: 800, fontSize: '1.3rem', color: 'var(--primary)'}}>{s.value}</div>
                             <div style={{fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.05em', marginTop: '2px'}}>{s.label}</div>
                           </div>
@@ -3451,7 +3469,10 @@ function App() {
                         </div>
                         <div style={{flex: 1}}>
                           <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap'}}>
-                            <h3 style={{margin: 0}}>{examState.passed ? '🎉 Passed!' : '❌ Attempt Failed'}</h3>
+                            <h3 style={{margin: 0, display: 'flex', alignItems: 'center', gap: '6px'}}>
+                              {examState.passed ? <CheckCircle size={22} style={{color: 'var(--success)'}} /> : <AlertCircle size={22} style={{color: 'var(--danger)'}} />}
+                              {examState.passed ? 'Passed!' : 'Attempt Failed'}
+                            </h3>
                             <span className={`badge ${examState.passed ? 'badge-success' : 'badge-danger'}`}>{examState.passed ? 'PASS' : 'FAIL'}</span>
                             <span className="badge badge-info">Attempt #{examState.attempts}</span>
                           </div>
@@ -3603,7 +3624,7 @@ function App() {
                               <span className="badge badge-accent">Interactive Player</span>
                               <span style={{ fontSize: '0.8rem', opacity: 0.8, color: '#e2e8f0' }}>Authorised Business Broker Certification</span>
                             </div>
-                            <h2>🎓 My Learning & Video Lectures</h2>
+                            <h2 style={{display: 'flex', alignItems: 'center', gap: '8px'}}><BookOpen size={24} /> My Learning &amp; Video Lectures</h2>
                             <p>Stream HD video modules, track your completion progress, and access official deal resources.</p>
                             
                             {/* Progress Bar in Header */}
@@ -3778,7 +3799,7 @@ function App() {
                                     textTransform: 'uppercase',
                                     marginBottom: '8px'
                                   }}>
-                                    🎉 100% Course Completed!
+                                    <Award size={14} style={{color: '#fbbf24'}} /> 100% Course Completed!
                                   </div>
                                   <h3 style={{ margin: '0 0 6px', color: '#ffffff', fontSize: '1.25rem', fontWeight: 800 }}>
                                     Official ABB Final Certification Exam Unlocked!
@@ -3794,7 +3815,7 @@ function App() {
                                     navigate("final_exam");
                                     setExamLobby('lobby');
                                     setLobbyCountdown(30);
-                                    alert("🎉 Course 100% Complete!\n\nYour Final Certification Exam is now unlocked! Redirecting you to the Exam Lobby...");
+                                    alert("Course 100% Complete!\n\nYour Final Certification Exam is now unlocked! Redirecting you to the Exam Lobby...");
                                   }}
                                   style={{
                                     background: 'linear-gradient(90deg, #f59e0b, #d97706)',
@@ -3929,7 +3950,7 @@ function App() {
                         <span className="badge badge-accent">Practical Portfolio</span>
                         <span style={{ fontSize: '0.8rem', opacity: 0.8, color: '#e2e8f0' }}>Authorised Business Broker Credential</span>
                       </div>
-                      <h2>📋 Case Study Assignments</h2>
+                      <h2 style={{display: 'flex', alignItems: 'center', gap: '8px'}}><FileText size={24} /> Case Study Assignments</h2>
                       <p>Submit your practical valuation recast, NDA, and CIM exercises for reviewer evaluation. All {assignmentTasks.length} assignments must be approved before the exam unlocks.</p>
                       
                       {/* Progress Bar in Header */}
@@ -4392,16 +4413,16 @@ function App() {
 
                           <div className="cert-share-row">
                             <button className="cert-share-btn linkedin" onClick={() => alert('Opening LinkedIn share...')}>
-                              🔗 Share on LinkedIn
+                              <Share2 size={15} /> Share on LinkedIn
                             </button>
                             <button className="cert-share-btn" onClick={() => window.print()}>
                               <Download size={15} /> Print / Save PDF
                             </button>
                             <button className="cert-share-btn" onClick={() => { navigator.clipboard?.writeText(window.location.origin + '/verify'); alert('Verification link copied!'); }}>
-                              🔗 Copy Verify Link
+                              <Share2 size={15} /> Copy Verify Link
                             </button>
                             <button className="cert-share-btn" onClick={() => navigate('verification')}>
-                              🔍 Verify Publicly
+                              <Search size={15} /> Verify Publicly
                             </button>
                           </div>
                         </div>
@@ -4474,7 +4495,7 @@ function App() {
                       {/* Header Banner */}
                       <div className="tab-page-header" style={{position: 'relative', zIndex: 1}}>
                         <div style={{position: 'relative', zIndex: 1}}>
-                          <h2>🎧 Help & Support</h2>
+                          <h2 style={{display: 'flex', alignItems: 'center', gap: '8px'}}><Mail size={24} /> Help &amp; Support</h2>
                           <p>Our support team typically responds within 24–48 hours on business days.</p>
                         </div>
                         <div className="tab-header-stats" style={{flexShrink: 0}}>
@@ -4493,13 +4514,12 @@ function App() {
                       {/* Contact Option Cards */}
                       <div style={{display: 'flex', gap: '14px', flexWrap: 'wrap'}}>
                         {[
-                          { icon: '📧', bg: '#eff6ff', title: 'Email Support', desc: 'support@yoovabb.com\nResponse within 48 hours', action: () => alert('Opening email client to support@yoovabb.com') },
-                          { icon: '💬', bg: '#f0fdf4', title: 'WhatsApp Support', desc: '+91 98765 43210\nMon–Fri, 10am–6pm IST', action: () => alert('Opening WhatsApp chat...') },
-                          { icon: '📚', bg: '#fffbeb', title: 'Knowledge Base', desc: 'Browse FAQs, guides\nand video tutorials', action: () => navigate('faq') },
-                          { icon: '🏢', bg: '#fdf4ff', title: 'Schedule a Call', desc: 'Book a 15-min session\nwith our advisors', action: () => alert('Opening Calendly scheduler...') },
+                          { icon: <Mail size={20} style={{color: '#1d4ed8'}} />, bg: '#eff6ff', title: 'Email Support', desc: 'yoovabusinessbroking@gmail.com\nResponse within 24-48 business hours', action: () => window.location.href = 'mailto:yoovabusinessbroking@gmail.com' },
+                          { icon: <FaqIcon size={20} style={{color: '#d97706'}} />, bg: '#fffbeb', title: 'Knowledge Base', desc: 'Browse FAQs, guides\nand video tutorials', action: () => navigate('faq') },
+                          { icon: <FileText size={20} style={{color: '#16a34a'}} />, bg: '#f0fdf4', title: 'Curriculum & Modules', desc: 'Detailed module syllabus\nand lesson breakdown', action: () => navigate('syllabus') },
                         ].map(opt => (
                           <div key={opt.title} className="contact-option-card" onClick={opt.action}>
-                            <div className="contact-option-icon" style={{background: opt.bg}}>{opt.icon}</div>
+                            <div className="contact-option-icon" style={{background: opt.bg, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{opt.icon}</div>
                             <h4>{opt.title}</h4>
                             <p style={{whiteSpace: 'pre-line'}}>{opt.desc}</p>
                           </div>
@@ -4513,7 +4533,7 @@ function App() {
                           <h4>Submit a Support Ticket</h4>
                         </div>
                         <div className="profile-section-body">
-                          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px'}}>
+                          <div className="support-form-grid" style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px'}}>
                             <div className="form-group" style={{marginBottom: 0}}>
                               <label className="form-label">Subject</label>
                               <input
@@ -4531,12 +4551,12 @@ function App() {
                                 value={newTicket.category}
                                 onChange={(e) => setNewTicket({ ...newTicket, category: e.target.value })}
                               >
-                                <option value="Technical">🔧 Technical (Video, player issues)</option>
-                                <option value="Billing">💳 Billing & GST Invoicing</option>
-                                <option value="Curriculum">📚 Curriculum & Content Questions</option>
-                                <option value="Exam">📝 MCQ Exam & Attempts</option>
-                                <option value="Certificate">🏆 Certificate & Credentials</option>
-                                <option value="Assignment">📋 Assignment Submissions</option>
+                                <option value="Technical">Technical (Video, player issues)</option>
+                                <option value="Billing">Billing &amp; GST Invoicing</option>
+                                <option value="Curriculum">Curriculum &amp; Content Questions</option>
+                                <option value="Exam">MCQ Exam &amp; Attempts</option>
+                                <option value="Certificate">Certificate &amp; Credentials</option>
+                                <option value="Assignment">Assignment Submissions</option>
                               </select>
                             </div>
                           </div>
@@ -4632,15 +4652,15 @@ function App() {
                         <div className="profile-section-body">
                           <div className="support-faq-links">
                             {[
-                              { q: 'How do I reset my exam attempt?', icon: '📝' },
-                              { q: 'How do I download my certificate?', icon: '🏆' },
-                              { q: 'What file formats are accepted?', icon: '📋' },
-                              { q: 'How long does assignment review take?', icon: '⏱' },
-                              { q: 'Can I change my name on the certificate?', icon: '✏️' },
-                              { q: 'How do I get a GST invoice?', icon: '💳' },
+                              { q: 'How do I reset my exam attempt?', icon: <FileText size={14} style={{color: 'var(--primary)'}} /> },
+                              { q: 'How do I download my certificate?', icon: <Award size={14} style={{color: 'var(--primary)'}} /> },
+                              { q: 'What file formats are accepted?', icon: <CheckSquare size={14} style={{color: 'var(--primary)'}} /> },
+                              { q: 'How long does assignment review take?', icon: <Clock size={14} style={{color: 'var(--primary)'}} /> },
+                              { q: 'Can I change my name on the certificate?', icon: <Users size={14} style={{color: 'var(--primary)'}} /> },
+                              { q: 'How do I get a GST invoice?', icon: <CreditCard size={14} style={{color: 'var(--primary)'}} /> },
                             ].map(faq => (
                               <div key={faq.q} className="support-faq-link" onClick={() => navigate('faq')}>
-                                <span>{faq.icon}</span>
+                                <span style={{display: 'flex', alignItems: 'center'}}>{faq.icon}</span>
                                 <span>{faq.q}</span>
                               </div>
                             ))}
@@ -4777,8 +4797,8 @@ function App() {
                         <span className="badge badge-accent">Strictly Proctored Assessment</span>
                         <span style={{ fontSize: '0.8rem', opacity: 0.8, color: '#e2e8f0' }}>Authorised Business Broker Certification</span>
                       </div>
-                      <h2 style={{ margin: '0 0 6px', color: '#ffffff', fontSize: '1.6rem', fontWeight: 800 }}>
-                        🎓 Official ABB Final Certification Exam
+                      <h2 style={{ margin: '0 0 6px', color: '#ffffff', fontSize: '1.6rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <GraduationCap size={24} /> Official ABB Final Certification Exam
                       </h2>
                       <p style={{ margin: 0, color: '#93c5fd', fontSize: '0.88rem' }}>
                         Timed proctored examination covering all 11 video modules. Camera proctoring and anti-cheating tracking are active.
@@ -4821,17 +4841,23 @@ function App() {
                     {/* PREMIUM STATS MATRIX */}
                     <div className="exam-stats-matrix">
                       <div className="exam-stat-premium-box">
-                        <div style={{ fontSize: '1.5rem', marginBottom: '6px' }}>⏱</div>
+                        <div style={{ color: 'var(--primary)', marginBottom: '8px', display: 'flex', justifyContent: 'center' }}>
+                          <Clock size={28} />
+                        </div>
                         <div style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1e293b' }}>60 Minutes</div>
                         <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', marginTop: '4px' }}>Time Limit</div>
                       </div>
                       <div className="exam-stat-premium-box">
-                        <div style={{ fontSize: '1.5rem', marginBottom: '6px' }}>📝</div>
+                        <div style={{ color: 'var(--primary)', marginBottom: '8px', display: 'flex', justifyContent: 'center' }}>
+                          <FileText size={28} />
+                        </div>
                         <div style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1e293b' }}>{questionBank.length} MCQs</div>
                         <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', marginTop: '4px' }}>Questions</div>
                       </div>
                       <div className="exam-stat-premium-box">
-                        <div style={{ fontSize: '1.5rem', marginBottom: '6px' }}>🎯</div>
+                        <div style={{ color: 'var(--primary)', marginBottom: '8px', display: 'flex', justifyContent: 'center' }}>
+                          <Target size={28} />
+                        </div>
                         <div style={{ fontWeight: 800, fontSize: '1.25rem', color: '#1e293b' }}>80% Score</div>
                         <div style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', marginTop: '4px' }}>Passing Criteria</div>
                       </div>
@@ -4850,28 +4876,28 @@ function App() {
 
                     <div className="exam-rules-grid">
                       <div className="exam-rule-card">
-                        <div className="exam-rule-icon">📷</div>
+                        <div className="exam-rule-icon" style={{ color: 'var(--primary)' }}><Shield size={20} /></div>
                         <div className="exam-rule-content">
                           <div className="exam-rule-title">Camera Proctoring</div>
                           <div className="exam-rule-desc">Your webcam feed remains active in the corner. Ensure your face is fully lit and visible.</div>
                         </div>
                       </div>
                       <div className="exam-rule-card">
-                        <div className="exam-rule-icon">🚫</div>
+                        <div className="exam-rule-icon" style={{ color: 'var(--danger)' }}><AlertCircle size={20} /></div>
                         <div className="exam-rule-content">
                           <div className="exam-rule-title">Focus Warning System</div>
                           <div className="exam-rule-desc">Screen changes trigger automated proctoring alerts. Maintain your focus on the test window.</div>
                         </div>
                       </div>
                       <div className="exam-rule-card">
-                        <div className="exam-rule-icon">🧭</div>
+                        <div className="exam-rule-icon" style={{ color: 'var(--accent)' }}><CheckSquare size={20} /></div>
                         <div className="exam-rule-content">
                           <div className="exam-rule-title">Interactive Navigator</div>
                           <div className="exam-rule-desc">Jump between questions using the right sidebar palette. Attended questions turn Green.</div>
                         </div>
                       </div>
                       <div className="exam-rule-card">
-                        <div className="exam-rule-icon">🔒</div>
+                        <div className="exam-rule-icon" style={{ color: 'var(--primary)' }}><Lock size={20} /></div>
                         <div className="exam-rule-content">
                           <div className="exam-rule-title">Auto-Submit On Timeout</div>
                           <div className="exam-rule-desc">When 60 minutes expire, your exam automatically submits and calculates your final score breakdown.</div>
@@ -4881,15 +4907,16 @@ function App() {
 
                     {camError && (
                       <div style={{ background: '#fee2e2', border: '1px solid #fca5a5', padding: '14px 18px', borderRadius: '10px', color: '#991b1b', fontSize: '0.88rem', marginBottom: '24px', fontWeight: 600 }}>
-                        ⚠ Proctoring webcam failed: {camError}
+                        Proctoring webcam notice: {camError}
                       </div>
                     )}
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', marginTop: '40px', paddingTop: '24px', borderTop: '1px solid #e2e8f0' }}>
                       <div>
                         <div style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Webcam Device Status:</div>
-                        <div style={{ fontSize: '0.95rem', fontWeight: 800, color: camActive ? '#10b981' : '#f59e0b', marginTop: '4px' }}>
-                          {camActive ? '🟢 Live Webcam Ready & Proctored' : '📷 Camera Access Will Start On Exam Launch'}
+                        <div style={{ fontSize: '0.95rem', fontWeight: 800, color: camActive ? '#10b981' : '#f59e0b', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <Shield size={16} />
+                          {camActive ? 'Live Webcam Ready & Proctored' : 'Camera Access Will Start On Exam Launch'}
                         </div>
                       </div>
 
@@ -4905,11 +4932,14 @@ function App() {
                             borderRadius: '12px',
                             border: 'none',
                             cursor: 'pointer',
-                            boxShadow: '0 10px 25px rgba(245, 158, 11, 0.35)'
+                            boxShadow: '0 10px 25px rgba(245, 158, 11, 0.35)',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px'
                           }}
                           onClick={handleExamReattemptPayment}
                         >
-                          💳 Pay ₹1,499 Exam Re-sit Fee to Unlock Attempt #{examState.attempts + 1}
+                          <CreditCard size={18} /> Pay ₹1,499 Exam Re-sit Fee to Unlock Attempt #{examState.attempts + 1}
                         </button>
                       ) : (
                         <button
@@ -4924,7 +4954,10 @@ function App() {
                             border: 'none',
                             cursor: lobbyCountdown > 0 ? 'not-allowed' : 'pointer',
                             boxShadow: lobbyCountdown > 0 ? 'none' : '0 10px 25px rgba(16, 185, 129, 0.35)',
-                            transition: 'all 0.25s ease'
+                            transition: 'all 0.25s ease',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px'
                           }}
                           disabled={lobbyCountdown > 0}
                           onClick={() => {
@@ -4953,9 +4986,10 @@ function App() {
                             logAction('Started Standalone Proctored Final Exam ' + examId, 'Learner');
                           }}
                         >
+                          <Play size={18} />
                           {lobbyCountdown > 0
-                            ? `⏳ Start Exam Available in ${lobbyCountdown}s`
-                            : '🚀 Start Proctored Exam Now'}
+                            ? `Start Exam Available in ${lobbyCountdown}s`
+                            : 'Start Proctored Exam Now'}
                         </button>
                       )}
                     </div>
@@ -5186,9 +5220,12 @@ function App() {
                         }}>
                           {examState.score}%
                         </div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
-                            <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800 }}>{examState.passed ? '🎉 Congratulations! Exam Passed' : '❌ Exam Attempt Failed'}</h3>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                              <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                {examState.passed ? <Award size={26} style={{color: 'var(--success)'}} /> : <AlertCircle size={26} style={{color: 'var(--danger)'}} />}
+                                {examState.passed ? 'Congratulations! Exam Passed' : 'Exam Attempt Failed'}
+                              </h3>
                             <span className={`badge ${examState.passed ? 'badge-success' : 'badge-danger'}`} style={{ padding: '6px 14px', fontSize: '0.85rem' }}>
                               {examState.passed ? 'PASSED (≥80%)' : 'FAILED (<80%)'}
                             </span>
@@ -5294,7 +5331,7 @@ function App() {
 
                         {activeLearner.stage === "Certified" && (
                           <button className="btn btn-secondary" onClick={() => { setDashTab('certificate'); navigate('dashboard'); }} style={{ padding: '12px 24px', fontWeight: 800 }}>
-                            🎓 View Official Certificate
+                            <Award size={16} /> View Official Certificate
                           </button>
                         )}
                       </div>
@@ -6545,42 +6582,190 @@ function App() {
           <div style={{maxWidth: '650px', margin: '0 auto'}} className="checkout-card">
             <h2 style={{textAlign: 'center', marginBottom: '16px'}}>Public Credentials Verification</h2>
             <p className="text-muted" style={{textAlign: 'center', marginBottom: '24px', fontSize: '0.95rem'}}>
-              Verify the validity of YBB-issued Authorised Business Broker certifications.
+              Verify the authenticity of YBB-issued Authorised Business Broker certifications.
             </p>
 
-            <div style={{display: 'flex', gap: '12px', marginBottom: '32px'}}>
-              <input 
-                type="text" 
-                className="form-control" 
-                defaultValue={settings.certIdFormat.replace("YYYY", "2026").replace("NNNN", "1049")} 
-                placeholder="Enter unique ABB ID (e.g. YBB-ABB-YYYY-NNNN)" 
-              />
-              <button className="btn btn-primary" onClick={() => alert("Certificate verified: Active.")}>
-                Verify Credentials
-              </button>
-            </div>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              setVerifyError("");
+              setVerifyResult(null);
+              const query = verifySearchInput.trim();
+              if (!query) {
+                setVerifyError("Please enter a valid ABB ID.");
+                return;
+              }
+              const foundLearner = learners.find(l => 
+                (l.certId && l.certId.toLowerCase() === query.toLowerCase()) ||
+                (l.stage === "Certified" && query.toUpperCase().includes("YBB-ABB"))
+              );
+              if (foundLearner && foundLearner.stage === "Certified") {
+                setVerifyResult({
+                  holderName: foundLearner.fullName,
+                  abbId: foundLearner.certId || query.toUpperCase(),
+                  issueDate: foundLearner.issueDate || "July 27, 2026",
+                  status: foundLearner.certStatus || "Valid",
+                  issuingOrganisation: "Yoova Business Broking (YBB)"
+                });
+              } else {
+                setVerifyError("No record found matching the provided ABB ID. Please check the credential identifier and try again.");
+              }
+            }}>
+              <div style={{display: 'flex', gap: '12px', marginBottom: '24px'}}>
+                <input 
+                  type="text" 
+                  className="form-control" 
+                  value={verifySearchInput}
+                  onChange={(e) => setVerifySearchInput(e.target.value)}
+                  placeholder="Enter unique ABB ID (e.g. YBB-ABB-2026-1001)" 
+                />
+                <button type="submit" className="btn btn-primary" style={{whiteSpace: 'nowrap'}}>
+                  Verify Credentials
+                </button>
+              </div>
+            </form>
 
-            <div style={{border: '1px dashed var(--accent)', padding: '24px', borderRadius: '8px', background: '#fffbeb'}}>
-              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #cbd5e1', paddingBottom: '12px', marginBottom: '12px'}}>
-                <strong>Credential ID:</strong>
-                <span style={{fontFamily: 'monospace', fontWeight: 700}}>
-                  {settings.certIdFormat.replace("YYYY", "2026").replace("NNNN", "1049")}
-                </span>
+            {verifyError && (
+              <div style={{padding: '16px', background: '#fee2e2', border: '1px solid #f87171', color: '#991b1b', borderRadius: '8px', fontSize: '0.9rem', marginBottom: '16px'}}>
+                {verifyError}
               </div>
-              <div style={{display: 'flex', justifycontent: 'space-between', borderBottom: '1px solid #cbd5e1', paddingBottom: '12px', marginBottom: '12px'}}>
-                <span>Learner:</span>
-                <strong>{activeLearner.fullName}</strong>
+            )}
+
+            {verifyResult && (
+              <div style={{border: '1.5px solid var(--primary)', padding: '28px', borderRadius: '12px', background: '#f8fafc', boxShadow: '0 4px 12px rgba(0,0,0,0.05)'}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--success)', fontWeight: 700, fontSize: '1.05rem', marginBottom: '20px', paddingBottom: '12px', borderBottom: '2px solid #e2e8f0'}}>
+                  <CheckCircle size={22} /> Official YBB Credential Verified
+                </div>
+
+                <div style={{display: 'grid', gap: '14px', fontSize: '0.92rem'}}>
+                  <div style={{display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px'}}>
+                    <span style={{color: '#64748b'}}>ABB Holder Name:</span>
+                    <strong style={{color: '#0f172a', fontSize: '1rem'}}>{verifyResult.holderName}</strong>
+                  </div>
+
+                  <div style={{display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px'}}>
+                    <span style={{color: '#64748b'}}>ABB ID:</span>
+                    <span style={{fontFamily: 'monospace', fontWeight: 700, color: 'var(--primary)', fontSize: '1rem'}}>{verifyResult.abbId}</span>
+                  </div>
+
+                  <div style={{display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px'}}>
+                    <span style={{color: '#64748b'}}>Date of Issue:</span>
+                    <strong style={{color: '#334155'}}>{verifyResult.issueDate}</strong>
+                  </div>
+
+                  <div style={{display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '8px'}}>
+                    <span style={{color: '#64748b'}}>Certification Status:</span>
+                    <span className={`badge ${verifyResult.status === 'Valid' ? 'badge-success' : verifyResult.status === 'Suspended' ? 'badge-warning' : 'badge-danger'}`} style={{fontSize: '0.85rem', fontWeight: 700}}>
+                      {verifyResult.status}
+                    </span>
+                  </div>
+
+                  <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '4px'}}>
+                    <span style={{color: '#64748b'}}>Issuing Organisation:</span>
+                    <strong style={{color: '#0f172a'}}>{verifyResult.issuingOrganisation}</strong>
+                  </div>
+                </div>
               </div>
-              <div style={{display: 'flex', justifycontent: 'space-between', borderBottom: '1px solid #cbd5e1', paddingBottom: '12px', marginBottom: '12px'}}>
-                <span>Programme:</span>
-                <strong>Authorised Business Broker Certification</strong>
-              </div>
-              <div style={{display: 'flex', justifycontent: 'space-between', borderBottom: '1px solid #cbd5e1', paddingBottom: '12px', marginBottom: '12px'}}>
-                <span>Status:</span>
-                <span className={`badge ${activeLearner.stage === "Certified" ? 'badge-success' : 'badge-warning'}`}>
-                  {activeLearner.stage === "Certified" ? "Active / Valid" : "Verification Pending / Approval Needed"}
-                </span>
-              </div>
+            )}
+          </div>
+        )}
+
+        {/* --- SCREEN: REFUND POLICY --- */}
+        {currentScreen === "refund_policy" && (
+          <div style={{maxWidth: '800px', margin: '0 auto', background: '#fff', padding: '36px', borderRadius: 'var(--r)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)'}}>
+            <h2 className="section-title" style={{textAlign: 'left', marginBottom: '8px'}}>Refund &amp; Cancellation Policy</h2>
+            <p className="text-muted" style={{marginBottom: '24px', fontSize: '0.9rem'}}>Last updated: July 2026</p>
+            <div style={{lineHeight: 1.75, color: '#334155', fontSize: '0.95rem'}}>
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>1. Overview</h3>
+              <p>Yoova Business Broking (YBB) provides private professional training and certification for Authorised Business Brokers. We strive for high customer satisfaction and clear transparency in our enrolment terms.</p>
+              
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>2. Eligibility for Refund</h3>
+              <p>Enrolled learners may request a refund within 7 days of initial registration, provided course module progress does not exceed 20% and no final examination attempts have been initiated.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>3. Non-Refundable Items</h3>
+              <p>Fees are strictly non-refundable once a learner has completed more than 20% of the course, accessed downloadable workbook materials, or sat for the final certification assessment.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>4. Requesting a Refund</h3>
+              <p>To request a refund, please contact YBB Support via our <span style={{color: 'var(--primary)', cursor: 'pointer', fontWeight: 600}} onClick={() => navigate("support")}>Contact Support Page</span> with your transaction ID and billing email address.</p>
+            </div>
+          </div>
+        )}
+
+        {/* --- SCREEN: PRIVACY POLICY --- */}
+        {currentScreen === "privacy_policy" && (
+          <div style={{maxWidth: '800px', margin: '0 auto', background: '#fff', padding: '36px', borderRadius: 'var(--r)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)'}}>
+            <h2 className="section-title" style={{textAlign: 'left', marginBottom: '8px'}}>Privacy Policy</h2>
+            <p className="text-muted" style={{marginBottom: '24px', fontSize: '0.9rem'}}>Last updated: July 2026</p>
+            <div style={{lineHeight: 1.75, color: '#334155', fontSize: '0.95rem'}}>
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>1. Information Collection</h3>
+              <p>Yoova Business Broking collects personal data necessary for billing, account verification, and certification issuance, including your full name, email address, phone number, and professional details.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>2. Public Verification</h3>
+              <p>Upon successful certification, your unique ABB ID and name will be verifiable via our public Credential Verification portal to maintain the authenticity of YBB credentials.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>3. Data Security</h3>
+              <p>We implement industry-standard encryption and security protocols to protect your personal and payment details. We do not sell or lease candidate information to third parties.</p>
+            </div>
+          </div>
+        )}
+
+        {/* --- SCREEN: EXAM OVERVIEW --- */}
+        {currentScreen === "exam_overview" && (
+          <div style={{maxWidth: '800px', margin: '0 auto', background: '#fff', padding: '36px', borderRadius: 'var(--r)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)'}}>
+            <h2 className="section-title" style={{textAlign: 'left', marginBottom: '8px'}}>Final Assessment &amp; Certification Overview</h2>
+            <p className="text-muted" style={{marginBottom: '24px', fontSize: '0.9rem'}}>Guidelines for the Authorised Business Broker (ABB) Assessment</p>
+            <div style={{lineHeight: 1.75, color: '#334155', fontSize: '0.95rem'}}>
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>1. Examination Format</h3>
+              <p>The final assessment is a comprehensive online multiple-choice examination designed to test your understanding across all 11 course modules, including business valuation, due diligence, transaction structuring, and deal closing.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>2. Completion &amp; Integrity Rules</h3>
+              <p>Assessments must be completed independently by the enrolled candidate. Proctoring and integrity controls are maintained to verify candidate identity and ensure credential credibility.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>3. Credential Issuance</h3>
+              <p>Upon achieving the required passing score and accepting the YBB Code of Conduct, a unique ABB ID and verifiable digital certificate are generated automatically for the learner.</p>
+            </div>
+          </div>
+        )}
+
+        {/* --- SCREEN: TERMS OF USE --- */}
+        {currentScreen === "terms_of_use" && (
+          <div style={{maxWidth: '820px', margin: '0 auto', background: '#fff', padding: '36px', borderRadius: 'var(--r)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)'}}>
+            <h2 className="section-title" style={{textAlign: 'left', marginBottom: '8px'}}>Platform Terms of Use (v1.0)</h2>
+            <p className="text-muted" style={{marginBottom: '24px', fontSize: '0.9rem'}}>Official Terms &amp; Certification Disclaimers — Effective July 2026</p>
+
+            <div style={{lineHeight: 1.75, color: '#334155', fontSize: '0.95rem'}}>
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>1. Private Credential Disclaimer</h3>
+              <p>The Authorised Business Broker (ABB) Certificate is a private professional certification issued solely by Yoova Business Broking (YBB). It does not constitute a statutory license, government authorization, or regulatory license to operate as a broker in any jurisdiction.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>2. No-Income-Guarantee &amp; Earnings Disclaimer</h3>
+              <p>Enrolment in or completion of the ABB programme does not guarantee business transaction flow, client mandates, employment, or specific income outcomes. Success in M&amp;A advisory depends on individual effort, market conditions, and personal execution.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>3. Intellectual Property Rights</h3>
+              <p>All video lessons, workbook exercises, templates, and valuation formulas provided on this platform remain the exclusive intellectual property of Yoova Business Broking. Unauthorised distribution or reproduction is strictly prohibited.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>4. Official Business &amp; Support Contact</h3>
+              <p><strong>Entity:</strong> Yoova Business Broking (YBB)<br />
+                 <strong>Grievance &amp; Support Email:</strong> <a href="mailto:yoovabusinessbroking@gmail.com" style={{color: 'var(--primary)', fontWeight: 600}}>yoovabusinessbroking@gmail.com</a><br />
+                 <strong>Response Window:</strong> 24–48 business hours
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* --- SCREEN: TERMS OF PURCHASE --- */}
+        {currentScreen === "terms_of_purchase" && (
+          <div style={{maxWidth: '820px', margin: '0 auto', background: '#fff', padding: '36px', borderRadius: 'var(--r)', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)'}}>
+            <h2 className="section-title" style={{textAlign: 'left', marginBottom: '8px'}}>Terms of Purchase &amp; Payment Policies</h2>
+            <p className="text-muted" style={{marginBottom: '24px', fontSize: '0.9rem'}}>Invoicing, GST, and Payment Failure Guidelines</p>
+
+            <div style={{lineHeight: 1.75, color: '#334155', fontSize: '0.95rem'}}>
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>1. Course Fees &amp; GST Invoicing</h3>
+              <p>All tuition fees are displayed in Indian Rupees (INR) and are subject to 18% Goods and Services Tax (GST). Official GST tax invoices detailing YBB's business GSTIN and buyer details are generated automatically upon successful transaction completion.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>2. Payment Processing &amp; Gateway Security</h3>
+              <p>Payments are securely processed via Razorpay integration (UPI, Credit/Debit cards, Netbanking). YBB does not store raw credit card credentials or bank PINs on its servers.</p>
+
+              <h3 style={{fontSize: '1.15rem', color: '#0f172a', marginTop: '20px', marginBottom: '8px'}}>3. Payment Failure &amp; Refund Escalation</h3>
+              <p>In the event of a failed transaction where funds are debited from your account without generating an order confirmation, gateway auto-reversals are initiated within 3–5 business days. For payment discrepancies or refund requests under our policy, contact <span style={{color: 'var(--primary)', fontWeight: 600, cursor: 'pointer'}} onClick={() => navigate("support")}>YBB Support</span> with your payment reference ID.</p>
             </div>
           </div>
         )}
@@ -6636,27 +6821,42 @@ function App() {
           <div style={{maxWidth: '1320px', margin: '0 auto', padding: '40px 28px 28px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '32px'}}>
             <div>
               <div style={{fontWeight: 800, fontSize: '1.1rem', color: '#fff', marginBottom: '8px'}}>Yoova Business Broking</div>
-              <div style={{fontSize: '0.85rem', lineHeight: 1.7}}>The Authorised Business Broker (ABB) certification programme — India's professional standard for M&amp;A transaction advisory.</div>
+              <div style={{fontSize: '0.85rem', lineHeight: 1.7}}>The Authorised Business Broker (ABB) certification programme — YBB-issued private professional certification programme in Business Broking.</div>
             </div>
             <div>
               <div style={{fontWeight: 700, color: '#fff', marginBottom: '10px', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '.06em'}}>Programme</div>
-              {['Curriculum', 'Exam Overview', 'Certificate Verification', 'Alumni Testimonials'].map(link => (
-                <div key={link} style={{fontSize: '0.85rem', marginBottom: '6px', cursor: 'pointer', transition: 'color .2s'}} onMouseOver={e => e.target.style.color='#fff'} onMouseOut={e => e.target.style.color=''}>{link}</div>
+              {[
+                { name: 'Curriculum', screen: 'syllabus' },
+                { name: 'Exam Overview', screen: 'exam_overview' },
+                { name: 'Certificate Verification', screen: 'verification' }
+              ].map(link => (
+                <button type="button" key={link.name} onClick={() => navigate(link.screen)} style={{display: 'block', background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.85rem', padding: 0, marginBottom: '6px', cursor: 'pointer', textAlign: 'left', transition: 'color .2s'}} onMouseOver={e => e.target.style.color='#fff'} onMouseOut={e => e.target.style.color='#94a3b8'}>{link.name}</button>
               ))}
             </div>
             <div>
               <div style={{fontWeight: 700, color: '#fff', marginBottom: '10px', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '.06em'}}>Support</div>
-              {['Contact Us', 'FAQ', 'Refund Policy', 'Privacy Policy'].map(link => (
-                <div key={link} style={{fontSize: '0.85rem', marginBottom: '6px', cursor: 'pointer', transition: 'color .2s'}} onMouseOver={e => e.target.style.color='#fff'} onMouseOut={e => e.target.style.color=''}>{link}</div>
+              {[
+                { name: 'Contact Us', screen: 'support' },
+                { name: 'FAQ', screen: 'faq' },
+                { name: 'Refund Policy', screen: 'refund_policy' },
+                { name: 'Privacy Policy', screen: 'privacy_policy' }
+              ].map(link => (
+                <button type="button" key={link.name} onClick={() => navigate(link.screen)} style={{display: 'block', background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.85rem', padding: 0, marginBottom: '6px', cursor: 'pointer', textAlign: 'left', transition: 'color .2s'}} onMouseOver={e => e.target.style.color='#fff'} onMouseOut={e => e.target.style.color='#94a3b8'}>{link.name}</button>
               ))}
             </div>
             <div>
               <div style={{fontWeight: 700, color: '#fff', marginBottom: '10px', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '.06em'}}>Legal</div>
-              <div style={{fontSize: '0.82rem', lineHeight: 1.7}}>The ABB Certificate is a private professional credential issued by YBB. It is not a statutory licence or government endorsement.</div>
+              {[
+                { name: 'Terms of Use', screen: 'terms_of_use' },
+                { name: 'Terms of Purchase', screen: 'terms_of_purchase' }
+              ].map(link => (
+                <button type="button" key={link.name} onClick={() => navigate(link.screen)} style={{display: 'block', background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.85rem', padding: 0, marginBottom: '6px', cursor: 'pointer', textAlign: 'left', transition: 'color .2s'}} onMouseOver={e => e.target.style.color='#fff'} onMouseOut={e => e.target.style.color='#94a3b8'}>{link.name}</button>
+              ))}
+              <div style={{fontSize: '0.82rem', lineHeight: 1.6, marginTop: '8px', color: '#64748b'}}>The ABB Certificate is a private credential issued by YBB.</div>
             </div>
           </div>
           <div style={{borderTop: '1px solid #1e293b', textAlign: 'center', padding: '16px 28px', fontSize: '0.8rem'}}>
-            &copy; 2026 Yoova Business Broking (YBB). All rights reserved. &nbsp;|&nbsp; ABB Certification Platform MVP v1.0
+            &copy; 2026 Yoova Business Broking (YBB). All rights reserved.
           </div>
         </footer>
       )}
@@ -6682,9 +6882,12 @@ function App() {
           maxWidth: '380px',
           wordBreak: 'break-word'
         }}>
-          <span style={{fontSize: '1.2rem', lineHeight: 1}}>
-            {toast.type === 'error' ? '❌' : toast.type === 'warning' ? '⚠️' : toast.type === 'info' ? 'ℹ️' : '✅'}
-          </span>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            {toast.type === 'error' ? <AlertCircle size={20} style={{color: '#991b1b'}} /> : 
+             toast.type === 'warning' ? <AlertCircle size={20} style={{color: '#92400e'}} /> : 
+             toast.type === 'info' ? <HelpCircle size={20} style={{color: '#0369a1'}} /> : 
+             <CheckCircle size={20} style={{color: '#065f46'}} />}
+          </div>
           <div>{toast.message}</div>
         </div>
       )}
@@ -6715,19 +6918,22 @@ function App() {
       {showTabWarningModal && (
         <div className="anti-cheat-modal-overlay">
           <div className="anti-cheat-modal-card">
-            <div className="anti-cheat-strike-pill">
-              ⚠ UNFAIR MEANS WARNING • STRIKE {tabSwitchCount} / 3
+            <div className="anti-cheat-strike-pill" style={{display: 'inline-flex', alignItems: 'center', gap: '6px'}}>
+              <AlertCircle size={14} /> UNFAIR MEANS WARNING • STRIKE {tabSwitchCount} / 3
             </div>
-            <h3 style={{ color: '#ef4444', margin: '0 0 12px', fontSize: '1.4rem', fontWeight: 800 }}>
-              🚨 Tab Switch / Screen Focus Violation!
+            <h3 style={{ color: '#ef4444', margin: '0 0 12px', fontSize: '1.4rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertCircle size={24} /> Tab Switch / Screen Focus Violation!
             </h3>
             <p style={{ color: '#334155', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '20px' }}>
               You switched away from the official ABB Certification Exam screen! This examination is strictly proctored.
             </p>
-            <div style={{ background: '#fef2f2', border: '1px solid #fca5a5', padding: '14px 18px', borderRadius: '10px', color: '#991b1b', fontSize: '0.88rem', fontWeight: 600, marginBottom: '24px' }}>
-              {tabSwitchCount >= 2
-                ? "⚠ FINAL WARNING! One more tab switch or screen focus change will IMMEDIATELY TERMINATE AND FAIL your exam with a 0% score."
-                : "Please keep your focus strictly on this exam screen. Do not change tabs, open applications, or minimize the browser window."}
+            <div style={{ background: '#fef2f2', border: '1px solid #fca5a5', padding: '14px 18px', borderRadius: '10px', color: '#991b1b', fontSize: '0.88rem', fontWeight: 600, marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertCircle size={18} style={{flexShrink: 0}} />
+              <span>
+                {tabSwitchCount >= 2
+                  ? "FINAL WARNING! One more tab switch or screen focus change will IMMEDIATELY TERMINATE AND FAIL your exam with a 0% score."
+                  : "Please keep your focus strictly on this exam screen. Do not change tabs, open applications, or minimize the browser window."}
+              </span>
             </div>
             <button
               className="btn"
